@@ -1,6 +1,6 @@
-const crypto = require('crypto')
-const Sequelize = require('sequelize')
-const db = require('../db')
+const crypto = require('crypto');
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const User = db.define('user', {
   email: {
@@ -15,6 +15,10 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('password')
     }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   salt: {
     type: Sequelize.STRING,
