@@ -13,6 +13,12 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT,
   },
+  ingredients: {
+    type: Sequelize.TEXT,
+  },
+  size: {
+    type: Sequelize.STRING,
+  },
   spiciness: {
     type: Sequelize.FLOAT,
     validate: {
@@ -35,6 +41,5 @@ const Product = db.define('product', {
 
 })
 
-module.exports = {
-  Product
-}
+module.exports = Product;
+
