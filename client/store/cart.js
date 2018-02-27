@@ -9,7 +9,7 @@ const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
 
 // INITIAL STATE
-const cart = {};
+const cart = [];
 
 // ACTION CREATORS
 
