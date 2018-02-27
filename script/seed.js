@@ -10,11 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-<<<<<<< HEAD
-const {User, Product} = require('../server/db/models')
-=======
 const { User, Product, Price } = require('../server/db/models')
->>>>>>> 039298fa048ddb19c882f0dec6a3d083d45b9f22
 
 async function seed () {
   await db.sync({force: true})
