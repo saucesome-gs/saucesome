@@ -258,6 +258,31 @@ async function seed () {
   console.log(`seeded successfully`)
 }
 
+const prices = await Promise.all([
+  Price.create({price: 10.00, productId: 1}),
+  Price.create({price: 10.00, productId: 2}),
+  Price.create({price: 10.00, productId: 3}),
+  Price.create({price: 10.00, productId: 4}),
+  Price.create({price: 18.00, productId: 5}),
+  Price.create({price: 10.00, productId: 6}),
+  Price.create({price: 10.00, productId: 7}),
+  Price.create({price: 10.00, productId: 8}),
+  Price.create({price: 20.00, productId: 9}),
+  Price.create({price: 12.00, productId: 10}),
+  Price.create({price: 24.00, productId: 11}),
+  Price.create({price: 8.00, productId: 12}),
+  Price.create({price: 10.00, productId: 13}),
+  Price.create({price: 10.00, productId: 14}),
+  Price.create({price: 10.00, productId: 15}),
+  Price.create({price: 12.00, productId: 16}),
+  Price.create({price: 12.00, productId: 17}),
+  Price.create({price: 10.00, productId: 18}),
+  Price.create({price: 20.00, productId: 19})
+])
+
+console.log(`seeded ${prices.length} prices`)
+console.log(`seeded successfully`)
+
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
 // that might occur inside of `seed`
