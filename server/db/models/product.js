@@ -1,23 +1,23 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   brand: {
     type: Sequelize.STRING,
-    allowEmpty: false,
+    allowEmpty: false
   },
   name: {
     type: Sequelize.STRING,
-    allowEmpty: false,
+    allowEmpty: false
   },
   description: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
   },
   ingredients: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
   },
   size: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   spiciness: {
     type: Sequelize.FLOAT,
@@ -27,7 +27,7 @@ const Product = db.define('product', {
     }
   },
   quantity: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.INTEGER
   },
   imageUrl: {
     type: Sequelize.TEXT,
@@ -36,10 +36,8 @@ const Product = db.define('product', {
     }
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
-
-})
+});
 
 module.exports = Product;
-
