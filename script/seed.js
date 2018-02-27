@@ -254,7 +254,6 @@ async function seed () {
 
 ]);
 
-
   console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
