@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const { User, Product, Price } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -18,31 +18,18 @@ async function seed () {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
+  // Users Seed
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 
-  // Products seed as well
+  // Products Seed
   const products = await Promise.all([
-
-  // Product template:
-  //   Product.create({
-  //     brand: 'brand',
-  //     name: 'name',
-  //     description: 'description',
-  //     ingredients: 'ingredients',
-  //     size: '5oz / 120ml',
-  //     spiciness: 3.5,
-  //     quantity: 20,
-  //     imageUrl: 'imageUrl',
-  //     tags: ['tags']}),
-  // ]);
-
   Product.create(({
     brand: 'Karma Sauce',
     name: 'Bad Karma',
@@ -53,7 +40,6 @@ async function seed () {
     quantity: 40,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/548bc426d12bd321476b98f6ccff37b4.jpg?v=1508167630',
     tags: ['sweet', 'hearty texture', 'honey', 'ginger', 'not-too-hot', 'gluten free', 'award winner', 'medium-hot', 'mild-hot', 'karma-sauce']})),
-
   Product.create(({
     brand: 'Bravado Spice Co',
     name: 'Jalapeno & Green Apple Hot Sauce',
@@ -64,7 +50,6 @@ async function seed () {
     quantity: 35,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/JALAPENOAPPLE_HOT_SAUCE.jpg?v=1511112689',
     tags: ['sweet', 'hearty texture', 'garlic', 'zesty', 'not-too-hot', 'mild-hot', 'bravado-spice-co']})),
-
   Product.create(({
     brand: 'Bravado Spice Co',
     name: 'Ghost Pepper & Blueberry Hot Sauce',
@@ -75,7 +60,6 @@ async function seed () {
     quantity: 45,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/blueberryghostpepper-hotsauce.jpg?v=1511112881',
     tags: ['pretty-frikin-hot', 'fruity', 'ghost-pepper', 'hot-hot', 'hot-ones-sauce', 'bravado-spice-co']})),
-
   Product.create(({
     brand: 'Bravado Spice Co',
     name: 'Pineapple & Habanero Hot Sauce',
@@ -86,7 +70,6 @@ async function seed () {
     quantity: 51,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/bravadopineapple1.jpg?v=1516838220',
     tags: ['fruity', 'habanero', 'medium-hot', 'bravado-spice-co']})),
-
   Product.create(({
     brand: 'Dawson\'s Hot Sauce',
     name: 'Heatonist #1',
@@ -97,7 +80,6 @@ async function seed () {
     quantity: 33,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/heatonist-1hotsauce.jpg?v=1510214734',
     tags: ['hottest-hot', 'ghost-pepper', 'heatonist', 'ginger', 'dawsons-hot-sauce']})),
-
   Product.create(({
     brand: 'Dirty Dick\'s',
     name: 'Hot Pepper Sauce with a Tropical Twist',
@@ -108,7 +90,6 @@ async function seed () {
     quantity: 37,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/DIRTY-DICKS-HOTSAUCE.jpg?v=1511112950',
     tags: ['hot-hot', 'medium-hot', 'tropical', 'sweet', 'dirty-dicks']})),
-
   Product.create(({
     brand: 'Queen Majesty',
     name: 'Jalapeno Tequila Lime Hot Sauce',
@@ -119,7 +100,6 @@ async function seed () {
     quantity: 37,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/QMjalapenotequilalime1.jpg?v=1516315105',
     tags: ['zesty', 'lime', 'cilantro', 'medium-hot', 'queen-majesty']})),
-
   Product.create(({
     brand: 'Homeboy\'s Hot Sauce',
     name: 'Habanero',
@@ -130,7 +110,6 @@ async function seed () {
     quantity: 37,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/8738c1ae89e1b7051edf909ed66d12b4.jpg?v=1508167906',
     tags: ['zesty', 'tangy', 'mustardy', 'medium-hot', 'homeboys']})),
-
   Product.create(({
     brand: 'Hot Ones',
     name: 'The Last Dab',
@@ -141,7 +120,6 @@ async function seed () {
     quantity: 20,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/thelastdabhotsauce.jpg?v=1510679684',
     tags: ['hottest-hot', 'smokin-ed', 'pepper-x', 'west-indies-hot', 'hot-ones-sauce']})),
-
   Product.create(({
     brand: 'Dawson\'s Hot Sauce',
     name: 'Big Smoke',
@@ -152,7 +130,6 @@ async function seed () {
     quantity: 33,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/641c269d2e8cef4fe9120ca05f2db08a.jpg?v=1508167587',
     tags: ['hot-hot', 'smoky', 'dawsons-hot-sauce']})),
-
   Product.create(({
     brand: 'Mellow Habanero',
     name: 'Hop in Heaven',
@@ -163,7 +140,6 @@ async function seed () {
     quantity: 24,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/HOPINHEAVEN1_ac19edfc-3830-4e97-ab1a-7cad569ec469.jpg?v=1517206603',
     tags: ['hot-hot', 'hottest-hot', 'mango', 'mellow-habanero']})),
-
   Product.create(({
     brand: 'Secret Aardvark Trading Co',
     name: 'Habanero Hot Sauce',
@@ -174,7 +150,6 @@ async function seed () {
     quantity: 38,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/secretaardvark-hotsauce_3206989d-be63-428a-92ca-f9372222b3ec.jpg?v=1511210172',
     tags: ['medium-hot', 'caribbean', 'tex-mex', 'secret-aardvark-trading-co']})),
-
   Product.create(({
     brand: 'Secret Aardvark Trading Co',
     name: 'Drunken Jerk Sauce',
@@ -185,7 +160,6 @@ async function seed () {
     quantity: 17,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/secretaardvarkDRUNKENJERK-hotsauce.jpg?v=1510786587',
     tags: ['medium-hot', 'caribbean', 'secret-aardvark-trading-co']})),
-
   Product.create(({
     brand: 'High River Sauces',
     name: 'Hellacious Hot Sauce',
@@ -196,7 +170,6 @@ async function seed () {
     quantity: 13,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/d8d6a9f3536b200e5f0690fa63a8f0ca.jpg?v=1508167742',
     tags: ['mild-hot', 'bbq', 'high-river-sauces']})),
-
   Product.create(({
     brand: 'High River Sauces',
     name: 'Tears Of The Sun',
@@ -207,7 +180,6 @@ async function seed () {
     quantity: 13,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/TEARSOFTHESUN1.jpg?v=1516677721',
     tags: ['medium-hot', 'fruity', 'tropical', 'zesty', 'high-river-sauces']})),
-
   Product.create(({
     brand: 'High River Sauces',
     name: 'Foo Foo Mama Choo',
@@ -218,7 +190,6 @@ async function seed () {
     quantity: 13,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/92c332b73d028a4700cb206ae5420896.jpg?v=1508167765',
     tags: ['hottest-hot', 'carolina-reaper', 'smokin-ed', 'ginger', 'citrus', 'high-river-sauces']})),
-
   Product.create(({
     brand: 'Adoboloco Hot Sauce',
     name: 'Hamajang Kiawe Smoked Ghost Pepper',
@@ -229,7 +200,6 @@ async function seed () {
     quantity: 24,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/adobolocohamajang.jpg?v=1510614455',
     tags: ['hot-hot', 'ghost-pepper', 'smoky', 'vinegary', 'savory', 'adoboloco-hot-sauce']})),
-
   Product.create(({
     brand: 'Légal Hot Sauce',
     name: 'Molho De Pimenta',
@@ -240,7 +210,6 @@ async function seed () {
     quantity: 19,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/legal1_1024x1024.jpg?v=1517200813',
     tags: ['mild-hot', 'not-too-hot', 'sweet', 'splashy', 'fresh', 'légal-hot-sauce']})),
-
   Product.create(({
     brand: 'Torchbearer Sauces',
     name: 'Zombie Apocalypse',
@@ -251,11 +220,37 @@ async function seed () {
     quantity: 48,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/Zombie-apocalypse-hotsauce_1024x1024.jpg?v=1510237943',
     tags: ['hot-hot', 'pepper-dense', 'citrus', 'complex-heat', 'torchbearer-sauces']}))
-
 ]);
 
   console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
+
+  // Prices Seed
+  const prices = await Promise.all([
+    Price.create({price: 10.00, productId: 1}),
+    Price.create({price: 10.00, productId: 2}),
+    Price.create({price: 10.00, productId: 3}),
+    Price.create({price: 10.00, productId: 4}),
+    Price.create({price: 18.00, productId: 5}),
+    Price.create({price: 10.00, productId: 6}),
+    Price.create({price: 10.00, productId: 7}),
+    Price.create({price: 10.00, productId: 8}),
+    Price.create({price: 20.00, productId: 9}),
+    Price.create({price: 12.00, productId: 10}),
+    Price.create({price: 24.00, productId: 11}),
+    Price.create({price: 8.00, productId: 12}),
+    Price.create({price: 10.00, productId: 13}),
+    Price.create({price: 10.00, productId: 14}),
+    Price.create({price: 10.00, productId: 15}),
+    Price.create({price: 12.00, productId: 16}),
+    Price.create({price: 12.00, productId: 17}),
+    Price.create({price: 10.00, productId: 18}),
+    Price.create({price: 20.00, productId: 19})
+  ]);
+
+  console.log(`seeded ${prices.length} prices`)
+  console.log(`seeded successfully`)
+
 }
 
 // Execute the `seed` function
