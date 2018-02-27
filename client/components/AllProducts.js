@@ -22,3 +22,9 @@ function AllProducts (props) {
     </div>
   )
 }
+
+const mapSateToProps = (state) => {
+  return {
+    
+  }
+}

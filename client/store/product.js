@@ -14,10 +14,7 @@ const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
  * INITIAL STATE
  */
 
-const initialState = {
-  products: [],
-  product: {}
-}
+const products = [];
 
 /**
  * ACTION CREATORS
@@ -30,10 +27,10 @@ export const getProducts = (products) => {
   }
 }
 
-export const getProduct = (product) => {
+export const getProduct = (productId) => {
   return {
     type: GET_PRODUCT,
-    product
+    productId
   }
 }
 
@@ -51,10 +48,10 @@ export const updateProduct = (product) => {
   }
 }
 
-export const removeProduct = (product) => {
+export const removeProduct = (productId) => {
   return {
     type: REMOVE_PRODUCT,
-    product
+    productId
   }
 }
 
@@ -74,7 +71,7 @@ export const fetchProduct = (productId) => {
   return dispatch =>
     axios.get(`/api/products/${productId}`)
       .then(res => res.data)
-      .then(product => dispatch(getProduct(product)))
+      .then(product => dispatch(getProduct(product.id)))
       .catch(err => console.log(err));
 }
 
@@ -93,10 +90,10 @@ export const putProduct = (product) => {
       .then(updatedProduct => dispatch(updatedProduct(updatedProduct))).catch(err => console.error(err));
 }
 
-export const deleteProduct = (product) => {
+export const deleteProduct = (productId) => {
   return dispatch =>
-    axios.delete(`/api/products/${product.id}`)
-      .then(() => dispatch(removeProduct(product)))
+    axios.delete(`/api/products/${productId}`)
+      .then(() => dispatch(removeProduct(productId)))
       .catch(err => console.error(err));
 }
 
@@ -104,19 +101,19 @@ export const deleteProduct = (product) => {
  * REDUCER
  */
 
-export default function (state = initialState, action) {
+export default function (state = products, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return Object.assign({}, state, {products: action.products})
+      return state;
     case GET_PRODUCT:
-      return Object.assign({}, state, {product: action.product})
+      return state.filter(product => (product.id === action.productId))
     case CREATE_PRODUCT:
-      return Object.assign({}, state, {products: [...state.products, action.product]})
+      return [...state.products, action.product];
     case UPDATE_PRODUCT:
-      return state.products.map(product => ( action.product.id === product.id ? action.product : product ))
+      return state.map(product => ( product.id === action.product.id ? action.product : product ));
     case REMOVE_PRODUCT:
-      return state.products.filter(product => (product.id !== action.product.id))
+      return state.filter(product => (product.id !== action.productId))
     default:
-      return state
+      return state;
   }
 }
