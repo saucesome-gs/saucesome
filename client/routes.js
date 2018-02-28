@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
-import {me, fetchProducts, addItem } from './store';
+import {me, fetchProducts } from './store';
+import { addItem } from './store/cart';
 
 
 /**
@@ -19,12 +20,13 @@ class Routes extends Component {
   handleAddToCart(event) {
     event.preventDefault();
     console.log(event.target.id)
+    this.props.addItem(event.target.id);
 
     }
 
   render () {
     const {isLoggedIn} = this.props
-   
+
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}

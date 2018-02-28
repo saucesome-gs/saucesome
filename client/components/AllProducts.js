@@ -46,14 +46,9 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
-<<<<<<< HEAD
 const mapDispatchToProps = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts()),
-  addItem: (itemId) => dispatch(addItem(itemId))
+  // addItem: (itemId) => dispatch(addItem(itemId))
 })
-=======
-
-const mapDispatchToProps = null;
->>>>>>> 8fe348953138493a4a2f3f303387be59f967bdfd
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllProducts));

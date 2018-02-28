@@ -43,6 +43,7 @@ export const getCartThunk = (orderId) => (dispatch) => {
 }
 
 export const addItem = (itemId) => (dispatch) => {
+  console.log('item id is', itemId)
   axios.get(`/product/${itemId}`)
   .then((res) => {
     dispatch(addItemAction(res.data));
