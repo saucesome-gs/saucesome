@@ -3,36 +3,34 @@ import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
 
-class AllProducts extends Component {
-  constructor(props) {
-    super(props)
-  }
+export const AllProducts = (props) => {
   
-  componentDidMount() {
-    this.props.fetchProducts();
-  }
-
-  render() {
-    console.log('props', );
-    const { products } = this.props;
+    const { products } = props;
     
     return (
         <div>
           <h1>Products</h1>
-          <ul>
+          <div>
           { (products.length) && products.map((product => {
             return (
-              <li key={product.id}>
-                <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
-              </li>
+              <div key={product.id}>
+                <img src={product.imageUrl} />
+                <ul>
+                  <li>
+                    <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
+                  </li>
+                </ul>
+                <button>Add to Cart</button>
+              </div>
             )}
           ))
         }
-        </ul>
+        </div>
+        
         </div>
     )
 }
-}
+
 const mapStateToProps = state => {
   return {
     products: state.products
@@ -43,14 +41,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllProducts));
-
-// <ul>
-//               { (products.length) && products.map((product => {
-//                 return (
-//                   <li key={product.id}>
-//                     <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
-//                   </li>
-//                 )}
-//               ))
-//             }
-//             </ul>
