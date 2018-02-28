@@ -46,7 +46,18 @@ export const getCartThunk = (orderId) => (dispatch) => {
 
 export const addItem = (itemId) => (dispatch) => {
   console.log('IN THUNK item id is', itemId)
+  console.log('type of item id is', typeof itemId)
   axios.get(`api/products/${itemId}`)
+  .then((res) => {
+    console.log('data is ', res.data);
+    dispatch(addItemAction(res.data));
+  })
+}
+
+export const addItemFromSingle = (itemId) => (dispatch) => {
+  console.log('IN THUNK SINGLE item id is', itemId)
+  console.log('type of item id is', typeof itemId)
+  axios.get(`/${itemId}`)
   .then((res) => {
     console.log('data is ', res.data);
     dispatch(addItemAction(res.data));

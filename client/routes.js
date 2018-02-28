@@ -20,7 +20,6 @@ class Routes extends Component {
   handleAddToCart(event) {
     event.preventDefault();
     this.props.addItem(event.target.value);
-
     }
 
   render () {

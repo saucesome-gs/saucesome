@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
-import { addItem } from '../store/cart';
+import { addItemFromSingle } from '../store/cart';
 
 export const SingleProduct = (props) => {
 
@@ -29,8 +29,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addItem(id) {
-      dispatch(addItem(id));
+    addItemFromSingle(id) {
+      dispatch(addItemFromSingle(id));
     }
   }
 };
