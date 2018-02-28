@@ -9,9 +9,16 @@ import cart from './cart';
 
 const reducer = combineReducers({ user, product, cart });
 const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
+  applyMiddleware(
+    thunkMiddleware,
+    createLogger({ collapsed: true }))
 );
-const store = createStore(reducer, middleware);
+
+// Sketch for saving state to localStorage
+const initialState = localStorage.state ? JSON.parse(localStorage.state) : undefined
+const store = createStore(reducer, initialState, middleware);
+
+store.subscribe(() => localStorage.state = JSON.stringify(store.getState()))
 
 export default store;
 export * from "./user";

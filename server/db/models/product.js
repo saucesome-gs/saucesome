@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Product = db.define("product", {
+  // Maybe have a brands table?
   brand: {
     type: Sequelize.STRING,
     allowEmpty: false
@@ -38,6 +39,12 @@ const Product = db.define("product", {
   tags: {
     type: Sequelize.ARRAY(Sequelize.STRING)
   }
-});
+},
+  // {
+  //   defaultScope: {
+  //     include: {all: true}
+  //   }
+  // }
+);
 
 module.exports = Product;

@@ -8,12 +8,16 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.param('productid', (req, res, next) => {
+  Products.findById(req.params.productid)
+    .then(product => req.product = product)
+    .then(() => next())
+})
+
 router.get('/:productid', (req, res, next) => {
-  Products.findById(req.params.productid).then(product => {
-    if(product === null) return res.status(404).send();
-    else res.json(product);
-  });
-});
+  if(req.product === null) return res.status(404).send();
+  else res.json(req.product);
+})
 
 router.post('/', (req, res, next) => {
   Products.create(req.body)
@@ -22,8 +26,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:productid', (req, res, next) => {
-  Products.findById(req.params.productid)
-  .then(product => product.update(req.body))
+  req.product.update(req.body)
   .then(updatedProduct => res.json(updatedProduct))
   .catch(next);
 });

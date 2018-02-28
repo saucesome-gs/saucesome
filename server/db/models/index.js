@@ -21,6 +21,12 @@ OrderItem.belongsTo(Price);
 Review.belongsTo(User);
 Review.belongsTo(Product);
 
+Product.prototype.getCurrentPrice = function() {
+  // Find the latest price, return it.
+  // return Price.findOne({where: {productId: this.id}})
+}
+
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'

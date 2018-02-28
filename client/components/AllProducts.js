@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
 
+// Using the debug npm:
+import d from 'debug'
+const debug = d('all-products')
+
 const AllProducts = (props) => {
 
   const { products } = props;
-  console.log(props);
+  debug(props);
   return (
     <div>
       <h1>Products</h1>
