@@ -148,7 +148,6 @@ async function seed () {
     brandId: 2
   })),
   Product.create(({
-    brand: 'Dawson\'s Hot Sauce',
     name: 'Heatonist #1',
     description: 'Sichuan Ghost Pepper Sauce Celebrating the one-year anniversary of HEATONIST\'s tasting room on Wythe Avenue, this sauce is a joining of smoke and citrus that highlights the unique flavors and sensory excitements of ghost pepper and Sichuan peppercorn. A sauce for the Heatonist in all of us.',
     ingredients: 'vinegar, extra virgin olive oil, garlic, ghost peppers, sichuan peppercorn, lemon, ginger, sea salt',
