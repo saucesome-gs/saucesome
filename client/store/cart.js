@@ -45,10 +45,10 @@ export const getCartThunk = (orderId) => (dispatch) => {
 }
 
 export const addItem = (itemId) => (dispatch) => {
-  console.log('item id is', itemId)
+  console.log('IN THUNK item id is', itemId)
   axios.get(`api/products/${itemId}`)
   .then((res) => {
-    console.log(res.data);
+    console.log('data is ', res.data);
     dispatch(addItemAction(res.data));
   })
 }
@@ -60,7 +60,6 @@ export default function(state = cart, action) {
     case GET_CART:
       return action.cart;
     case ADD_ITEM:
-      console.log('in reducer, item is ', action.item);
       return [...state, action.item];
     default:
       return state;
