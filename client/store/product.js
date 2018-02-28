@@ -104,9 +104,9 @@ export const deleteProduct = (productId) => {
 export default function (state = products, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return state;
+      return action.products;
     case GET_PRODUCT:
-      return state.filter(product => (product.id === action.productId))
+      return action.products.filter(product => (product.id === action.productId))
     case CREATE_PRODUCT:
       return [...state.products, action.product];
     case UPDATE_PRODUCT:
