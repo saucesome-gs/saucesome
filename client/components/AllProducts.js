@@ -6,7 +6,7 @@ import { fetchProducts } from '../store/product';
 export const AllProducts = (props) => {
   
     const { products } = props;
-    
+
     return (
         <div>
           <h1>Products</h1>
@@ -25,8 +25,7 @@ export const AllProducts = (props) => {
             )}
           ))
         }
-        </div>
-        
+        </div>        
         </div>
     )
 }
@@ -36,8 +35,7 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
-const mapDispatchToProps = dispatch => ({
-  fetchProducts: () => dispatch(fetchProducts())
-})
+
+const mapDispatchToProps = null;
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllProducts));
