@@ -1,5 +1,7 @@
 import axios from 'axios';
-import history from '../history';
+// import history from '../history';
+// import { Product } from '../../server/db/models';
+
 
 // ACTION TYPES
 
@@ -13,22 +15,22 @@ const cart = [];
 
 // ACTION CREATORS
 
-const getCartAction = (cart) => ({
+export const getCartAction = (cart) => ({
   type: GET_CART,
   cart
 });
 
-const addItemAction = (item) => ({
+export const addItemAction = (item) => ({
   type: ADD_ITEM,
   item
 });
 
-const removeItemAction = (item) => ({
+export const removeItemAction = (item) => ({
   type: REMOVE_ITEM,
   item
 });
 
-const updateItemQtyAction = (item) => ({
+export const updateItemQtyAction = (item) => ({
   type: UPDATE_ITEM_QTY,
   item
 });
@@ -39,8 +41,16 @@ export const getCartThunk = (orderId) => (dispatch) => {
     axios.get(`/cart/${orderId}`)
     .then((res) => {
       dispatch(getCartAction(res.data));
-      history.push('/cart');
     })
+}
+
+export const addItem = (itemId) => (dispatch) => {
+  console.log('item id is', itemId)
+  axios.get(`api/products/${itemId}`)
+  .then((res) => {
+    console.log(res.data);
+    dispatch(addItemAction(res.data));
+  })
 }
 
 // REDUCER
@@ -49,6 +59,9 @@ export default function(state = cart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case ADD_ITEM:
+      console.log('in reducer, item is ', action.item);
+      return [...state, action.item];
     default:
       return state;
   }
