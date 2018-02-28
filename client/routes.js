@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
-import {me, fetchProducts} from './store';
+import {me, fetchProducts, addItem } from './store';
 
 
 /**
@@ -13,7 +13,14 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
     this.props.getProducts()
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
+
+  handleAddToCart(event) {
+    event.preventDefault();
+    console.log(event.target.id)
+
+    }
 
   render () {
     const {isLoggedIn} = this.props
@@ -21,7 +28,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" component={AllProducts} />
+        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} />} />
         <Route exact path="/products/:productId" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
@@ -60,6 +67,9 @@ const mapDispatch = (dispatch) => {
     },
     getProducts () {
       dispatch(fetchProducts());
+    },
+    addItem(id) {
+      dispatch(addItem(id));
     }
   }
 }

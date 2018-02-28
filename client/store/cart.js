@@ -13,22 +13,22 @@ const cart = [];
 
 // ACTION CREATORS
 
-const getCartAction = (cart) => ({
+export const getCartAction = (cart) => ({
   type: GET_CART,
   cart
 });
 
-const addItemAction = (item) => ({
+export const addItemAction = (item) => ({
   type: ADD_ITEM,
   item
 });
 
-const removeItemAction = (item) => ({
+export const removeItemAction = (item) => ({
   type: REMOVE_ITEM,
   item
 });
 
-const updateItemQtyAction = (item) => ({
+export const updateItemQtyAction = (item) => ({
   type: UPDATE_ITEM_QTY,
   item
 });
@@ -39,8 +39,14 @@ export const getCartThunk = (orderId) => (dispatch) => {
     axios.get(`/cart/${orderId}`)
     .then((res) => {
       dispatch(getCartAction(res.data));
-      history.push('/cart');
     })
+}
+
+export const addItem = (itemId) => (dispatch) => {
+  axios.get(`/product/${itemId}`)
+  .then((res) => {
+    dispatch(addItemAction(res.data));
+  })
 }
 
 // REDUCER
@@ -49,6 +55,8 @@ export default function(state = cart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case ADD_ITEM:
+      return [...action.cart, action.item];
     default:
       return state;
   }
