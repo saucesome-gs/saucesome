@@ -2,10 +2,10 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Product = db.define("product", {
-  brand: {
-    type: Sequelize.STRING,
-    allowEmpty: false
-  },
+  // brand: {
+  //   type: Sequelize.STRING,
+  //   allowEmpty: false
+  // },
   name: {
     type: Sequelize.STRING,
     allowEmpty: false
