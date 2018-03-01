@@ -1,11 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 import SearchForm from './search-form'
+=======
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { logout } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = (props, { handleClick, isLoggedIn }) => (
+>>>>>>> dc513f73fcb370802b1bf0175df77e838d6b3e86
+
   <div>
     <h1>SAUCESOME</h1>
     <nav>
@@ -21,14 +28,19 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           </a>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </div>
-      )}
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Sign Up</NavLink>
+          </div>
+        )}
       <div>
-        <NavLink to="/cart">My Cart</NavLink>
+        <NavLink to="/cart">Your Cart:
+          <span> ({Object.keys(props.cart).reduce((acc, curr) => (
+            acc + props.cart[curr]
+          ), 0)}) items
+          </span>
+        </NavLink>
       </div>
     </nav>
     <hr />
@@ -40,7 +52,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart
   }
 }
 

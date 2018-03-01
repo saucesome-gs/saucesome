@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import { addItem } from '../store/cart';
 
 export const SingleProduct = (props) => {
 
@@ -14,7 +15,7 @@ export const SingleProduct = (props) => {
         <div>
           <img src={product.imageUrl} />
           <h1>{product.name}</h1>
-          <button>Add To Cart</button>
+          <button value={product.id} onClick={props.handleAddToCart}>Add To Cart</button>
         </div>
       }
     </div>
@@ -26,7 +27,17 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
+<<<<<<< HEAD
 
 const mapDispatchToProps = null;
+=======
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem(id) {
+      dispatch(addItem(id));
+    }
+  }
+};
+>>>>>>> dc513f73fcb370802b1bf0175df77e838d6b3e86
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));

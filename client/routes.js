@@ -19,9 +19,7 @@ class Routes extends Component {
 
   handleAddToCart(event) {
     event.preventDefault();
-    console.log(event.target.id)
-    this.props.addItem(event.target.id);
-
+    this.props.addItem(event.target.value);
     }
 
   render () {
@@ -31,7 +29,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} />} />
-        <Route exact path="/products/:productId" component={SingleProduct} />
+        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />

@@ -11,7 +11,7 @@ const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
 
 // INITIAL STATE
-const cart = [];
+const cart = {};
 
 // ACTION CREATORS
 
@@ -45,23 +45,47 @@ export const getCartThunk = (orderId) => (dispatch) => {
 }
 
 export const addItem = (itemId) => (dispatch) => {
-  console.log('item id is', itemId)
-  axios.get(`api/products/${itemId}`)
+  axios.get(`/api/products/${itemId}`)
   .then((res) => {
-    console.log(res.data);
     dispatch(addItemAction(res.data));
+  })
+}
+
+export const deleteItem = (itemId) => (dispatch) => {
+  axios.get(`/api/products/${itemId}`)
+  .then((res) => {
+    dispatch(removeItemAction(res.data));
   })
 }
 
 // REDUCER
 
 export default function(state = cart, action) {
+
   switch (action.type) {
+
     case GET_CART:
       return action.cart;
+
     case ADD_ITEM:
-      console.log('in reducer, item is ', action.item);
-      return [...state, action.item];
+    if (!state.hasOwnProperty(action.item.id)) {
+      return {...state, [action.item.id]: 1};
+    } else {
+      const newState = {...state};
+      newState[action.item.id]++;
+      return newState;
+    }
+
+    case REMOVE_ITEM: {
+      if (state.hasOwnProperty(action.item.id) && state[action.item.id] > 0) {
+        const newState = {...state};
+        newState[action.item.id]--;
+        return newState;
+      } else {
+        return state;
+      }
+    }
+
     default:
       return state;
   }
