@@ -1,17 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
-import SearchForm from './search-form'
-=======
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { logout } from '../store'
 
 const Navbar = (props, { handleClick, isLoggedIn }) => (
->>>>>>> dc513f73fcb370802b1bf0175df77e838d6b3e86
 
   <div>
     <h1>SAUCESOME</h1>
