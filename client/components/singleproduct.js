@@ -26,6 +26,7 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
+
 const mapDispatchToProps = null;
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
