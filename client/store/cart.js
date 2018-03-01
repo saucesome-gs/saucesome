@@ -67,8 +67,10 @@ export default function(state = cart, action) {
       return action.cart;
     case ADD_ITEM:
       return [...state, action.item];
-    case REMOVE_ITEM:
-      return state.filter(item => item.id !== action.item.id)
+    case REMOVE_ITEM: {
+      const itemIdx = state.find(item => item.id === action.item.id);
+      return state.slice(0, itemIdx).concat(state.slice(itemIdx + 1));
+    }
     default:
       return state;
   }

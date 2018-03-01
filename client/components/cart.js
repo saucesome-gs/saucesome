@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import {connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { deleteItem } from '../store/cart';
+import { addItem, deleteItem } from '../store/cart';
 
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.removeItemHandler = this.removeItemHandler.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
+    this.handleDecrement = this.handleDecrement.bind(this);
   }
 
   removeItemHandler (event) {
     event.preventDefault();
     // console.log(event.target.value);
+    this.props.deleteItem(event.target.value);
+  }
+
+  handleIncrement(event) {
+    event.preventDefault();
+    this.props.addItem(event.target.value);
+  }
+
+  handleDecrement(event) {
+    event.preventDefault();
+    console.log('decrementing')
     this.props.deleteItem(event.target.value);
   }
 
@@ -24,7 +37,6 @@ class Cart extends Component {
       if (!counter[item.name]) counter[item.name] = 1;
       else counter[item.name]++;
     })
-    console.log('counter is ', counter);
 
     return (
       <div>
@@ -41,27 +53,17 @@ class Cart extends Component {
                     <li>
                       <NavLink to={`/products/${+fullItem.id}`}>{fullItem.name}</NavLink>
                     </li>
-                    <li>Quantity: {counter[itemName]}</li>
                   </ul>
-                  <button value={itemName.id} onClick={this.removeItemHandler}>Remove from cart</button>
+                  <button className="edit-qty" value={fullItem.id} onClick={this.handleIncrement}>+</button>
+                  <p>Quantity: {counter[itemName]}</p>
+                  <button
+                    className="edit-qty"
+                    value={fullItem.id}
+                    onClick={this.handleDecrement}
+                    >-</button>
                 </div>
               )
             })}
-
-            {/* {(cart.length) && cart.map(item => {
-            return (
-              <div key={item.id}>
-                <img src={item.imageUrl} />
-                <ul>
-                  <li>
-                    <NavLink to={`/products/${+item.id}`}>{item.name}</NavLink>
-                  </li>
-                </ul>
-                <button value={item.id} onClick={this.removeItemHandler}>Remove from cart</button>
-              </div>
-          )
-        }
-      )} */}
 
       </div>
       </div>
@@ -78,6 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (itemId => dispatch(deleteItem(itemId))),
+    addItem: (itemId => dispatch(addItem(itemId)))
   }
 };
 
