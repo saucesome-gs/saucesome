@@ -21,7 +21,7 @@ export const AllProducts = (props) => {
                     <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
                   </li>
                 </ul>
-                <button id={product.id} onClick={props.handleAddToCart}>Add to Cart</button>
+                <button value={product.id} onClick={props.handleAddToCart}>Add to Cart</button>
               </div>
             )}
           ))
