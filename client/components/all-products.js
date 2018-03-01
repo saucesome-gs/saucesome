@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
-import { fetchProducts } from '../store/product';
+import {EditForm, ProductForm} from './';
+// import { fetchProducts } from '../store/product';
 
 export const AllProducts = (props) => {
-  
-    const { products } = props;
+
+    const { products, isAdmin } = props;
 
     return (
         <div>
@@ -20,13 +21,14 @@ export const AllProducts = (props) => {
                     <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
                   </li>
                 </ul>
-                <button>Add to Cart</button>
+                {(isAdmin) ? <button>Edit Product</button> : <div></div>}
               </div>
             )}
           ))
         }
-        </div>        
         </div>
+  {(isAdmin) ? <ProductForm /> : <div></div>}
+ </div>
     )
 }
 
