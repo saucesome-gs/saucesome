@@ -45,12 +45,16 @@ export const getCartThunk = (orderId) => (dispatch) => {
 }
 
 export const addItem = (itemId) => (dispatch) => {
-  console.log('IN THUNK item id is', itemId)
-  console.log('type of item id is', typeof itemId)
   axios.get(`/api/products/${itemId}`)
   .then((res) => {
-    console.log('data is ', res.data);
     dispatch(addItemAction(res.data));
+  })
+}
+
+export const deleteItem = (itemId) => (dispatch) => {
+  axios.get(`/api/products/${itemId}`)
+  .then((res) => {
+    dispatch(removeItemAction(res.data));
   })
 }
 
@@ -63,6 +67,8 @@ export default function(state = cart, action) {
       return action.cart;
     case ADD_ITEM:
       return [...state, action.item];
+    case REMOVE_ITEM:
+      return state.filter(item => item.id !== action.item.id)
     default:
       return state;
   }
