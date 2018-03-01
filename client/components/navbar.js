@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { logout } from '../store'
 
 const Navbar = (props, { handleClick, isLoggedIn }) => (
+
   <div>
     <h1>SAUCESOME</h1>
     <nav>
@@ -20,14 +21,19 @@ const Navbar = (props, { handleClick, isLoggedIn }) => (
           </a>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </div>
-      )}
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Sign Up</NavLink>
+          </div>
+        )}
       <div>
-        <NavLink to="/cart">Your Cart: <span>({props.cart.length}) items</span></NavLink>
+        <NavLink to="/cart">Your Cart:
+          <span> ({Object.keys(props.cart).reduce((acc, curr) => (
+            acc + props.cart[curr]
+          ), 0)}) items
+          </span>
+        </NavLink>
       </div>
     </nav>
     <hr />
