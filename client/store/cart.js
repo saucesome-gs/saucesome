@@ -54,15 +54,6 @@ export const addItem = (itemId) => (dispatch) => {
   })
 }
 
-export const addItemFromSingle = (itemId) => (dispatch) => {
-  console.log('IN THUNK SINGLE item id is', itemId)
-  console.log('type of item id is', typeof itemId)
-  axios.get(`/${itemId}`)
-  .then((res) => {
-    console.log('data is ', res.data);
-    dispatch(addItemAction(res.data));
-  })
-}
 
 // REDUCER
 
