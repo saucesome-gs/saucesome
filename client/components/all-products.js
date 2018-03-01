@@ -21,7 +21,7 @@ export class AllProducts extends Component {
       value: value.toLowerCase()
     })
   }
-    
+
   render() {
 
     const products = this.props.products;
@@ -31,7 +31,7 @@ export class AllProducts extends Component {
     return (
          <div>
          <form>
-         <input 
+         <input
            type="text"
            id="value"
            value={value}
@@ -39,7 +39,7 @@ export class AllProducts extends Component {
          />
        </form>
           <h1>Products</h1>
-          { (!products.length) ? <p>Loading...</p> : 
+          { (!products.length) ? <p>Loading...</p> :
             <div>
           { (products.length) && filteredProducts.map((product => {
             return (
@@ -50,13 +50,13 @@ export class AllProducts extends Component {
                     <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
                   </li>
                 </ul>
-                <button>Add to Cart</button>
+                <button value={product.id} onClick={this.props.handleAddToCart}>Add to Cart</button>
               </div>
             )}
           ))
         }
-        </div> 
-      }       
+        </div>
+      }
         </div>
     )
 }
@@ -68,6 +68,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = dispatch => ({
+  fetchProducts: () => dispatch(fetchProducts()),
+  // addItem: (itemId) => dispatch(addItem(itemId))
+})
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllProducts));
