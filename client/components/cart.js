@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { addItem, deleteItem } from '../store/cart';
 
 class Cart extends Component {
@@ -32,6 +32,7 @@ class Cart extends Component {
 
     const { cart, products } = this.props;
     console.log('CART -->', cart);
+    console.log('PRODUCTS', products);
 
     return (
       <div>
@@ -42,6 +43,7 @@ class Cart extends Component {
               const productDetails = products.find(cartItem =>
                 +productId === +cartItem.id
               );
+              console.log('productId is', productId)
               if (cart[productId]) {
                 return (
                   <div key={productId}>
@@ -82,4 +84,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
