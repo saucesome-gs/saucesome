@@ -11,7 +11,7 @@ const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
 
 // INITIAL STATE
-const cart = [];
+const cart = {};
 
 // ACTION CREATORS
 
@@ -58,19 +58,34 @@ export const deleteItem = (itemId) => (dispatch) => {
   })
 }
 
-
 // REDUCER
 
 export default function(state = cart, action) {
+
   switch (action.type) {
+
     case GET_CART:
       return action.cart;
+
     case ADD_ITEM:
-      return [...state, action.item];
-    case REMOVE_ITEM: {
-      const itemIdx = state.find(item => item.id === action.item.id);
-      return state.slice(0, itemIdx).concat(state.slice(itemIdx + 1));
+    if (!state.hasOwnProperty(action.item.id)) {
+      return {...state, [action.item.id]: 1};
+    } else {
+      const newState = {...state};
+      newState[action.item.id]++;
+      return newState;
     }
+
+    case REMOVE_ITEM: {
+      if (state.hasOwnProperty(action.item.id)) {
+        const newState = {...state};
+        newState[action.item.id]--;
+        return newState;
+      } else {
+        break;
+      }
+    }
+
     default:
       return state;
   }
