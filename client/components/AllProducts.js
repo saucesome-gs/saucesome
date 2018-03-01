@@ -5,7 +5,7 @@ import { fetchProducts } from '../store/product';
 
 // Using the debug npm:
 import d from 'debug'
-const debug = d('all-products')
+const debug = d('all-productsg')
 
 const AllProducts = (props) => {
 
