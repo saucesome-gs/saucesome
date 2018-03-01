@@ -77,12 +77,12 @@ export default function(state = cart, action) {
     }
 
     case REMOVE_ITEM: {
-      if (state.hasOwnProperty(action.item.id)) {
+      if (state.hasOwnProperty(action.item.id) && state[action.item.id] > 0) {
         const newState = {...state};
         newState[action.item.id]--;
         return newState;
       } else {
-        break;
+        return state;
       }
     }
 

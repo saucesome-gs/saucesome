@@ -37,32 +37,32 @@ class Cart extends Component {
       <div>
         <p>Your cart:</p>
         <div>
-
           {
             Object.keys(cart).length && Object.keys(cart).map(productId => {
               const productDetails = products.find(cartItem =>
                 +productId === +cartItem.id
               );
-              return (
-                <div key={productId}>
-                  <img src={productDetails.imageUrl} />
-                  <ul>
-                    <li>
-                      <NavLink to={`/products/${+productId}`}>{productDetails.name}</NavLink>
-                    </li>
-                  </ul>
-                  <button className="edit-qty" value={productId} onClick={this.handleIncrement}>+</button>
-                  <p>Quantity: {cart[productId]}</p>
-                  <button
-                    className="edit-qty"
-                    value={productId}
-                    onClick={this.handleDecrement}
-                  >-</button>
-                </div>
-              )
+              if (cart[productId]) {
+                return (
+                  <div key={productId}>
+                    <img src={productDetails.imageUrl} />
+                    <ul>
+                      <li>
+                        <NavLink to={`/products/${+productId}`}>{productDetails.name}</NavLink>
+                      </li>
+                    </ul>
+                    <button className="edit-qty" value={productId} onClick={this.handleIncrement}>+</button>
+                    <p>Quantity: {cart[productId]}</p>
+                    <button
+                      className="edit-qty"
+                      value={productId}
+                      onClick={this.handleDecrement}
+                    >-</button>
+                  </div>
+                )
+              }
             })
           }
-
         </div>
       </div>
     )
