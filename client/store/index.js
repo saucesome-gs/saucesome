@@ -15,9 +15,12 @@ const middleware = composeWithDevTools(
 );
 
 // Sketch for saving state to localStorage
+
+// Get and JSON parse a saved state, if one exists.
 const initialState = localStorage.state ? JSON.parse(localStorage.state) : undefined
 const store = createStore(reducer, initialState, middleware);
 
+// Save the current store state to localStorage whenever it changes.
 store.subscribe(() => localStorage.state = JSON.stringify(store.getState()))
 
 export default store;
