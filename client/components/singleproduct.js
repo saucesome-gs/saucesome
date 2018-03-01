@@ -14,7 +14,12 @@ export const SingleProduct = (props) => {
       { (products.length) &&
         <div>
           <img src={product.imageUrl} />
-          <h1>{product.name}</h1>
+          <h1>{product.name}</h1>       
+          <ul>  
+          <p>Tags:</p>      
+          { (product.tags.length) && product.tags.map((tag, key) => <li key={key}>{tag}</li>) }
+          { (product.prices.length) && product.prices.map((price, key) => <li key={key}><p>Price: {`$${price.price}.00`}</p></li>) }
+          </ul>
           <button value={product.id} onClick={props.handleAddToCart}>Add To Cart</button>
         </div>
       }
