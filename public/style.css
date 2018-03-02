@@ -28,3 +28,7 @@ img {
 .cart-product-info {
   display: flex;
 }
+
+.grayscale {
+  filter: grayscale(100%);
+}

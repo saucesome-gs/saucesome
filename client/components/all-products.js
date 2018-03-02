@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
 import { SearchForm } from './search-form';
 import {ProductForm} from './';
@@ -29,7 +29,8 @@ export class AllProducts extends Component {
     const products = this.props.products;
     const isAdmin = this.props.isAdmin;
     const value = this.state.value
-    const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value)))
+    const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value) || product.brand.name.toLowerCase().match(value)) && product.quantity > 0)
+    
    return (
     <div>
     <form>
@@ -52,9 +53,9 @@ export class AllProducts extends Component {
            <div>
              <div>{product.brand.name}</div>
              <div>
-               <NavLink to={`/products/${+product.id}`}>
+               <Link to={`/products/${+product.id}`}>
                  {product.name}
-               </NavLink>
+               </Link>
              </div>
              <div>${product.prices[product.prices.length - 1].price}</div>
            </div>
@@ -69,7 +70,7 @@ export class AllProducts extends Component {
    }
    </div>
  }
-  {(isAdmin) ? <ProductForm />: <div></div>}
+  {(isAdmin) ? <ProductForm /> : <div></div>}
    </div>
    )
 }
