@@ -3,7 +3,7 @@ const { OrderItem, Order } = require('../db/models');
 
 
 router.post('/', (req, res, next) => {
-  console.log(req.body)
+  console.log('req.body is ', req.body)
   Order.findOrCreate({
     where: {
       userId: req.body.userId,

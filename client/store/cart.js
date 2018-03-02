@@ -44,13 +44,10 @@ export const clearCartAction = () => ({
 
 export const fetchCartAtLogin = (userId) => (dispatch) => {
   console.log('IN THUNK')
-  axios.post('/api/cart', userId)
+  axios.post('/api/cart', { userId })
   .then(createdOrder => {
-    axios.post(`/api/cart/${createdOrder.id}`)
-    .then(foundItems => {
-
-    })
-    dispatch(fetchCartAction(createdOrder.data))
+    const items = createdOrder.data.orderItems;
+    items.forEach((item) => dispatch(addItemAction(item)))
   })
 }
 
