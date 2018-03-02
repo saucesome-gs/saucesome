@@ -10,8 +10,8 @@ const initialState = {
   size: '',
   spiciness: 0,
   quantity: 0,
-  imageUrl: ''
-
+  imageUrl: '',
+  tags: []
 }
 
 export class ProductForm extends Component {
@@ -74,8 +74,15 @@ export class ProductForm extends Component {
           <input name = "imageUrl"
                  onChange = {this.handleChange}
                  value = {this.state.imageUrl}
-                 placeholder = "https://cdn3.volusion.com/kceqm.mleru/v/vspfiles/photos/708-2.jpg?1515658247"
+                 placeholder = "url"
                  type= "url"
+                 required/>
+          <label>Tags: </label>
+          <input name = "tags"
+                 onChange = {this.handleChange}
+                 value = {this.state.tags}
+                 placeholder = "hot"
+                 type= "string"
                  required/>
           <button type = "submit"> Add Sauce </button>
         </form>
@@ -91,17 +98,18 @@ export class ProductForm extends Component {
       size: event.target.size.value,
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
-      imageUrl: event.target.imageUrl.value
+      imageUrl: event.target.imageUrl.value,
+      tags: [event.target.tags.value],
+      brandId: 1
     }
   this.props.postProduct(info);
-  console.log('working')
   }
   handleChange(event){
     const { target } = event;
-    const {name , value} = target;
+    const {name, value} = target;
 
     this.setState({
-      [name] : value,
+      [name]: value,
     })
   }
 }

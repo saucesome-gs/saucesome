@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
-import {EditForm, ProductForm} from './';
+import {ProductForm} from './';
 // import { fetchProducts } from '../store/product';
 
 export const AllProducts = (props) => {
@@ -21,13 +21,12 @@ export const AllProducts = (props) => {
                     <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
                   </li>
                 </ul>
-                {(isAdmin) ? <button>Edit Product</button> : <div></div>}
               </div>
             )}
           ))
         }
         </div>
-  {(isAdmin) ? <ProductForm /> : <div></div>}
+  {(isAdmin) ? <ProductForm />:<div></div>}
  </div>
     )
 }

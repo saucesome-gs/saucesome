@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import {EditForm} from './';
 
 export const SingleProduct = (props) => {
 
-  const { products } = props;
+  const { products, isAdmin } = props;
 
   const product = products.filter(product => Number(props.match.params.productId) === product.id)[0];
 
@@ -17,6 +18,7 @@ export const SingleProduct = (props) => {
           <button>Add To Cart</button>
         </div>
       }
+       {(isAdmin) ? <EditForm /> : <div></div>}
     </div>
   )
 }

@@ -64,7 +64,7 @@ export const fetchProducts = () => {
     axios.get('/api/products')
       .then(res => res.data)
       .then(products => dispatch(getProducts(products)))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 }
 
 export const fetchProduct = (productId) => {
@@ -72,22 +72,23 @@ export const fetchProduct = (productId) => {
     axios.get(`/api/products/${productId}`)
       .then(res => res.data)
       .then(product => dispatch(getProduct(product.id)))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 }
 
 export const postProduct = (product) => {
-  return dispatch => 
+  return dispatch =>
     axios.post('/api/products/', product)
       .then(res => res.data)
       .then(newProduct => dispatch(createProduct(newProduct)))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 }
 
 export const putProduct = (product) => {
   return dispatch =>
     axios.put(`/api/products/${product.id}`, product.info)
       .then(res => res.data)
-      .then(updatedProduct => dispatch(updatedProduct(updatedProduct))).catch(err => console.error(err));
+      .then(updatedProduct => dispatch(updatedProduct(updatedProduct)))
+      .catch(err => console.error(err));
 }
 
 export const deleteProduct = (productId) => {
@@ -108,7 +109,7 @@ export default function (state = products, action) {
     case GET_PRODUCT:
       return state.filter(product => (product.id === action.productId))
     case CREATE_PRODUCT:
-      return [...state.products, action.product];
+      return [...state, action.product];
     case UPDATE_PRODUCT:
       return state.map(product => ( product.id === action.product.id ? action.product : product ));
     case REMOVE_PRODUCT:

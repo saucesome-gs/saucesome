@@ -22,7 +22,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" render={() => <AllProducts isAdmin={isAdmin}/>}/>
-        <Route exact path="/products/:productId" component={SingleProduct} />
+        <Route exact path="/products/:productId" render ={() => <SingleProduct isAdmin = {isAdmin}/>}/>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
@@ -32,13 +32,6 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
-            </Switch>
-        }
-        {
-          isAdmin &&
-          <Switch>
-            {}
-            <Route path ="/products/new" component={ProductForm} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
