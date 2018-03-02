@@ -9,6 +9,7 @@ class Cart extends Component {
     super(props);
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
+    this.updateSubtotal = this.updateSubtotal.bind(this);
   }
 
   handleIncrement(event) {
@@ -19,14 +20,18 @@ class Cart extends Component {
   handleDecrement(event) {
     event.preventDefault();
     this.props.deleteItem(event.target.value);
+    this.updateSubtotal();
+  }
+
+  updateSubtotal() {
+    console.log('in updateSubtotal');
+    console.log(this.props.cart);
+    const cartIds = Object.keys(this.props.cart)
   }
 
   render() {
 
-    console.log('THIS.PROPS --> ', this.props)
     const { cart, products } = this.props;
-    console.log('CART -->', cart);
-    console.log('PRODUCTS -->', products);
 
     return (
       <div>
@@ -38,8 +43,7 @@ class Cart extends Component {
                 +productId === +cartItem.id
               );
               let productPrice = productDetails.prices[productDetails.prices.length - 1].price;
-              console.log('product name (line 40) -->', productDetails.name);
-              console.log('productPrice (line 41) --> ', productPrice)
+
               if (cart[productId]) {
                 return (
                   <div key={productId} className="cart-product">
@@ -49,8 +53,8 @@ class Cart extends Component {
                     <div className="cart-product-info">
                       <div>
                         <NavLink
-                          to={`/products/${+productId}`}>{productDetails.name}
-                           (${productPrice})
+                          to={`/products/${+productId}`}>{`${productDetails.name}
+                            - $${productPrice} `}
                         </NavLink>
                       </div>
                       <div className="cart-product-quantity">
@@ -60,7 +64,7 @@ class Cart extends Component {
                           onClick={this.handleDecrement}>
                           -
                         </button>
-                        <span> Quantity: {cart[productId]} </span>
+                        <span>{` Quantity: ${cart[productId]} `}</span>
                         <button
                           className="edit-qty"
                           value={productId}
@@ -80,23 +84,11 @@ class Cart extends Component {
             <table className="cart-summary">
               <tbody>
                 <tr>
-                  <th colSpan="2">Yo Sauce Deets</th>
+                  <th colSpan="2">Your Sauce Deets</th>
                 </tr>
                 <tr>
                   <td className="type">Subtotal</td>
-                  <td className="amount">
-                    {
-                      Object.keys(cart).length && Object.keys(cart).reduce( (acc, curr) => {
-                        let product = products.find(cartItem => +curr === +cartItem.id);
-                        let productPrice = product.prices[product.prices.length - 1].price;
-                        console.log('productPrice -->', productPrice)
-                        console.log('ACC -->', acc);
-                        console.log('CURR -->', curr)
-                        return acc + productPrice;
-
-                      }, 0)
-                    }
-                  </td>
+                  <td className="amount">enter subtotal jsx</td>
                 </tr>
                 <tr>
                   <td className="type">Shipping</td>
@@ -144,4 +136,17 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
 //     console.log('PRICE --> ', productPriceArr[productPriceArr.length-1].price)
 //     let subtotal = 0;
 //   })
+// }
+
+// Subtotal prices
+// {
+//   Object.keys(cart).length && Object.keys(cart).reduce( (acc, curr) => {
+//     let product = products.find(cartItem => +curr === +cartItem.id);
+//     let productPrice = product.prices[product.prices.length - 1].price;
+//     console.log('productPrice -->', productPrice)
+//     console.log('ACC -->', acc);
+//     console.log('CURR -->', curr)
+//     return acc + productPrice;
+
+//   }, 0)
 // }
