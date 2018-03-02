@@ -49,7 +49,8 @@ export const SingleProduct = (props) => {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    isLoggedIn: !!state.user.id
   }
 }
 const mapDispatchToProps = dispatch => {

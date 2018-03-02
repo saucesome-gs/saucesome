@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
-import { me, fetchProducts, addItem } from './store';
+import { me, fetchProducts, addItem, addItemToDb } from './store';
 
 
 /**
@@ -15,15 +15,20 @@ class Routes extends Component {
     super(props);
     this.handleAddToCart = this.handleAddToCart.bind(this);
   }
+
   componentDidMount () {
     this.props.loadInitialData()
     this.props.getProducts()
   }
 
-
   handleAddToCart(event) {
+    if (this.props.isLoggedIn) {
+      console.log('LOGGED IN')
+      this.props.addItemToDb(event.target.value, this.props.order);
+      } else {
     event.preventDefault();
     this.props.addItem(event.target.value);
+      }
     }
 
   render () {
@@ -61,7 +66,8 @@ const mapState = (state) => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     products: state.products,
-    user: state.user
+    user: state.user,
+    order: state.order
   }
 }
 
@@ -73,11 +79,11 @@ const mapDispatch = (dispatch) => {
     getProducts () {
       dispatch(fetchProducts());
     },
-    fetchCartAtLogin(userId) {
-      dispatch(fetchCartAtLogin(userId))
-    },
     addItem(id) {
       dispatch(addItem(id));
+    },
+    addItemToDb(productId, orderId) {
+      dispatch(addItemToDb(productId, orderId));
     }
   }
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { setOrderAction } from './order';
 // import history from '../history';
-// import { Product } from '../../server/db/models';
 
 
 // ACTION TYPES
@@ -46,8 +46,9 @@ export const fetchCartAtLogin = (userId) => (dispatch) => {
   console.log('IN THUNK')
   axios.post('/api/cart', { userId })
   .then(createdOrder => {
+    dispatch(setOrderAction(createdOrder.data.id))
     const items = createdOrder.data.orderItems;
-    items.forEach((item) => dispatch(addItemAction(item)))
+    if (items) items.forEach((item) => dispatch(addItemAction(item)))
   })
 }
 
@@ -62,6 +63,14 @@ export const addItem = (itemId) => (dispatch) => {
   axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(addItemAction(res.data));
+  })
+}
+
+export const addItemToDb = (itemId, orderId) => (dispatch) => {
+  axios.get(`/api/products/${itemId}`)
+  .then((foundItem) => {
+    dispatch(addItemAction(foundItem.data));
+    axios.post(`/api/cart/${orderId}`, {orderId: orderId, productId: foundItem.data.id, priceId: null})
   })
 }
 
@@ -103,7 +112,6 @@ export default function(state = cart, action) {
     case CLEAR_CART: {
       return {};
     }
-
 
     default:
       return state;
