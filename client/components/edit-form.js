@@ -93,6 +93,7 @@ export class EditForm extends Component {
     handleSubmit(event){
       event.preventDefault()
       const info = {
+        id: this.props.productId,
         name: event.target.name.value,
         description: event.target.description.value,
         ingredients: event.target.ingredients.value,

@@ -18,7 +18,7 @@ export const SingleProduct = (props) => {
           <button>Add To Cart</button>
         </div>
       }
-       {(isAdmin) ? <EditForm /> : <div></div>}
+       {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div>}
     </div>
   )
 }
