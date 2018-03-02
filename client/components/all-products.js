@@ -27,55 +27,56 @@ export class AllProducts extends Component {
   render() {
 
     const products = this.props.products;
-    const isAdmin = this.props.isAdmin
+    const isAdmin = this.props.isAdmin;
     const value = this.state.value
     const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value)))
-     return (
-      <div>
-        <div>
-          <form>
-           <input
-            type="text"
-            id="value"
-            value={value}
-            onChange={this.handleChange}
-          />
-          </form>
-          <h1>Products</h1>
-         { (!products.length) ? <p>Loading...</p> :
+   return (
+    <div>
+    <form>
+    <input
+      type="text"
+      id="value"
+      value={value}
+      onChange={this.handleChange}
+    />
+  </form>
+     <h1>Products</h1>
+     { (!products.length) ? <p>Loading...</p> :
+       <div>
+     { (products.length) && filteredProducts.map((product => {
+       return (
+         <div key={product.id}>
+           <a href={`/products/${+product.id}`}>
+             <img src={product.imageUrl} />
+           </a>
            <div>
-         { (products.length) && filteredProducts.map((product => {
-           return (
-             <div key={product.id}>
-               <a href={`/products/${+product.id}`}>
-                 <img src={product.imageUrl} />
-               </a>
-               <div>
-                 <div>{product.brand.name}</div>
-                 <div>
-                   <NavLink to={`/products/${+product.id}`}>
-                     {product.name}
-                   </NavLink>
-                 </div>
-                 <div>${product.prices[product.prices.length - 1].price}</div>
-               </div>
-               <button
-                 value={product.id}
-                 onClick={this.props.handleAddToCart}>
-                 Add to Cart
-               </button>
+             <div>{product.brand.name}</div>
+             <div>
+               <NavLink to={`/products/${+product.id}`}>
+                 {product.name}
+               </NavLink>
              </div>
-           )}
-         ))
-       }
-       </div>
-     }
-       </div>
-
-      {(isAdmin) ? <ProductForm />: <div></div>}
-      </div>
-     )
+             <div>${product.prices[product.prices.length - 1].price}</div>
+           </div>
+           <button
+             value={product.id}
+             onClick={this.props.handleAddToCart}>
+             Add to Cart
+           </button>
+         </div>
+       )}
+     ))
+   }
+   </div>
  }
+  {(isAdmin) ? <ProductForm />: <div></div>}
+   </div>
+
+
+)
+
+  }
+
 }
 
  const mapStateToProps = state => {
@@ -88,6 +89,5 @@ const mapDispatchToProps = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts()),
   // addItem: (itemId) => dispatch(addItem(itemId))
 })
-const mapDispatchToProps = null;
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllProducts));
