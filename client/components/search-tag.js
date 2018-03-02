@@ -5,6 +5,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 export class SearchTag extends Component {
   constructor(props) {
     super(props)
+
   }
 
   render() {
@@ -17,6 +18,7 @@ export class SearchTag extends Component {
       { (tagProducts.length) && tagProducts.map(product => {
         return (
         <div key={product.id}>
+        <h1>All sauces that are {tagId}!</h1>
           <a href={`/products/${+product.id}`}>
             <img src={product.imageUrl} />
           </a>

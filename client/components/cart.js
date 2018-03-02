@@ -10,12 +10,6 @@ class Cart extends Component {
     this.handleDecrement = this.handleDecrement.bind(this);
   }
 
-
-  componentDidMount() {
-    console.log('IN COMPONENT DID MOUNT!!')
-
-  }
-
   handleIncrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
@@ -35,11 +29,7 @@ class Cart extends Component {
   }
 
   render() {
-
-    console.log('THIS.PROPS --> ', this.props)
     const { cart, products } = this.props;
-    console.log('CART -->', cart);
-    console.log('PRODUCTS -->', products);
 
     return (
       <div>
