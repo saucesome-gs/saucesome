@@ -10,8 +10,9 @@ const isAdmin = (req, res, next) => {
   }
   next();
 }
-router.get('/',  (req, res, next) => {
-  Products.findAll()
+
+router.get('/', (req, res, next) => {
+  Products.findAll({ include: [{ all: true }]})
   .then(product => res.json(product))
   .catch(next);
 });

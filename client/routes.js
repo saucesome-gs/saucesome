@@ -2,27 +2,39 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, ProductForm} from './components'
-import {me, fetchProducts} from './store';
+import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
+import { me, fetchProducts, addItem } from './store';
 
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
   componentDidMount () {
     this.props.loadInitialData()
     this.props.getProducts()
   }
 
+
+  handleAddToCart(event) {
+    event.preventDefault();
+    this.props.addItem(event.target.value);
+    }
+
   render () {
     const {isLoggedIn, isAdmin} = this.props
-   console.log("props in the routes:", this.props);
+
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" render={() => <AllProducts isAdmin={isAdmin}/>}/>
-        <Route exact path="/products/:productId" render ={() => <SingleProduct isAdmin = {isAdmin}/>}/>
+
+        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
+        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin}/>} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
@@ -50,7 +62,8 @@ const mapState = (state) => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isAdmin: state.user.isAdmin,
     isLoggedIn: !!state.user.id,
-    products: state.products
+    products: state.products,
+    user: state.user
   }
 }
 
@@ -61,6 +74,12 @@ const mapDispatch = (dispatch) => {
     },
     getProducts () {
       dispatch(fetchProducts());
+    },
+    fetchCartAtLogin(userId) {
+      dispatch(fetchCartAtLogin(userId))
+    },
+    addItem(id) {
+      dispatch(addItem(id));
     }
   }
 }
