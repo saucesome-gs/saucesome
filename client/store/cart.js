@@ -57,14 +57,14 @@ export const fetchCartAtLogin = (userId) => (dispatch) => {
 // }
 
 export const addItem = (itemId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(addItemAction(res.data));
   })
 }
 
 export const deleteItem = (itemId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(removeItemAction(res.data));
   })
@@ -102,5 +102,3 @@ export default function(state = cart, action) {
       return state;
   }
 }
-
-

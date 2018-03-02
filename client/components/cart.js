@@ -7,26 +7,52 @@ class Cart extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      subtotal: 0
+    }
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
     this.updateSubtotal = this.updateSubtotal.bind(this);
   }
 
-  handleIncrement(event) {
-    event.preventDefault();
-    this.props.addItem(event.target.value);
+  componentDidMount(){
+    this.updateSubtotal();
   }
 
-  handleDecrement(event) {
+  async handleIncrement(event) {
     event.preventDefault();
-    this.props.deleteItem(event.target.value);
+    await this.props.addItem(event.target.value);
+    this.updateSubtotal();
+  }
+
+  async handleDecrement(event) {
+    event.preventDefault();
+    await this.props.deleteItem(event.target.value);
     this.updateSubtotal();
   }
 
   updateSubtotal() {
-    console.log('in updateSubtotal');
-    console.log(this.props.cart);
-    const cartIds = Object.keys(this.props.cart)
+
+    const cart = this.props.cart;
+    const cartProdPrices = {};
+    const cartIds = Object.keys(cart).map(el => +el);
+    this.props.products
+      .filter(el => cartIds.indexOf(el.id) > -1)
+      .map(el => {
+        let elPrice = el.prices[el.prices.length - 1].price;
+        cartProdPrices[el.id] = elPrice;
+      });
+
+    let subtotal = 0;
+    for (let prodId in cart) {
+      let quantity = cart[prodId];
+      subtotal += (quantity * cartProdPrices[prodId]);
+    }
+
+    this.setState({
+      subtotal
+    })
+
   }
 
   render() {
@@ -88,7 +114,7 @@ class Cart extends Component {
                 </tr>
                 <tr>
                   <td className="type">Subtotal</td>
-                  <td className="amount">enter subtotal jsx</td>
+                  <td className="amount">${this.state.subtotal}</td>
                 </tr>
                 <tr>
                   <td className="type">Shipping</td>
