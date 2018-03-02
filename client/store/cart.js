@@ -9,6 +9,7 @@ const FETCH_CART = 'FETCH_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
+const CLEAR_CART = 'CLEAR_CART';
 
 // INITIAL STATE
 const cart = {};
@@ -34,6 +35,10 @@ export const updateItemQtyAction = (item) => ({
   type: UPDATE_ITEM_QTY,
   item
 });
+
+export const clearCartAction = () => ({
+  type: CLEAR_CART
+})
 
 // THUNK CREATORS
 
@@ -97,6 +102,11 @@ export default function(state = cart, action) {
       }
       break;
     }
+
+    case CLEAR_CART: {
+      return {};
+    }
+
 
     default:
       return state;
