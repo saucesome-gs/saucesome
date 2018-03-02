@@ -34,7 +34,7 @@ export const auth = (email, password, method) => dispatch =>
     .then(
       res => {
         dispatch(getUser(res.data));
-        dispatch(fetchCartAtLogin(res.data.id));
+        // dispatch(fetchCartAtLogin(res.data.id));
         history.push("/home");
       },
       authError => {
