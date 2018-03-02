@@ -19,11 +19,12 @@ router.post('/:orderId', (req, res, next) => {
 router.get('/:userId', (req, res, next) => {
   Order.findOrCreate({
     where: {
-      userId: req.params.id,
+      userId: req.params.userId,
       status: 'pending'
-    }
+    },
+    include: { all: true }
   })
-  .then(order => res.json(order));
+  .then(order => res.json(order[0]));
 })
 
 module.exports = router;

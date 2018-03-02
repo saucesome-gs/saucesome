@@ -37,8 +37,8 @@ export const updateItemQtyAction = (item) => ({
 
 // THUNK CREATORS
 
-export const getCartThunk = (orderId) => (dispatch) => {
-    axios.get(`/cart/${orderId}`)
+export const getCartThunk = (userId) => (dispatch) => {
+    axios.get(`/cart/${userId}`)
     .then((res) => {
       dispatch(getCartAction(res.data));
     })
@@ -66,7 +66,6 @@ export default function(state = cart, action) {
 
     case GET_CART:
       return action.cart;
-
     case ADD_ITEM:
     if (!state.hasOwnProperty(action.item.id)) {
       return {...state, [action.item.id]: 1};
