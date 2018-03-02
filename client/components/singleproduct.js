@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom';
-import {EditForm} from './';
+import { withRouter, Link } from 'react-router-dom';
+import { EditForm } from './';
 import { addItem } from '../store/cart';
 import { addItemToDb } from '../store';
 
@@ -27,7 +27,7 @@ export const SingleProduct = (props) => {
           <ul>
             <p>Tags:</p>
             {
-              product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
+              product.tags.map( (tag, key) => <li key={key}><Link to={`/tag/${tag}`}>#{tag}</Link></li> )
             }
           </ul>
           <button
@@ -48,6 +48,7 @@ const mapStateToProps = state => {
     isLoggedIn: !!state.user.id
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     addItem(id) {
@@ -61,16 +62,3 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
 
-
-
-// <ul>
-// <p>Tags:</p>
-// {
-//   product.tags.length && product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
-// }
-// </ul>
-// <div>
-// {
-//   product.prices.length && product.prices.map( (price, key) => <li key={key}><p>Price: {`$${price.price}`}</p></li> )
-// }
-// </div>
