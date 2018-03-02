@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // ACTION TYPES
 
-const FETCH_CART = 'GET_CART';
+const FETCH_CART = 'FETCH_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
@@ -15,7 +15,7 @@ const cart = {};
 
 // ACTION CREATORS
 
-export const getCartAction = (cart) => ({
+export const fetchCartAction = (cart) => ({
   type: FETCH_CART,
   cart
 });
@@ -38,18 +38,20 @@ export const updateItemQtyAction = (item) => ({
 // THUNK CREATORS
 
 export const fetchCartAtLogin = (userId) => (dispatch) => {
-  axios.get(`/${userId}`)
+  console.log('IN THUNK')
+  axios.post('/cart', userId)
   .then(createdOrder => {
     console.log('this is the order', createdOrder.data);
+    dispatch(fetchCartAction(createdOrder.data))
   })
 }
 
-export const getCartThunk = (userId) => (dispatch) => {
-    axios.get(`/cart/${userId}`)
-    .then((res) => {
-      dispatch(getCartAction(res.data));
-    })
-}
+// export const fetchCartThunk = (userId) => (dispatch) => {
+//     axios.get(`/cart/${userId}`)
+//     .then((res) => {
+//       dispatch(fetchCartAction(res.data));
+//     })
+// }
 
 export const addItem = (itemId) => (dispatch) => {
   axios.get(`/api/products/${itemId}`)

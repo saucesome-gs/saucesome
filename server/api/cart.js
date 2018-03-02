@@ -3,6 +3,7 @@ const { OrderItem, Order } = require('../db/models');
 
 
 router.post('/', (req, res, next) => {
+  console.log(req.body)
   Order.create(req.body)
   .then(createdOrder => res.json(createdOrder));
 })
