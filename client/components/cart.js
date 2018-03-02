@@ -16,6 +16,10 @@ class Cart extends Component {
   //   // console.log(event.target.value);
   //   this.props.deleteItem(event.target.value);
   // }
+  componentDidMount() {
+    console.log('IN COMPONENT DID MOUNT!!')
+    // this.props.
+  }
 
   handleIncrement(event) {
     event.preventDefault();
@@ -30,41 +34,87 @@ class Cart extends Component {
 
   render() {
 
+    console.log('THIS.PROPS --> ', this.props)
     const { cart, products } = this.props;
     console.log('CART -->', cart);
-    console.log('PRODUCTS', products);
+    console.log('PRODUCTS -->', products);
 
     return (
       <div>
-        <p>Your cart:</p>
+        <p>Yo sauce:</p>
         <div>
           {
             Object.keys(cart).length && Object.keys(cart).map(productId => {
               const productDetails = products.find(cartItem =>
                 +productId === +cartItem.id
               );
-              console.log('productId is', productId)
+              // console.log('productId is', productId)
               if (cart[productId]) {
                 return (
-                  <div key={productId}>
-                    <img src={productDetails.imageUrl} />
-                    <ul>
-                      <li>
+                  <div key={productId} className="cart-product">
+                    <a href={`/products/${+productId}`}>
+                      <img src={productDetails.imageUrl} />
+                    </a>
+                    <div className="cart-product-info">
+                      <div>
                         <NavLink to={`/products/${+productId}`}>{productDetails.name}</NavLink>
-                      </li>
-                    </ul>
-                    <button className="edit-qty" value={productId} onClick={this.handleIncrement}>+</button>
-                    <p>Quantity: {cart[productId]}</p>
-                    <button
-                      className="edit-qty"
-                      value={productId}
-                      onClick={this.handleDecrement}
-                    >-</button>
+                      </div>
+                      <div className="cart-product-quantity">
+                        <button
+                          className="edit-qty"
+                          value={productId}
+                          onClick={this.handleDecrement}>
+                          -
+                        </button>
+                        <span> Quantity: {cart[productId]} </span>
+                        <button
+                          className="edit-qty"
+                          value={productId}
+                          onClick={this.handleIncrement}>
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )
               }
             })
           }
+        </div>
+        <div>
+          <div id="cart-details">
+            <table className="cart-summary">
+              <tbody>
+                <tr>
+                  <th colSpan="2">Yo Sauce Deets</th>
+                </tr>
+                <tr>
+                  <td className="type">Subtotal</td>
+                  <td className="amount">
+                    {
+                      Object.keys(cart).length && Object.keys(cart).map(productId => {
+                        const productDetails = products.find(cartItem => +productId === +cartItem.id);
+                        let subtotal = 0;
+                      })
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <td className="type">Shipping</td>
+                  <td className="amount">enter shipping jsx here</td>
+                </tr>
+                <tr>
+                  <td className="type">Total</td>
+                  <td className="amount">enter total jsx here</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button
+            className="checkout"
+            value="">
+            Cash Out Dat Sauce
+          </button>
         </div>
       </div>
     )
