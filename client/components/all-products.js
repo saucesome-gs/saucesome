@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
- import { connect } from 'react-redux';
- import { withRouter, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter, NavLink } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
 import { SearchForm } from './search-form';
 import {ProductForm} from './';
@@ -71,19 +71,18 @@ export class AllProducts extends Component {
  }
   {(isAdmin) ? <ProductForm />: <div></div>}
    </div>
+   )
+}
+}
 
-
-)
-
+const mapStateToProps = state => {
+  return {
+    products: state.products,
+    order: state.order,
+    isLoggedIn: !!state.user.id
   }
 
 }
-
- const mapStateToProps = state => {
-   return {
-     products: state.products
-   }
- }
 
 const mapDispatchToProps = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts()),
