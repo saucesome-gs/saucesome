@@ -81,6 +81,14 @@ export const deleteItem = (itemId) => (dispatch) => {
   })
 }
 
+export const deleteItemFromDb = (itemId, orderId) => (dispatch) => {
+  axios.get(`/api/products/${itemId}`)
+  .then((foundItem) => {
+    dispatch(removeItemAction(foundItem.data));
+    axios.put('/api/cart', {orderId: orderId, productId: foundItem.data.id})
+  })
+}
+
 // REDUCER
 
 export default function(state = cart, action) {

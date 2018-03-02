@@ -1,35 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
-import { addItem, deleteItem } from '../store/cart';
+import { addItem, deleteItem, addItemToDb, deleteItemFromDb } from '../store';
 
 class Cart extends Component {
   constructor(props) {
     super(props);
-    // this.removeItemHandler = this.removeItemHandler.bind(this);
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
   }
 
-  // removeItemHandler (event) {
-  //   event.preventDefault();
-  //   // console.log(event.target.value);
-  //   this.props.deleteItem(event.target.value);
-  // }
+
   componentDidMount() {
     console.log('IN COMPONENT DID MOUNT!!')
-    // this.props.
+
   }
 
   handleIncrement(event) {
     event.preventDefault();
-    this.props.addItem(event.target.value);
+    if (this.props.isLoggedIn) {
+      this.props.addItemToDb(event.target.value, this.props.order);
+    } else {
+      this.props.addItem(event.target.value);
+    }
   }
 
   handleDecrement(event) {
     event.preventDefault();
-    // console.log('decrementing')
-    this.props.deleteItem(event.target.value);
+    if (this.props.isLoggedIn) {
+      this.props.deleteItemFromDb(event.target.value, this.props.order);
+    } else {
+      this.props.deleteItemFromDb(event.target.value);
+    }
   }
 
   render() {
@@ -124,13 +126,22 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    products: state.products
+    products: state.products,
+    user: state.user,
+    order: state.order,
+    isLoggedIn: !!state.user.id
   }
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (itemId => dispatch(deleteItem(itemId))),
-    addItem: (itemId => dispatch(addItem(itemId)))
+    addItem: (itemId => dispatch(addItem(itemId))),
+    addItemToDb: (productId, orderId) => {
+      dispatch(addItemToDb(productId, orderId));
+    },
+    deleteItemFromDb: (itemId, orderId) => {
+      dispatch(deleteItemFromDb(itemId, orderId));
+    }
   }
 };
 
