@@ -34,7 +34,7 @@ class Cart extends Component {
     if (this.props.isLoggedIn) {
       await this.props.deleteItemFromDb(event.target.value, this.props.order);
     } else {
-      await this.props.deleteItemFromDb(event.target.value);
+      await this.props.deleteItem(event.target.value);
     }
     this.updateSubtotal();
   }
