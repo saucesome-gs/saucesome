@@ -7,20 +7,40 @@ export const SingleProduct = (props) => {
 
   const { products } = props;
 
-  const product = products.filter(product => Number(props.match.params.productId) === product.id)[0];
+  const product = products.find(product => Number(props.match.params.productId) === product.id);
+
+  console.log('params -->', props.match.params.productId)
+
+  console.log('products -->', products)
+
+  // console.log('singleProduct -->', product.prices[product.prices.length - 1].price)
+
+  console.log('singleProduct -->', product)
 
   return (
     <div>
-      { (products.length) &&
+      {(products.length) &&
         <div>
           <img src={product.imageUrl} />
-          <h1>{product.name}</h1>       
-          <ul>  
-          <p>Tags:</p>      
-          { (product.tags.length) && product.tags.map((tag, key) => <li key={key}>{tag}</li>) }
-          { (product.prices.length) && product.prices.map((price, key) => <li key={key}><p>Price: {`$${price.price}.00`}</p></li>) }
+          <h3>{product.brand.name}</h3>
+          <h2>{product.name}</h2>
+          <p>{product.description}</p>
+          <div>
+            {
+              `$${product.prices[product.prices.length - 1].price}`
+            }
+          </div>
+          <ul>
+            <p>Tags:</p>
+            {
+              product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
+            }
           </ul>
-          <button value={product.id} onClick={props.handleAddToCart}>Add To Cart</button>
+          <button
+            value={product.id}
+            onClick={props.handleAddToCart}>
+            Add To Cart
+          </button>
         </div>
       }
     </div>
@@ -41,3 +61,17 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
+
+
+
+// <ul>
+// <p>Tags:</p>
+// {
+//   product.tags.length && product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
+// }
+// </ul>
+// <div>
+// {
+//   product.prices.length && product.prices.map( (price, key) => <li key={key}><p>Price: {`$${price.price}`}</p></li> )
+// }
+// </div>
