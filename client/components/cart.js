@@ -4,42 +4,64 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { addItem, deleteItem, addItemToDb, deleteItemFromDb } from '../store';
 
 class Cart extends Component {
+
   constructor(props) {
     super(props);
+    this.state = {
+      subtotal: 0
+    }
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
+    this.updateSubtotal = this.updateSubtotal.bind(this);
   }
 
-
-  componentDidMount() {
-    console.log('IN COMPONENT DID MOUNT!!')
-
+  componentDidMount(){
+    this.updateSubtotal();
   }
 
-  handleIncrement(event) {
+  async handleIncrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      this.props.addItemToDb(event.target.value, this.props.order);
+      await this.props.addItemToDb(event.target.value, this.props.order);
     } else {
-      this.props.addItem(event.target.value);
+      await this.props.addItem(event.target.value);
     }
+    this.updateSubtotal();
   }
 
-  handleDecrement(event) {
+  async handleDecrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      this.props.deleteItemFromDb(event.target.value, this.props.order);
+      await this.props.deleteItemFromDb(event.target.value, this.props.order);
     } else {
-      this.props.deleteItemFromDb(event.target.value);
+      await this.props.deleteItemFromDb(event.target.value);
     }
+    this.updateSubtotal();
+  }
+
+  updateSubtotal() {
+    const cart = this.props.cart;
+    const cartProdPrices = {};
+    const cartIds = Object.keys(cart).map(el => +el);
+    this.props.products
+      .filter(el => cartIds.indexOf(el.id) > -1)
+      .map(el => {
+        let elPrice = el.prices[el.prices.length - 1].price;
+        cartProdPrices[el.id] = elPrice;
+      });
+    let subtotal = 0;
+    for (let prodId in cart) {
+      let quantity = cart[prodId];
+      subtotal += (quantity * cartProdPrices[prodId]);
+    }
+    this.setState({
+      subtotal
+    })
   }
 
   render() {
 
-    console.log('THIS.PROPS --> ', this.props)
     const { cart, products } = this.props;
-    console.log('CART -->', cart);
-    console.log('PRODUCTS -->', products);
 
     return (
       <div>
@@ -50,7 +72,8 @@ class Cart extends Component {
               const productDetails = products.find(cartItem =>
                 +productId === +cartItem.id
               );
-              // console.log('productId is', productId)
+              let productPrice = productDetails.prices[productDetails.prices.length - 1].price;
+
               if (cart[productId]) {
                 return (
                   <div key={productId} className="cart-product">
@@ -59,7 +82,10 @@ class Cart extends Component {
                     </a>
                     <div className="cart-product-info">
                       <div>
-                        <NavLink to={`/products/${+productId}`}>{productDetails.name}</NavLink>
+                        <NavLink
+                          to={`/products/${+productId}`}>{`${productDetails.name}
+                            - $${productPrice} `}
+                        </NavLink>
                       </div>
                       <div className="cart-product-quantity">
                         <button
@@ -68,7 +94,7 @@ class Cart extends Component {
                           onClick={this.handleDecrement}>
                           -
                         </button>
-                        <span> Quantity: {cart[productId]} </span>
+                        <span>{` Quantity: ${cart[productId]} `}</span>
                         <button
                           className="edit-qty"
                           value={productId}
@@ -88,18 +114,11 @@ class Cart extends Component {
             <table className="cart-summary">
               <tbody>
                 <tr>
-                  <th colSpan="2">Yo Sauce Deets</th>
+                  <th colSpan="2">Your Sauce Deets</th>
                 </tr>
                 <tr>
                   <td className="type">Subtotal</td>
-                  <td className="amount">
-                    {
-                      Object.keys(cart).length && Object.keys(cart).map(productId => {
-                        const productDetails = products.find(cartItem => +productId === +cartItem.id);
-                        let subtotal = 0;
-                      })
-                    }
-                  </td>
+                  <td className="amount">${this.state.subtotal}</td>
                 </tr>
                 <tr>
                   <td className="type">Shipping</td>

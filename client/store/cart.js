@@ -60,14 +60,14 @@ export const fetchCartAtLogin = (userId) => (dispatch) => {
 // }
 
 export const addItem = (itemId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(addItemAction(res.data));
   })
 }
 
 export const addItemToDb = (itemId, orderId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((foundItem) => {
     dispatch(addItemAction(foundItem.data));
     axios.post(`/api/cart/${orderId}`, {orderId: orderId, productId: foundItem.data.id, priceId: null})
@@ -75,14 +75,14 @@ export const addItemToDb = (itemId, orderId) => (dispatch) => {
 }
 
 export const deleteItem = (itemId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(removeItemAction(res.data));
   })
 }
 
 export const deleteItemFromDb = (itemId, orderId) => (dispatch) => {
-  axios.get(`/api/products/${itemId}`)
+  return axios.get(`/api/products/${itemId}`)
   .then((foundItem) => {
     dispatch(removeItemAction(foundItem.data));
     axios.put('/api/cart', {orderId: orderId, productId: foundItem.data.id})
@@ -125,5 +125,3 @@ export default function(state = cart, action) {
       return state;
   }
 }
-
-
