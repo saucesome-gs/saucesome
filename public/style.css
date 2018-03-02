@@ -25,3 +25,6 @@ img {
   width: 20%;
 }
 
+.cart-product-info {
+  display: flex;
+}
