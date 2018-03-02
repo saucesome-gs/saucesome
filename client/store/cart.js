@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { setOrderAction } from './order';
 // import history from '../history';
-// import { Product } from '../../server/db/models';
 
 
 // ACTION TYPES
@@ -9,6 +9,7 @@ const FETCH_CART = 'FETCH_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
+const CLEAR_CART = 'CLEAR_CART';
 
 // INITIAL STATE
 const cart = {};
@@ -35,17 +36,19 @@ export const updateItemQtyAction = (item) => ({
   item
 });
 
+export const clearCartAction = () => ({
+  type: CLEAR_CART
+})
+
 // THUNK CREATORS
 
 export const fetchCartAtLogin = (userId) => (dispatch) => {
   console.log('IN THUNK')
-  axios.post('/api/cart', userId)
+  axios.post('/api/cart', { userId })
   .then(createdOrder => {
-    axios.post(`/api/cart/${createdOrder.id}`)
-    .then(foundItems => {
-
-    })
-    dispatch(fetchCartAction(createdOrder.data))
+    dispatch(setOrderAction(createdOrder.data.id))
+    const items = createdOrder.data.orderItems;
+    if (items) items.forEach((item) => dispatch(addItemAction(item)))
   })
 }
 
@@ -63,10 +66,26 @@ export const addItem = (itemId) => (dispatch) => {
   })
 }
 
+export const addItemToDb = (itemId, orderId) => (dispatch) => {
+  return axios.get(`/api/products/${itemId}`)
+  .then((foundItem) => {
+    dispatch(addItemAction(foundItem.data));
+    axios.post(`/api/cart/${orderId}`, {orderId: orderId, productId: foundItem.data.id, priceId: null})
+  })
+}
+
 export const deleteItem = (itemId) => (dispatch) => {
   return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(removeItemAction(res.data));
+  })
+}
+
+export const deleteItemFromDb = (itemId, orderId) => (dispatch) => {
+  return axios.get(`/api/products/${itemId}`)
+  .then((foundItem) => {
+    dispatch(removeItemAction(foundItem.data));
+    axios.put('/api/cart', {orderId: orderId, productId: foundItem.data.id})
   })
 }
 
@@ -96,6 +115,10 @@ export default function(state = cart, action) {
         return newState;
       }
       break;
+    }
+
+    case CLEAR_CART: {
+      return {};
     }
 
     default:

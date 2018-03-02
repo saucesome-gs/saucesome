@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
-import { addItem, deleteItem } from '../store/cart';
+import { addItem, deleteItem, addItemToDb, deleteItemFromDb } from '../store';
 
 class Cart extends Component {
 
@@ -21,18 +21,25 @@ class Cart extends Component {
 
   async handleIncrement(event) {
     event.preventDefault();
-    await this.props.addItem(event.target.value);
+    if (this.props.isLoggedIn) {
+      await this.props.addItemToDb(event.target.value, this.props.order);
+    } else {
+      await this.props.addItem(event.target.value);
+    }
     this.updateSubtotal();
   }
 
   async handleDecrement(event) {
     event.preventDefault();
-    await this.props.deleteItem(event.target.value);
+    if (this.props.isLoggedIn) {
+      await this.props.deleteItemFromDb(event.target.value, this.props.order);
+    } else {
+      await this.props.deleteItemFromDb(event.target.value);
+    }
     this.updateSubtotal();
   }
 
   updateSubtotal() {
-
     const cart = this.props.cart;
     const cartProdPrices = {};
     const cartIds = Object.keys(cart).map(el => +el);
@@ -42,17 +49,14 @@ class Cart extends Component {
         let elPrice = el.prices[el.prices.length - 1].price;
         cartProdPrices[el.id] = elPrice;
       });
-
     let subtotal = 0;
     for (let prodId in cart) {
       let quantity = cart[prodId];
       subtotal += (quantity * cartProdPrices[prodId]);
     }
-
     this.setState({
       subtotal
     })
-
   }
 
   render() {
@@ -141,38 +145,23 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    products: state.products
+    products: state.products,
+    user: state.user,
+    order: state.order,
+    isLoggedIn: !!state.user.id
   }
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (itemId => dispatch(deleteItem(itemId))),
-    addItem: (itemId => dispatch(addItem(itemId)))
+    addItem: (itemId => dispatch(addItem(itemId))),
+    addItemToDb: (productId, orderId) => {
+      dispatch(addItemToDb(productId, orderId));
+    },
+    deleteItemFromDb: (itemId, orderId) => {
+      dispatch(deleteItemFromDb(itemId, orderId));
+    }
   }
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
-
-
-// {
-//   Object.keys(cart).length && Object.keys(cart).map(productId => {
-//     const productDetails = products.find(cartItem => +productId === +cartItem.id);
-//     const productPriceArr = productDetails.prices;
-//     console.log('productPriceArr', productPriceArr)
-//     console.log('PRICE --> ', productPriceArr[productPriceArr.length-1].price)
-//     let subtotal = 0;
-//   })
-// }
-
-// Subtotal prices
-// {
-//   Object.keys(cart).length && Object.keys(cart).reduce( (acc, curr) => {
-//     let product = products.find(cartItem => +curr === +cartItem.id);
-//     let productPrice = product.prices[product.prices.length - 1].price;
-//     console.log('productPrice -->', productPrice)
-//     console.log('ACC -->', acc);
-//     console.log('CURR -->', curr)
-//     return acc + productPrice;
-
-//   }, 0)
-// }
