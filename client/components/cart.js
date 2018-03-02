@@ -4,21 +4,11 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { addItem, deleteItem } from '../store/cart';
 
 class Cart extends Component {
+
   constructor(props) {
     super(props);
-    // this.removeItemHandler = this.removeItemHandler.bind(this);
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
-  }
-
-  // removeItemHandler (event) {
-  //   event.preventDefault();
-  //   // console.log(event.target.value);
-  //   this.props.deleteItem(event.target.value);
-  // }
-  componentDidMount() {
-    console.log('IN COMPONENT DID MOUNT!!')
-    // this.props.
   }
 
   handleIncrement(event) {
@@ -28,7 +18,6 @@ class Cart extends Component {
 
   handleDecrement(event) {
     event.preventDefault();
-    // console.log('decrementing')
     this.props.deleteItem(event.target.value);
   }
 
@@ -48,7 +37,9 @@ class Cart extends Component {
               const productDetails = products.find(cartItem =>
                 +productId === +cartItem.id
               );
-              // console.log('productId is', productId)
+              let productPrice = productDetails.prices[productDetails.prices.length - 1].price;
+              console.log('product name (line 40) -->', productDetails.name);
+              console.log('productPrice (line 41) --> ', productPrice)
               if (cart[productId]) {
                 return (
                   <div key={productId} className="cart-product">
@@ -57,7 +48,10 @@ class Cart extends Component {
                     </a>
                     <div className="cart-product-info">
                       <div>
-                        <NavLink to={`/products/${+productId}`}>{productDetails.name}</NavLink>
+                        <NavLink
+                          to={`/products/${+productId}`}>{productDetails.name}
+                           (${productPrice})
+                        </NavLink>
                       </div>
                       <div className="cart-product-quantity">
                         <button
@@ -92,10 +86,15 @@ class Cart extends Component {
                   <td className="type">Subtotal</td>
                   <td className="amount">
                     {
-                      Object.keys(cart).length && Object.keys(cart).map(productId => {
-                        const productDetails = products.find(cartItem => +productId === +cartItem.id);
-                        let subtotal = 0;
-                      })
+                      Object.keys(cart).length && Object.keys(cart).reduce( (acc, curr) => {
+                        let product = products.find(cartItem => +curr === +cartItem.id);
+                        let productPrice = product.prices[product.prices.length - 1].price;
+                        console.log('productPrice -->', productPrice)
+                        console.log('ACC -->', acc);
+                        console.log('CURR -->', curr)
+                        return acc + productPrice;
+
+                      }, 0)
                     }
                   </td>
                 </tr>
@@ -135,3 +134,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
+
+
+// {
+//   Object.keys(cart).length && Object.keys(cart).map(productId => {
+//     const productDetails = products.find(cartItem => +productId === +cartItem.id);
+//     const productPriceArr = productDetails.prices;
+//     console.log('productPriceArr', productPriceArr)
+//     console.log('PRICE --> ', productPriceArr[productPriceArr.length-1].price)
+//     let subtotal = 0;
+//   })
+// }
