@@ -68,6 +68,9 @@ const mapDispatch = (dispatch) => {
     getProducts () {
       dispatch(fetchProducts());
     },
+    // fetchCart() {
+    //   dispatch(fetchCart())
+    // },
     addItem(id) {
       dispatch(addItem(id));
     }
