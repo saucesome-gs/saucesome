@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { fetchCartAtLogin } from "./cart";
 
 /**
  * ACTION TYPES
@@ -33,6 +34,7 @@ export const auth = (email, password, method) => dispatch =>
     .then(
       res => {
         dispatch(getUser(res.data));
+        dispatch(fetchCartAtLogin(res.data.id));
         history.push("/home");
       },
       authError => {

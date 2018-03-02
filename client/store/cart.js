@@ -39,9 +39,8 @@ export const updateItemQtyAction = (item) => ({
 
 export const fetchCartAtLogin = (userId) => (dispatch) => {
   console.log('IN THUNK')
-  axios.post('/cart', userId)
+  axios.post('/api/cart', userId)
   .then(createdOrder => {
-    console.log('this is the order', createdOrder.data);
     dispatch(fetchCartAction(createdOrder.data))
   })
 }

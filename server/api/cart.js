@@ -4,8 +4,14 @@ const { OrderItem, Order } = require('../db/models');
 
 router.post('/', (req, res, next) => {
   console.log(req.body)
-  Order.create(req.body)
-  .then(createdOrder => res.json(createdOrder));
+  Order.findOrCreate({
+    where: {
+      userId: req.body.userId,
+      status: 'pending'
+    },
+    include: { all: true }
+  })
+  .then(order => res.json(order[0]));
 })
 
 // cannot pass in order, need to get it; this route is for adding items to an existing order
