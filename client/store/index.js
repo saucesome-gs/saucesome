@@ -23,3 +23,4 @@ store.subscribe(() => localStorage.state = JSON.stringify(store.getState()))
 export default store;
 export * from "./user";
 export * from './product';
+export * from './cart';

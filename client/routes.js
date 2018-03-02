@@ -3,19 +3,23 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
-import {me, fetchProducts } from './store';
-import { addItem } from './store/cart';
+import { me, fetchProducts, addItem } from './store';
 
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
   componentDidMount () {
     this.props.loadInitialData()
     this.props.getProducts()
-    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
+
 
   handleAddToCart(event) {
     event.preventDefault();
@@ -56,7 +60,8 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    products: state.products
+    products: state.products,
+    user: state.user
   }
 }
 
@@ -67,6 +72,9 @@ const mapDispatch = (dispatch) => {
     },
     getProducts () {
       dispatch(fetchProducts());
+    },
+    fetchCartAtLogin(userId) {
+      dispatch(fetchCartAtLogin(userId))
     },
     addItem(id) {
       dispatch(addItem(id));
