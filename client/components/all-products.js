@@ -44,13 +44,23 @@ export class AllProducts extends Component {
           { (products.length) && filteredProducts.map((product => {
             return (
               <div key={product.id}>
-                <img src={product.imageUrl} />
-                <ul>
-                  <li>
-                    <NavLink to={`/products/${+product.id}`}>{product.name}</NavLink>
-                  </li>
-                </ul>
-                <button value={product.id} onClick={this.props.handleAddToCart}>Add to Cart</button>
+                <a href={`/products/${+product.id}`}>
+                  <img src={product.imageUrl} />
+                </a>
+                <div>
+                  <div>{product.brand.name}</div>
+                  <div>
+                    <NavLink to={`/products/${+product.id}`}>
+                      {product.name}
+                    </NavLink>
+                  </div>
+                  <div>${product.prices[product.prices.length - 1].price}</div>
+                </div>
+                <button
+                  value={product.id}
+                  onClick={this.props.handleAddToCart}>
+                  Add to Cart
+                </button>
               </div>
             )}
           ))
