@@ -32,13 +32,14 @@ class Routes extends Component {
     }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} />} />
-        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} />} />
+
+        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
+        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin}/>} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
@@ -64,6 +65,7 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    isAdmin: state.user.isAdmin,
     isLoggedIn: !!state.user.id,
     products: state.products,
     user: state.user,

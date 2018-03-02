@@ -1,21 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { addItem, addItemToDb } from '../store';
+import { withRouter, NavLink } from 'react-router-dom';
+import {EditForm} from './';
+import { addItem } from '../store/cart';
+import { addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
-  const { products } = props;
+  const { products, isAdmin } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
-
-  console.log('params -->', props.match.params.productId)
-
-  console.log('products -->', products)
-
-  // console.log('singleProduct -->', product.prices[product.prices.length - 1].price)
-
-  console.log('singleProduct -->', product)
 
   return (
     <div>
@@ -43,6 +37,7 @@ export const SingleProduct = (props) => {
           </button>
         </div>
       }
+       {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div>}
     </div>
   )
 }
