@@ -74,7 +74,9 @@ export class AllProducts extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    order: state.order,
+    isLoggedIn: !!state.user.id
   }
 }
 

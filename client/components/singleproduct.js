@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom';
-import { addItem } from '../store/cart';
+import { withRouter } from 'react-router-dom';
+import { addItem, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
@@ -49,13 +49,17 @@ export const SingleProduct = (props) => {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    isLoggedIn: !!state.user.id
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     addItem(id) {
       dispatch(addItem(id));
+    },
+    addItemToDb(productId, orderId) {
+      dispatch(addItemToDb(productId, orderId));
     }
   }
 };
