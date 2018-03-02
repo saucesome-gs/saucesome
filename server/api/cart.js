@@ -7,7 +7,7 @@ router.post('/', (req, res, next) => {
   .then(createdOrder => res.json(createdOrder));
 })
 
-// cannot pass in order, need to get it
+// cannot pass in order, need to get it; this route is for adding items to an existing order
 router.post('/:orderId', (req, res, next) => {
   const items = req.body;
   items.map(item =>

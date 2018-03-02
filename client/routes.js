@@ -3,8 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart} from './components'
-import {me, fetchProducts } from './store';
-import { addItem } from './store/cart';
+import { me, fetchProducts, addItem, fetchCartAtLogin } from './store';
 
 
 /**
@@ -15,7 +14,11 @@ class Routes extends Component {
     this.props.loadInitialData()
     this.props.getProducts()
     this.handleAddToCart = this.handleAddToCart.bind(this);
+    if (this.props.user) {
+      this.props.fetchCartAtLogin(this.props.user.id)
+    }
   }
+
 
   handleAddToCart(event) {
     event.preventDefault();
@@ -68,9 +71,9 @@ const mapDispatch = (dispatch) => {
     getProducts () {
       dispatch(fetchProducts());
     },
-    // fetchCart() {
-    //   dispatch(fetchCart())
-    // },
+    fetchCartAtLogin(userId) {
+      dispatch(fetchCartAtLogin(userId))
+    },
     addItem(id) {
       dispatch(addItem(id));
     }

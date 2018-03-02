@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // ACTION TYPES
 
-const GET_CART = 'GET_CART';
+const FETCH_CART = 'GET_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const REMOVE_ITEM = 'REMOVE_ITEM';
 const UPDATE_ITEM_QTY = 'UPDATE_ITEM_QTY';
@@ -16,7 +16,7 @@ const cart = {};
 // ACTION CREATORS
 
 export const getCartAction = (cart) => ({
-  type: GET_CART,
+  type: FETCH_CART,
   cart
 });
 
@@ -36,6 +36,13 @@ export const updateItemQtyAction = (item) => ({
 });
 
 // THUNK CREATORS
+
+export const fetchCartAtLogin = (userId) => (dispatch) => {
+  axios.get(`/${userId}`)
+  .then(createdOrder => {
+    console.log('this is the order', createdOrder.data);
+  })
+}
 
 export const getCartThunk = (userId) => (dispatch) => {
     axios.get(`/cart/${userId}`)
@@ -64,8 +71,9 @@ export default function(state = cart, action) {
 
   switch (action.type) {
 
-    case GET_CART:
+    case FETCH_CART:
       return action.cart;
+
     case ADD_ITEM:
     if (!state.hasOwnProperty(action.item.id)) {
       return {...state, [action.item.id]: 1};
@@ -76,16 +84,18 @@ export default function(state = cart, action) {
     }
 
     case REMOVE_ITEM: {
-      if (state.hasOwnProperty(action.item.id) && state[action.item.id] > 0) {
+      if (state.hasOwnProperty(action.item.id)) {
         const newState = {...state};
         newState[action.item.id]--;
+        if (newState[action.item.id] === 0) delete newState[action.item.id];
         return newState;
-      } else {
-        return state;
       }
+      break;
     }
 
     default:
       return state;
   }
 }
+
+
