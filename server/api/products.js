@@ -3,7 +3,7 @@ const Products = require('../db/models/product');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  Products.findAll()
+  Products.findAll({ include: [{ all: true }]})
   .then(product => res.json(product))
   .catch(next);
 });
