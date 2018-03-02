@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { addItem } from '../store/cart';
 
 export const SingleProduct = (props) => {
@@ -8,14 +8,6 @@ export const SingleProduct = (props) => {
   const { products } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
-
-  console.log('params -->', props.match.params.productId)
-
-  console.log('products -->', products)
-
-  // console.log('singleProduct -->', product.prices[product.prices.length - 1].price)
-
-  console.log('singleProduct -->', product)
 
   return (
     <div>
@@ -33,7 +25,7 @@ export const SingleProduct = (props) => {
           <ul>
             <p>Tags:</p>
             {
-              product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
+              product.tags.map( (tag, key) => <li key={key}><Link to={`/tag/${tag}`}>#{tag}</Link></li> )
             }
           </ul>
           <button
@@ -52,6 +44,7 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     addItem(id) {
