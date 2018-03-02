@@ -3,33 +3,43 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag} from './components'
-import {me, fetchProducts } from './store';
-import { addItem } from './store/cart';
+import { me, fetchProducts, addItem, addItemToDb } from './store';
 
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
-    this.props.loadInitialData()
-    this.props.getProducts()
+
+  constructor(props) {
+    super(props);
     this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
+  componentDidMount () {
+    this.props.loadInitialData()
+    this.props.getProducts()
+  }
+
   handleAddToCart(event) {
+    if (this.props.isLoggedIn) {
+      console.log('LOGGED IN')
+      this.props.addItemToDb(event.target.value, this.props.order);
+      } else {
     event.preventDefault();
     this.props.addItem(event.target.value);
+      }
     }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} />} />
-        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} />} />
+
+        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
+        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin}/>} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
@@ -56,8 +66,11 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    isAdmin: state.user.isAdmin,
     isLoggedIn: !!state.user.id,
-    products: state.products
+    products: state.products,
+    user: state.user,
+    order: state.order
   }
 }
 
@@ -71,6 +84,9 @@ const mapDispatch = (dispatch) => {
     },
     addItem(id) {
       dispatch(addItem(id));
+    },
+    addItemToDb(productId, orderId) {
+      dispatch(addItemToDb(productId, orderId));
     }
   }
 }

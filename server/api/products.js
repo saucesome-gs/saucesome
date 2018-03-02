@@ -2,6 +2,15 @@ const router = require('express').Router();
 const Products = require('../db/models/product');
 module.exports = router;
 
+const isAdmin = (req, res, next) => {
+  if (!req.user.isAdmin){
+    const err = Error('Unauthorized')
+    err.status = 401;
+    throw err
+  }
+  next();
+}
+
 router.get('/', (req, res, next) => {
   Products.findAll({ include: [{ all: true }]})
   .then(product => res.json(product))
@@ -15,13 +24,13 @@ router.get('/:productid', (req, res, next) => {
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', isAdmin, (req, res, next) => {
   Products.create(req.body)
   .then(product => res.status(201).json(product))
   .catch(next);
 });
 
-router.put('/:productid', (req, res, next) => {
+router.put('/:productid', isAdmin, (req, res, next) => {
   Products.findById(req.params.productid)
   .then(product => product.update(req.body))
   .then(updatedProduct => res.json(updatedProduct))

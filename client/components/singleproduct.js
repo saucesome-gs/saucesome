@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { EditForm } from './';
 import { addItem } from '../store/cart';
+import { addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
-  const { products } = props;
+  const { products, isAdmin } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
 
@@ -35,13 +37,15 @@ export const SingleProduct = (props) => {
           </button>
         </div>
       }
+       {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div>}
     </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -49,22 +53,12 @@ const mapDispatchToProps = dispatch => {
   return {
     addItem(id) {
       dispatch(addItem(id));
+    },
+    addItemToDb(productId, orderId) {
+      dispatch(addItemToDb(productId, orderId));
     }
   }
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
 
-
-
-// <ul>
-// <p>Tags:</p>
-// {
-//   product.tags.length && product.tags.map( (tag, key) => <li key={key}>#{tag}</li> )
-// }
-// </ul>
-// <div>
-// {
-//   product.prices.length && product.prices.map( (price, key) => <li key={key}><p>Price: {`$${price.price}`}</p></li> )
-// }
-// </div>

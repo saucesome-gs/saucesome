@@ -137,7 +137,7 @@ async function seed () {
     spiciness: 2,
     quantity: 35,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/JALAPENOAPPLE_HOT_SAUCE.jpg?v=1511112689',
-    tags: ['sweet', 'hearty texture', 'garlic', 'zesty', 'not-too-hot', 'mild-hot', 'bravado-spice-co'],
+    tags: ['sweet', 'hearty-texture', 'garlic', 'zesty', 'not-too-hot', 'mild-hot', 'bravado-spice-co'],
     brandId: 2
   })),
   Product.create(({
