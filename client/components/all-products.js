@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
-import { SearchForm } from './search-form';
-import {ProductForm} from './';
+// import { SearchForm } from './search-form';
+import { ProductForm } from './';
 // import { fetchProducts } from '../store/product';
 
 export class AllProducts extends Component {

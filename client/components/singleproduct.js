@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { EditForm } from './';
+import { EditForm, ReviewForm } from './';
 import { addItem } from '../store/cart';
-import { addItemToDb } from '../store';
+import { me, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
@@ -12,6 +12,8 @@ export const SingleProduct = (props) => {
   const product = products.find(product => Number(props.match.params.productId) === product.id);
 
   return (
+
+
     <div>
     {
       (product.quantity > 0) && (products.length) ?
@@ -38,6 +40,7 @@ export const SingleProduct = (props) => {
               onClick={props.handleAddToCart}>
               Add To Cart
             </button>
+            <ReviewForm user={props} />
             <ul>
        {product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
@@ -57,12 +60,16 @@ export const SingleProduct = (props) => {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    loadInitialData () {
+      dispatch(me())
+    },
     addItem(id) {
       dispatch(addItem(id));
     },

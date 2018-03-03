@@ -22,6 +22,7 @@ export class ProductForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   render () {
+    console.log(this);
     return (
       <div>
         <h2> Spice it or splice it </h2>
