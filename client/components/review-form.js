@@ -18,8 +18,6 @@ export class ReviewForm extends Component {
 
   render () {
 
-    console.log('props', this.props);
-
     return (
       <div>
         <h2> Review this sauce </h2>
@@ -45,6 +43,7 @@ export class ReviewForm extends Component {
             required />
           <button type = "submit"> Add Review </button>
         </form>
+        <h2>Reviews:</h2>
       </div>
     )
   }

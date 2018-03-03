@@ -39,11 +39,11 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
 
         <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
-        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin}/>} />
+        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
-        <Route path="/tag/:tagId" component={SearchTag} />
+        <Route path="/tag/:tagId" render={() => <SearchTag handleAddToCart={this.handleAddToCart} />} />
 
         {
           isLoggedIn &&

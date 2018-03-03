@@ -33,28 +33,28 @@ export class ProductForm extends Component {
                  value = {this.state.name}
                  placeholder = "Sauce name"
                  type= "text"
-                 required/>
+                 required />
           <label>Description: </label>
           <input name = "description"
                  onChange = {this.handleChange}
                  value = {this.state.description}
                  placeholder = "Sauce description"
                  type = "text"
-                 required/>
+                 required />
           <label>Ingredients: </label>
           <input name = "ingredients"
                  onChange = {this.handleChange}
                  value = {this.state.ingredients}
                  placeholder = "Sauce ingredients"
                  type= "text"
-                 required/>
+                 required />
           <label>Size: </label>
           <input name = "size"
                  onChange = {this.handleChange}
                  value = {this.state.size}
                  placeholder = "Sauce size"
                  type= "text"
-                 required/>
+                 required />
           <label>Spiciness: </label>
           <input name = "spiciness"
                  onChange = {this.handleChange}
@@ -62,7 +62,7 @@ export class ProductForm extends Component {
                  placeholder = "9000"
                  type= "number"
                  min = "1"
-                 required/>
+                 required />
           <label>Quantity: </label>
           <input name = "quantity"
                  onChange = {this.handleChange}
@@ -70,21 +70,21 @@ export class ProductForm extends Component {
                  placeholder = "1"
                  type= "number"
                  min = "1"
-                 required/>
+                 required />
           <label>ImageUrl: </label>
           <input name = "imageUrl"
                  onChange = {this.handleChange}
                  value = {this.state.imageUrl}
                  placeholder = "url"
                  type= "url"
-                 required/>
+                 required />
           <label>Tags: </label>
           <input name = "tags"
                  onChange = {this.handleChange}
                  value = {this.state.tags}
                  placeholder = "hot"
                  type= "string"
-                 required/>
+                 required />
           <button type = "submit"> Add Sauce </button>
         </form>
       </div>

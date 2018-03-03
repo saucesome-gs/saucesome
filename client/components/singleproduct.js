@@ -7,7 +7,7 @@ import { me, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
-  const { products, isAdmin } = props;
+  const { products, isAdmin, isLoggedIn } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
 
@@ -40,7 +40,7 @@ export const SingleProduct = (props) => {
               onClick={props.handleAddToCart}>
               Add To Cart
             </button>
-            <ReviewForm user={props} />
+            {(isLoggedIn) ? <ReviewForm user={props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
             <ul>
        {product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
