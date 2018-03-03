@@ -33,8 +33,7 @@ export const fetchUsersOrders = (userId) => (dispatch) => {
 export default function reducer(state = pastOrders, action) {
   switch (action.type) {
     case ADD_PAST_ORDER: {
-      const newState = [...state, action.order];
-      return newState.filter((order, index, self) => self.indexOf(order) === index);
+      return [...state, action.order];
     }
     default:
       return state;
