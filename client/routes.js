@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag} from './components'
+import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, Checkout, SearchTag} from './components'
 import { me, fetchProducts, addItem, addItemToDb } from './store';
 
 
@@ -38,11 +38,20 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
 
-        <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
-        <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin}/>} />
+        <Route
+          exact path="/products"
+          render={() =>
+            <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />}
+        />
+        <Route
+          exact path="/products/:productId"
+          render={() =>
+            <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin} />}
+        />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={Checkout} />
         <Route path="/tag/:tagId" component={SearchTag} />
 
         {

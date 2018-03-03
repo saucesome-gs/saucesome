@@ -27,7 +27,7 @@ router.put('/:orderId', (req, res, next) => {
   })
   .then(updatedOrder => {
     console.log(updatedOrder);
-    res.sendStatus(200)
+    res.status(200).json(updatedOrder)
   })
   .catch(next)
 })
