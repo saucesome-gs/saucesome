@@ -3,6 +3,7 @@ import axios from 'axios';
 // ACTION TYPES
 
 const FETCH_PAST_ORDERS = 'GET_USERS_ORDERS';
+const CLEAR_PAST_ORDERS = 'CLEAR_PAST_ORDERS';
 
 // INITIAL STATE
 
@@ -17,6 +18,12 @@ const fetchPastOrdersAction = (orders) => {
   }
 }
 
+export const clearPastOrdersAction = () => {
+  return {
+    type: CLEAR_PAST_ORDERS
+  }
+}
+
 // THUNK CREATORS
 
 export const fetchUsersOrders = (userId) => (dispatch) => {
@@ -27,17 +34,16 @@ export const fetchUsersOrders = (userId) => (dispatch) => {
     let orderObjects = formattedOrders.map(order => ({orderId: order.id, date: order.updatedAt, status: order.status}));
     dispatch(fetchPastOrdersAction(orderObjects));
   })
-
-
 }
 
 // REDUCER
 
 export default function reducer(state = pastOrders, action) {
   switch (action.type) {
-    case FETCH_PAST_ORDERS: {
+    case FETCH_PAST_ORDERS:
       return action.orders;
-    }
+    case CLEAR_PAST_ORDERS:
+      return [];
     default:
       return state;
   }

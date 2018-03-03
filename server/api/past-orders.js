@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { OrderItems, Order } = require('../db/models');
 
 router.get('/:userId', (req, res, next) => {
+  console.log(req.params.userId)
   Order.findAll({
     // type: sequelize.QueryTypes.
     where: {

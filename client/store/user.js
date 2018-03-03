@@ -1,7 +1,7 @@
 import axios from "axios";
 import history from "../history";
 import { fetchCartAtLogin, clearCartAction } from "./cart";
-import { fetchUsersOrders } from "./past-orders";
+import { fetchUsersOrders, clearPastOrdersAction } from "./past-orders";
 
 /**
  * ACTION TYPES
@@ -53,6 +53,7 @@ export const logout = () => dispatch =>
     .then(_ => {
       dispatch(removeUser());
       dispatch(clearCartAction());
+      dispatch(clearPastOrdersAction());
       history.push("/login");
     })
     .catch(err => console.log(err));
