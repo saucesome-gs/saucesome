@@ -15,6 +15,7 @@ class Cart extends Component {
     this.updateSubtotal = this.updateSubtotal.bind(this);
   }
 
+
   componentDidMount(){
     this.updateSubtotal();
   }

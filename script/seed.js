@@ -21,7 +21,8 @@ async function seed () {
   // Users Seed
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'sauce@sauce.com', password: '123', isAdmin: true})
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -123,7 +124,7 @@ async function seed () {
     ingredients: 'red pepper, butternut squash, apple cider vinegar, onion, sweet potato, honey, garlic, salt, ginger',
     size: '5 oz',
     spiciness: 2.5,
-    quantity: 40,
+    quantity: 0,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/548bc426d12bd321476b98f6ccff37b4.jpg?v=1508167630',
     tags: ['sweet', 'hearty-texture', 'honey', 'ginger', 'not-too-hot', 'gluten free', 'award winner', 'medium-hot', 'mild-hot', 'karma-sauce'],
     brandId: 1
