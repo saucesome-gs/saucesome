@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag} from './components'
-import { me, fetchProducts, addItem, addItemToDb } from './store';
+import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders} from './components'
+import { me, fetchProducts, addItem, addItemToDb, fetchUsersOrders } from './store';
 
 
 /**
@@ -44,6 +44,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/tag/:tagId" component={SearchTag} />
+        <Route exact path="/orders/:userId" component={AllOrders} />
 
         {
           isLoggedIn &&
@@ -70,7 +71,8 @@ const mapState = (state) => {
     isLoggedIn: !!state.user.id,
     products: state.products,
     user: state.user,
-    order: state.order
+    order: state.order,
+    pastOrders: state.pastOrders
   }
 }
 
@@ -87,6 +89,9 @@ const mapDispatch = (dispatch) => {
     },
     addItemToDb(productId, orderId) {
       dispatch(addItemToDb(productId, orderId));
+    },
+    fetchUsersOrders(userId) {
+      dispatch(fetchUsersOrders(userId));
     }
   }
 }
