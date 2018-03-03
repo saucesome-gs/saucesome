@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Product, Price, Brand } = require('../server/db/models')
+const { User, Product, Price, Brand, Review } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -373,10 +373,20 @@ async function seed () {
     Price.create({id: 19, price: 20.00, productId: 19})
   ]);
 
+  const reviews = await Promise.all([
+    Review.create({rating: 1, body: 'This item is great. It was really hot. My mouth still burns', userId: 2, productId: 3}),
+    Review.create({rating: 5, body: 'I love this sauce', userId: 1, productId: 3}),
+    Review.create({rating: 3, body: 'Saucesome is my favorite website to buy sauces! It is so SAUCESOME!', userId: 2, productId: 8})
+  ])
+
   console.log(`seeded ${prices.length} prices`)
   console.log(`seeded successfully`)
 
+  
+
 }
+
+  
 
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors

@@ -7,8 +7,9 @@ import user from "./user";
 import products from "./product";
 import cart from './cart';
 import order from './order';
+import reviews from './review'
 
-const reducer = combineReducers({ user, products, cart, order });
+const reducer = combineReducers({ user, products, cart, order, reviews });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
@@ -22,6 +23,7 @@ store.subscribe(() => localStorage.state = JSON.stringify(store.getState()));
 // const store = createStore(reducer, middleware);
 
 export default store;
-export * from "./user";
+export * from './user';
 export * from './product';
 export * from './cart';
+export * from './review';

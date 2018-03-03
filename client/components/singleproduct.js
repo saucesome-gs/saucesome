@@ -38,6 +38,9 @@ export const SingleProduct = (props) => {
               onClick={props.handleAddToCart}>
               Add To Cart
             </button>
+            <ul>
+       {product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
+      </ul>
           </div> }
         {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }
       </div> :
@@ -45,6 +48,7 @@ export const SingleProduct = (props) => {
         <img className="grayscale" src={product.imageUrl} />
         <h1>Currently Unavailable</h1>
       </div>
+    
     }
     </div>
   )
