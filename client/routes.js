@@ -2,13 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
 import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders} from './components'
 import { me, fetchProducts, addItem, addItemToDb, fetchUsersOrders } from './store';
-=======
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, Checkout, SearchTag} from './components'
-import { me, fetchProducts, addItem, addItemToDb } from './store';
->>>>>>> 9a8aefd956c626b162fd7d7ac3259a57f02dc92e
 
 
 /**
