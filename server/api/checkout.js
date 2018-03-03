@@ -19,5 +19,18 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
+router.put('/:orderId', (req, res, next) => {
+  Order.update({
+    status: 'purchased'
+  }, {
+    where: {id: req.params.orderId},
+  })
+  .then(updatedOrder => {
+    console.log(updatedOrder);
+    res.sendStatus(200)
+  })
+  .catch(next)
+})
+
 module.exports = router;
 
