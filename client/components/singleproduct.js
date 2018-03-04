@@ -21,12 +21,12 @@ export const SingleProduct = (props) => {
         { (products.length) &&
           <div>
             <img src={product.imageUrl} />
-            <h3>{product.brand.name}</h3>
+            <h3>{product.brand && product.brand.name}</h3>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <div>
               {
-                `$${product.prices[product.prices.length - 1].price}`
+                `${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
               }
             </div>
             <ul>
@@ -42,7 +42,7 @@ export const SingleProduct = (props) => {
             </button>
             {(isLoggedIn) ? <ReviewForm user={props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
             <ul>
-       {product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
+       {product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
           </div> }
         {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }

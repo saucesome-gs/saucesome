@@ -16,7 +16,9 @@ export class AllProducts extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
-
+  componentDidMount(){
+    this.props.fetchProducts()
+  }
   handleChange(event) {
     const value = event.target.value
     this.setState({
@@ -51,13 +53,13 @@ export class AllProducts extends Component {
              <img src={product.imageUrl} />
            </a>
            <div>
-             <div>{product.brand.name}</div>
+             <div>{product.brand && product.brand.name}</div>
              <div>
                <Link to={`/products/${+product.id}`}>
                  {product.name}
                </Link>
              </div>
-             <div>${product.prices[product.prices.length - 1].price}</div>
+             <div>${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}</div>
            </div>
            <button
              value={product.id}
