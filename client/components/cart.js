@@ -9,41 +9,33 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subtotal: 0,
       checkingOut: false
     }
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
-    this.updateSubtotal = this.updateSubtotal.bind(this);
+    this.getSubtotal = this.getSubtotal.bind(this);
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
   }
 
-
-  componentDidMount(){
-    this.updateSubtotal();
-  }
-
-  async handleIncrement(event) {
+  handleIncrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      await this.props.addItemToDb(event.target.value, this.props.order);
+      this.props.addItemToDb(event.target.value, this.props.order);
     } else {
-      await this.props.addItem(event.target.value);
+      this.props.addItem(event.target.value);
     }
-    this.updateSubtotal();
   }
 
-  async handleDecrement(event) {
+  handleDecrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      await this.props.deleteItemFromDb(event.target.value, this.props.order);
+      this.props.deleteItemFromDb(event.target.value, this.props.order);
     } else {
-      await this.props.deleteItem(event.target.value);
+      this.props.deleteItem(event.target.value);
     }
-    this.updateSubtotal();
   }
 
-  updateSubtotal() {
+  getSubtotal() {
     const cart = this.props.cart;
     const cartProdPrices = {};
     const cartIds = Object.keys(cart).map(el => +el);
@@ -58,9 +50,7 @@ class Cart extends Component {
       let quantity = cart[prodId];
       subtotal += (quantity * cartProdPrices[prodId]);
     }
-    this.setState({
-      subtotal
-    })
+    return subtotal
   }
 
   handleCheckoutClick(event) {
@@ -71,9 +61,8 @@ class Cart extends Component {
   }
 
   render() {
-
     const { cart, products } = this.props;
-    const subtotal = this.state.subtotal;
+    const subtotal = this.getSubtotal()
     const checkingOut = this.state.checkingOut;
 
     return checkingOut
@@ -133,7 +122,7 @@ class Cart extends Component {
                     </tr>
                     <tr>
                       <td className="type">Subtotal</td>
-                      <td className="amount">${this.state.subtotal}</td>
+                      <td className="amount">${subtotal}</td>
                     </tr>
                     <tr>
                       <td className="type">Shipping</td>
