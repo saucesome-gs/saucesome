@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {NavLink, withRouter } from 'react-router-dom'
 import {logout, clearCartAction } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn, cart }) => (
+const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
 
   <div>
     <h1>SAUCESOME</h1>
@@ -16,6 +16,7 @@ const Navbar = ({ handleClick, isLoggedIn, cart }) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <NavLink to="/home">Home</NavLink>
+          <NavLink to={`/orders/${user.id}`}>Your Past Orders</NavLink>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -46,7 +47,8 @@ const Navbar = ({ handleClick, isLoggedIn, cart }) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 

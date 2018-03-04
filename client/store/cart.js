@@ -1,10 +1,7 @@
 import axios from 'axios';
 import { setOrderAction } from './order';
-// import history from '../history';
-
 
 // ACTION TYPES
-
 const FETCH_CART = 'FETCH_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const REMOVE_ITEM = 'REMOVE_ITEM';
@@ -15,7 +12,6 @@ const CLEAR_CART = 'CLEAR_CART';
 const cart = {};
 
 // ACTION CREATORS
-
 export const fetchCartAction = (cart) => ({
   type: FETCH_CART,
   cart
@@ -41,7 +37,6 @@ export const clearCartAction = () => ({
 })
 
 // THUNK CREATORS
-
 export const fetchCartAtLogin = (userId) => (dispatch) => {
   console.log('IN THUNK')
   axios.post('/api/cart', { userId })
@@ -50,19 +45,18 @@ export const fetchCartAtLogin = (userId) => (dispatch) => {
     const items = createdOrder.data.orderItems;
     if (items) items.forEach((item) => dispatch(addItemAction(item)))
   })
+  .catch(error => {
+    console.log(error)
+  })
 }
-
-// export const fetchCartThunk = (userId) => (dispatch) => {
-//     axios.get(`/cart/${userId}`)
-//     .then((res) => {
-//       dispatch(fetchCartAction(res.data));
-//     })
-// }
 
 export const addItem = (itemId) => (dispatch) => {
   return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(addItemAction(res.data));
+  })
+  .catch(error => {
+    console.log(error)
   })
 }
 
@@ -72,12 +66,18 @@ export const addItemToDb = (itemId, orderId) => (dispatch) => {
     dispatch(addItemAction(foundItem.data));
     axios.post(`/api/cart/${orderId}`, {orderId: orderId, productId: foundItem.data.id, priceId: null})
   })
+  .catch(error => {
+    console.log(error)
+  })
 }
 
 export const deleteItem = (itemId) => (dispatch) => {
   return axios.get(`/api/products/${itemId}`)
   .then((res) => {
     dispatch(removeItemAction(res.data));
+  })
+  .catch(error => {
+    console.log(error)
   })
 }
 
@@ -87,10 +87,20 @@ export const deleteItemFromDb = (itemId, orderId) => (dispatch) => {
     dispatch(removeItemAction(foundItem.data));
     axios.put('/api/cart', {orderId: orderId, productId: foundItem.data.id})
   })
+  .catch(error => {
+    console.log(error)
+  })
+}
+
+export const checkoutCart = (cartArr) => (dispatch) => {
+  return axios.post(`/api/checkout`, cartArr)
+  .then( () => dispatch(clearCartAction()) )
+  .catch(error => {
+    console.log(error)
+  })
 }
 
 // REDUCER
-
 export default function(state = cart, action) {
 
   switch (action.type) {

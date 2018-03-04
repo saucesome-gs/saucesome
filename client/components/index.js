@@ -14,3 +14,5 @@ export {default as EditForm} from './edit-form'
 export {default as SearchForm} from './search-form'
 export {default as SearchTag} from './search-tag'
 export {default as ReviewForm} from './review-form'
+export {default as Checkout} from './checkout';
+export { default as AllOrders } from './all-orders';

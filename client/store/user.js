@@ -1,6 +1,7 @@
 import axios from "axios";
 import history from "../history";
 import { fetchCartAtLogin, clearCartAction } from "./cart";
+import { fetchUsersOrders, clearPastOrdersAction } from "./past-orders";
 
 /**
  * ACTION TYPES
@@ -36,6 +37,7 @@ export const auth = (email, password, method) => dispatch =>
         dispatch(getUser(res.data));
         console.log('user id is ', res.data.id)
         dispatch(fetchCartAtLogin(res.data.id));
+        dispatch(fetchUsersOrders(res.data.id));
         history.push("/home");
       },
       authError => {
@@ -51,6 +53,7 @@ export const logout = () => dispatch =>
     .then(_ => {
       dispatch(removeUser());
       dispatch(clearCartAction());
+      dispatch(clearPastOrdersAction());
       history.push("/login");
     })
     .catch(err => console.log(err));
