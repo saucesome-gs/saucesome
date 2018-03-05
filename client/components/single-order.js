@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
 class SingleOrder extends Component {
@@ -41,7 +41,22 @@ class SingleOrder extends Component {
           Order #{this.props.match.params.orderId}
         </div>
         {
-          this.state.orderItems.map(item => (<p>Item here</p>))
+          this.state.orderItems.map(item =>
+            (
+              <div key={item.id} className="cart-product">
+              <a href={`/products/${+item.Id}`}>
+                <img src={item.imageUrl} />
+              </a>
+              <div className="cart-product-info">
+                <div>
+                  <Link
+                    to={`/products/${+item.id}`}>{`${item.name}
+                      - product price here `}
+                  </Link>
+                </div>
+                </div>
+                </div>
+        ))
         }
       </div>
     )

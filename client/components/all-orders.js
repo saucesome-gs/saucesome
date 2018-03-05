@@ -11,7 +11,6 @@ class AllOrders extends Component {
   render() {
 
     const { pastOrders } = this.props;
-    // const filteredOrders = this.props.orders.filter(order => (filteredOrders.name.toLowerCase().match(value) || filteredOrders.brand.name.toLowerCase().match(value)) && filteredOrders.quantity > 0)
 
    return (
     <div>
