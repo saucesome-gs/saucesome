@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { postProduct } from '../store/product'
 
 const initialState = {
@@ -11,7 +11,8 @@ const initialState = {
   spiciness: 0,
   quantity: 0,
   imageUrl: '',
-  tags: []
+  tags: [],
+  price: 0
 }
 
 export class ProductForm extends Component {
@@ -22,6 +23,7 @@ export class ProductForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   render () {
+    
 
     return (
       <div>
@@ -41,6 +43,13 @@ export class ProductForm extends Component {
                  placeholder = "Sauce description"
                  type = "text"
                  required />
+          <label>Price: </label>
+          <input name = "price"
+                onChange = {this.handleChange}
+                value = {this.state.price}
+                placeholder = "Price"
+                type= "num"
+                required />
           <label>Ingredients: </label>
           <input name = "ingredients"
                  onChange = {this.handleChange}
@@ -92,7 +101,7 @@ export class ProductForm extends Component {
   }
   handleSubmit(event){
     event.preventDefault()
-    const price = event.target.price.value;
+    const temp = (event.target.tags.value).split(',')
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -101,10 +110,16 @@ export class ProductForm extends Component {
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
       imageUrl: event.target.imageUrl.value,
-      tags: [event.target.tags.value],
-      brandId: 1
+      tags: temp,
+      brandId: 1,
+      price: event.target.price.value
+
     }
-  this.props.postProduct(info);
+  
+  const products = this.props.props.products;
+  const that = this.props.props;
+  console.log(that);
+  this.props.postProduct(info, that)
   }
   handleChange(event){
     const { target } = event;
@@ -118,10 +133,10 @@ export class ProductForm extends Component {
 
 const mapStateToProps = null;
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    postProduct: product => dispatch(postProduct(product))
+    postProduct: product => dispatch(postProduct(product, ownProps))
   }
 }
 
-export default (connect(mapStateToProps, mapDispatchToProps)(ProductForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductForm));
