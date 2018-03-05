@@ -111,6 +111,8 @@ export class ProductForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
+    console.log("this is the target:", event.target)
+    let temp = (event.target.tags.value).split(',')
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -119,7 +121,7 @@ export class ProductForm extends Component {
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
       imageUrl: event.target.imageUrl.value,
-      tags: [event.target.tags.value],
+      tags: temp,
       brandId: 1
     }
     this.props.postProduct(info);

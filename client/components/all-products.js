@@ -60,7 +60,7 @@ export class AllProducts extends Component {
                  {product.name}
                </Link>
              </div>
-                {(product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length)} star review
+                {(product.reviews && product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length)} star review
                 </div> :
                 <div>
                   No reviews
