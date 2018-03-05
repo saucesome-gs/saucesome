@@ -7,18 +7,11 @@ class Checkout extends Component {
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
   }
 
   render() {
 
-    const props = this.props;
-    console.log('CHECKOUT COMPONENT PROPS: \n ', props);
+    const { subtotal } = this.props;
 
     return (
       <div>
@@ -74,7 +67,7 @@ class Checkout extends Component {
             </fieldset>
           </form>
         </div>
-        <span>${this.props.subtotal}</span>
+        <span>${subtotal}</span>
       </div>
     )
   }
@@ -87,7 +80,8 @@ const mapStateToProps = (state) => {
     products: state.products,
     user: state.user,
     order: state.order,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    subtotal: state.subtotal
   }
 };
 
