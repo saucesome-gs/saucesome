@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-class SingleOrder extends Component {
-  render() {
+function SingleOrder() {
     return (<div>Single order here</div>)
-  }
 }
 
 const mapStateToProps = state => {
@@ -20,4 +18,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = null;
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllOrders));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleOrder));

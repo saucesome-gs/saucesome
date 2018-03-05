@@ -27,9 +27,11 @@ class AllOrders extends Component {
              <div>Order Number: {order.orderId}</div>
              <div>Date: {order.date}</div>
              <div>Status: {order.status}</div>
+            <Link to={`/order/${order.orderId}`}>
            <button>
              View Order
            </button>
+           </Link>
          </div>
          </div>
        )}

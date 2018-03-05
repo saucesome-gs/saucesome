@@ -46,7 +46,7 @@ class Routes extends Component {
         <Route path="/tag/:tagId" render={() => <SearchTag handleAddToCart={this.handleAddToCart} />} />
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/orders/:userId" component={AllOrders} />
-        <Route exact path="/orders/:orderId" component={SingleOrder} />
+        <Route path="/order/:orderId" component={SingleOrder} />
         {
           isLoggedIn &&
             <Switch>
