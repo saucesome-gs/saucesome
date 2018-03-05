@@ -33,7 +33,6 @@ export class AllProducts extends Component {
     const value = this.state.value
     const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value) || product.brand.name.toLowerCase().match(value)) && product.quantity > 0)
 
-    console.log("filtered Products:", filteredProducts)
    return (
     <div>
     <form>
@@ -50,9 +49,9 @@ export class AllProducts extends Component {
      { (products.length) && filteredProducts.map((product => {
        return (
          <div key={product.id}>
-           <a href={`/products/${+product.id}`}>
+           <Link to={`/products/${+product.id}`}>
              <img src={product.imageUrl} />
-           </a>
+           </Link>
            <div>
              <div>{product.brand && product.brand.name}</div>
              <div>

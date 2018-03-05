@@ -24,7 +24,7 @@ export class ProductForm extends Component {
   }
 
   render () {
-    console.log(this);
+
     return (
       <div>
         <h2> Spice it or splice it </h2>
@@ -113,6 +113,7 @@ export class ProductForm extends Component {
     event.preventDefault()
     console.log("this is the target:", event.target)
     let temp = (event.target.tags.value).split(',')
+    const price = event.target.price.value;
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,
