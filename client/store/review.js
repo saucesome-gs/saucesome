@@ -77,7 +77,7 @@ export const removeReview = (reviewId) => {
 
 export const postReview = (review) => {
   return dispatch =>
-    axios.post('/api/reviews/', review)
+    axios.post('/api/reviews', review)
       .then(res => res.data)
       .then(newReview => dispatch(createReview(newReview)))
       .catch(err => console.error(err));

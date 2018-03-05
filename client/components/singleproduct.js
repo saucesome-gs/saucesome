@@ -7,12 +7,14 @@ import { me, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
-  const { products, isAdmin, isLoggedIn } = props;
+  const { products, isAdmin, isLoggedIn, reviews } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
+  const productReviews = reviews.filter(review => review.productId === product.id);
 
   return (
 
+    
 
     <div>
     {
@@ -26,7 +28,7 @@ export const SingleProduct = (props) => {
             <p>{product.description}</p>
             <div>
               {
-                `${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
+                `$${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
               }
             </div>
             <ul>
@@ -42,7 +44,8 @@ export const SingleProduct = (props) => {
             </button>
             {(isLoggedIn) ? <ReviewForm user={props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
             <ul>
-       {product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
+        { product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
+        { productReviews && productReviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
           </div> }
         {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }
@@ -59,6 +62,7 @@ export const SingleProduct = (props) => {
 
 const mapStateToProps = state => {
   return {
+    reviews: state.reviews,
     products: state.products,
     isLoggedIn: !!state.user.id,
     user: state.user
