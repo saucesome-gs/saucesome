@@ -39,12 +39,17 @@ class Cart extends Component {
     const cart = this.props.cart;
     const cartProdPrices = {};
     const cartIds = Object.keys(cart).map(el => +el);
-    this.props.products
+    const cartProds = this.props.products
       .filter(el => cartIds.indexOf(el.id) > -1)
       .map(el => {
         let elPrice = el.prices[el.prices.length - 1].price;
         cartProdPrices[el.id] = elPrice;
       });
+    console.log('cart --> ', cart)
+    console.log('cartProdPrices --> ', cartProdPrices)
+    console.log('cartIds --> ', cartIds)
+    console.log('cartProds --> ', cartProds)
+
     let subtotal = 0;
     for (let prodId in cart) {
       let quantity = cart[prodId];

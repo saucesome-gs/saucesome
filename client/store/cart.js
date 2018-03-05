@@ -63,7 +63,7 @@ export const addItem = (itemId) => (dispatch) => {
 export const addItemToDb = (itemId, orderId) => (dispatch) => {
   return axios.get(`/api/products/${itemId}`)
   .then((foundItem) => {
-    dispatch(addItemAction(foundItem.data));
+    dispatch(addItemAction(foundItem.data))
     axios.post(`/api/cart/${orderId}`, {orderId: orderId, productId: foundItem.data.id, priceId: null})
   })
   .catch(error => {
