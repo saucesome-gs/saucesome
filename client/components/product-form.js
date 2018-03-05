@@ -22,7 +22,7 @@ export class ProductForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   render () {
-    console.log(this);
+
     return (
       <div>
         <h2> Spice it or splice it </h2>
@@ -92,6 +92,7 @@ export class ProductForm extends Component {
   }
   handleSubmit(event){
     event.preventDefault()
+    const price = event.target.price.value;
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,

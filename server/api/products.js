@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:productid', (req, res, next) => {
-  Products.findById(req.params.productid).then(product => {
+  Products.findById(req.params.productid, { include: [{ all: true }]}).then(product => {
     if(product === null) return res.status(404).send();
     else res.json(product);
   });
