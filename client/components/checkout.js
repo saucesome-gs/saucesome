@@ -87,7 +87,8 @@ const mapStateToProps = (state) => {
     products: state.products,
     user: state.user,
     order: state.order,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    subtotal: state.subtotal
   }
 };
 
