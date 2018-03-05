@@ -32,7 +32,8 @@ export class AllProducts extends Component {
     const isAdmin = this.props.isAdmin;
     const value = this.state.value
     const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value) || product.brand.name.toLowerCase().match(value)) && product.quantity > 0)
-    
+
+    console.log("filtered Products:", filteredProducts)
    return (
     <div>
     <form>
@@ -59,6 +60,12 @@ export class AllProducts extends Component {
                  {product.name}
                </Link>
              </div>
+                {(product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length)} star review
+                </div> :
+                <div>
+                  No reviews
+                  </div>
+                }
              <div>${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}</div>
            </div>
            <button

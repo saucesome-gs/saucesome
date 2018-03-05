@@ -127,7 +127,7 @@ async function seed () {
     ingredients: 'red pepper, butternut squash, apple cider vinegar, onion, sweet potato, honey, garlic, salt, ginger',
     size: '5 oz',
     spiciness: 2.5,
-    quantity: 0,
+    quantity: 5,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2086/9287/products/548bc426d12bd321476b98f6ccff37b4.jpg?v=1508167630',
     tags: ['sweet', 'hearty-texture', 'honey', 'ginger', 'not-too-hot', 'gluten free', 'award winner', 'medium-hot', 'mild-hot', 'karma-sauce'],
     brandId: 1
@@ -356,31 +356,31 @@ async function seed () {
   // Prices Seed
   const prices = await Promise.all([
     Price.create({
-      // id: 1, 
+      // id: 1,
       price: 10.00, productId: 1}),
     Price.create({
-      // id: 2, 
+      // id: 2,
       price: 10.00, productId: 2}),
     Price.create({
-      // id: 3, 
+      // id: 3,
       price: 10.00, productId: 3}),
     Price.create({
-      // id: 4, 
+      // id: 4,
       price: 10.00, productId: 4}),
     Price.create({
-      // id: 5, 
+      // id: 5,
       price: 18.00, productId: 5}),
     Price.create({
-      // id: 6, 
+      // id: 6,
       price: 10.00, productId: 6}),
     Price.create({
-      // id: 7, 
+      // id: 7,
       price: 10.00, productId: 7}),
     Price.create({
-      // id: 8, 
+      // id: 8,
       price: 10.00, productId: 8}),
     Price.create({
-      // id: 9, 
+      // id: 9,
       price: 20.00, productId: 9}),
     Price.create({
       // id: 10,
@@ -423,11 +423,11 @@ async function seed () {
   console.log(`seeded ${prices.length} prices`)
   console.log(`seeded successfully`)
 
-  
+
 
 }
 
-  
+
 
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
