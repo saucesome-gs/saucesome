@@ -90,7 +90,6 @@ const mapStateToProps = state => {
     order: state.order,
     isLoggedIn: !!state.user.id
   }
-
 }
 
 const mapDispatchToProps = dispatch => ({
