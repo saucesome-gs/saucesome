@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders, Checkout} from './components'
+import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders, Checkout, SingleOrder } from './components'
 import { me, fetchProducts, addItem, addItemToDb, fetchUsersOrders } from './store';
 
 
@@ -46,7 +46,7 @@ class Routes extends Component {
         <Route path="/tag/:tagId" render={() => <SearchTag handleAddToCart={this.handleAddToCart} />} />
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/orders/:userId" component={AllOrders} />
-
+        <Route exact path="/orders/:orderId" component={SingleOrder} />
         {
           isLoggedIn &&
             <Switch>
