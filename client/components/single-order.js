@@ -11,14 +11,19 @@ class SingleOrder extends Component {
     }
   }
 
-  getOrderItems() {
-    let orderItems;
+  getItemsInfo() {
+    let orderItems, itemPrices;
     const selectedOrderId = this.props.match.params.orderId;
     axios.get(`/api/past-orders/order/${selectedOrderId}`)
     .then((orderItemData) => orderItemData.data)
     .then((formattedItems) => {
+      itemPrices = formattedItems.map(item => item.price.price);
       orderItems = formattedItems.map(item => item.product);
+      for (var i = 0; i < orderItems.length; i++) {
+        orderItems[i].price = itemPrices[i];
+      }
       return orderItems;
+
     })
     .then((res) => {
       this.setState({
@@ -30,7 +35,7 @@ class SingleOrder extends Component {
   }
 
   componentDidMount() {
-    this.getOrderItems();
+    this.getItemsInfo();
   }
 
   render() {
@@ -51,7 +56,7 @@ class SingleOrder extends Component {
                 <div>
                   <Link
                     to={`/products/${+item.id}`}>{`${item.name}
-                      - product price here `}
+                      - $${item.price}`}
                   </Link>
                 </div>
                 </div>
