@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { addItem, deleteItem, addItemToDb, deleteItemFromDb, getSubtotal } from '../store';
+import { CartSummary } from './';
 
 class Cart extends Component {
 
@@ -10,6 +11,14 @@ class Cart extends Component {
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
     this.updateSubtotal = this.updateSubtotal.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateSubtotal();
+  }
+
+  componentDidUpdate() {
+    this.updateSubtotal();
   }
 
   handleIncrement(event) {
@@ -51,7 +60,6 @@ class Cart extends Component {
   render() {
 
     const { cart, products } = this.props;
-    const subtotal = this.updateSubtotal();
 
     return (
             <div>
@@ -100,27 +108,7 @@ class Cart extends Component {
                 }
               </div>
               <div>
-                <div id="cart-details">
-                  <table className="cart-summary">
-                    <tbody>
-                      <tr>
-                        <th colSpan="2">Your Sauce Deets</th>
-                      </tr>
-                      <tr>
-                        <td className="type">Subtotal</td>
-                        <td className="amount">${this.props.subtotal}</td>
-                      </tr>
-                      <tr>
-                        <td className="type">Shipping</td>
-                        <td className="amount">enter shipping jsx here</td>
-                      </tr>
-                      <tr>
-                        <td className="type">Total</td>
-                        <td className="amount">enter total jsx here</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <CartSummary />
                 <Link to="/checkout">
                   <button className="checkout">
                     Cash Out Dat Sauce
