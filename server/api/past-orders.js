@@ -1,27 +1,36 @@
 const router = require('express').Router();
-const { OrderItems, Order } = require('../db/models');
+const { OrderItem, Order } = require('../db/models');
 
 router.get('/:userId', (req, res, next) => {
   console.log(req.params.userId)
   Order.findAll({
-    // type: sequelize.QueryTypes.
     where: {
       userId: req.params.userId,
       status: {
         $ne: 'pending'
       }
     },
-    // returning: true,
-    // plain: true,
     raw: true
   })
-  // .spread((results, metadata) =>  {
-  //   res.status(200).send(results.data);
-  // })
+
   .then((foundOrders) => {
     res.json(foundOrders);
   })
 })
+
+router.get('/order/:orderId', (req, res, next) => {
+  console.log('in back end')
+  OrderItem.findAll({
+    where: {
+      orderId: req.params.orderId
+    },
+    include: [{all: true}]
+  })
+  .then(foundItems => res.json(foundItems))
+  .catch(next);
+})
+
+router.get('')
 
 
 module.exports = router;

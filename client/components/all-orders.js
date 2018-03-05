@@ -20,14 +20,12 @@ class AllOrders extends Component {
        <div>
      { (pastOrders.length) && pastOrders.map((order => {
        return (
-         <div key={order.id}>
-           {/* <a href=add single order view here> */}
-           {/* </a> */}
+         <div key={order.date}>
            <div>
              <div>Order Number: {order.orderId}</div>
              <div>Date: {order.date}</div>
              <div>Status: {order.status}</div>
-            <Link to={`/order/${order.orderId}`}>
+            <Link to={`/orders/order/${order.orderId}`}>
            <button>
              View Order
            </button>
