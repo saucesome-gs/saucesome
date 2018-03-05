@@ -49,9 +49,9 @@ class SingleOrder extends Component {
           this.state.orderItems.map(item =>
             (
               <div key={item.id} className="cart-product">
-              <a href={`/products/${+item.Id}`}>
+              <Link to={`/products/${+item.id}`}>
                 <img src={item.imageUrl} />
-              </a>
+              </Link>
               <div className="cart-product-info">
                 <div>
                   <Link
