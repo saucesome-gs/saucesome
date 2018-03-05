@@ -45,6 +45,7 @@ class Cart extends Component {
         let elPrice = el.prices[el.prices.length - 1].price;
         cartProdPrices[el.id] = elPrice;
       });
+
     let subtotal = 0;
     for (let prodId in cart) {
       let quantity = cart[prodId];
