@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { checkoutCart } from '../store';
-import { CartSummary } from './';
+import { CartPreview, CartSummary } from './';
 
 class Checkout extends Component {
 
@@ -68,6 +68,7 @@ class Checkout extends Component {
             </fieldset>
           </form>
         </div>
+        <CartPreview />
         <CartSummary />
         <Link to="/checkout">
           <button className="checkout">
