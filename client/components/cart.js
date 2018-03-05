@@ -12,6 +12,14 @@ class Cart extends Component {
     this.updateSubtotal = this.updateSubtotal.bind(this);
   }
 
+  componentDidMount() {
+    this.updateSubtotal();
+  }
+
+  componentDidUpdate() {
+    this.updateSubtotal();
+  }
+
   handleIncrement(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
@@ -51,7 +59,6 @@ class Cart extends Component {
   render() {
 
     const { cart, products } = this.props;
-    const subtotal = this.updateSubtotal();
 
     return (
             <div>

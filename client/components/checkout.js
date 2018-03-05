@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { checkoutCart } from '../store';
+import Cart from './cart';
 
 class Checkout extends Component {
 
@@ -68,6 +69,7 @@ class Checkout extends Component {
           </form>
         </div>
         <span>${subtotal}</span>
+        <Cart />
       </div>
     )
   }
