@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { postReview } from '../store/review'
 
 const initialState = {
@@ -77,4 +77,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default (connect(mapStateToProps, mapDispatchToProps)(ReviewForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReviewForm));

@@ -23,7 +23,6 @@ class Routes extends Component {
 
   handleAddToCart(event) {
     if (this.props.isLoggedIn) {
-      console.log('LOGGED IN')
       this.props.addItemToDb(event.target.value, this.props.order);
       } else {
     event.preventDefault();

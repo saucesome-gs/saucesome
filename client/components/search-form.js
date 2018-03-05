@@ -23,8 +23,8 @@ export class SearchForm extends Component {
 
   render() {
     const title = this.state.title;
-    const products = this.props.products;
-    console.log(title);
+
+  
     
     return (
     <form>
@@ -45,6 +45,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = dispatch => ({
+  fetchProducts: () => dispatch(fetchProducts()),
+  // addItem: (itemId) => dispatch(addItem(itemId))
+})
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchForm));
