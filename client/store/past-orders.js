@@ -27,11 +27,30 @@ export const clearPastOrdersAction = () => {
 // THUNK CREATORS
 
 export const fetchUsersOrders = (userId) => (dispatch) => {
-  console.log('fetching users orders')
   axios.get(`/api/past-orders/${userId}`)
   .then(foundOrders => foundOrders.data)
   .then(formattedOrders => {
     let orderObjects = formattedOrders.map(order => ({orderId: order.id, date: order.updatedAt, status: order.status}));
+    dispatch(fetchPastOrdersAction(orderObjects));
+  })
+  .catch(err => console.log(err));
+}
+
+export const fetchAllOrders = () => dispatch => {
+  axios.get('/api/past-orders')
+  .then(allOrders => allOrders.data)
+  .then(allOrdersData => {
+    let orderObjects = allOrdersData.map(order => ({orderId: order.id, date: order.updatedAt, status: order.status}));
+    dispatch(fetchPastOrdersAction(orderObjects));
+  })
+  .catch(err => console.log(err));
+}
+
+export const fetchOrdersByStatus = (status) => dispatch => {
+  axios.get(`/api/past-orders/${status}`)
+  .then(allOrders => allOrders.data)
+  .then(allOrdersData => {
+    let orderObjects = allOrdersData.map(order => ({orderId: order.id, date: order.updatedAt, status: order.status}));
     dispatch(fetchPastOrdersAction(orderObjects));
   })
 }
