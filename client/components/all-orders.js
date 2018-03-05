@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { SearchForm } from './';
 
 class AllOrders extends Component {
   constructor(props) {
@@ -10,11 +11,12 @@ class AllOrders extends Component {
 
   render() {
 
-    const { pastOrders } = this.props;
+    const { pastOrders, isAdmin } = this.props;
 
    return (
     <div>
      <h1>Your orders</h1>
+     { isAdmin && <div>Seach by order status: <SearchForm /></div>}
      { (!pastOrders.length) ? <p>You have no orders to display </p> :
        <div>
      { (pastOrders.length) && pastOrders.map((order => {
@@ -46,7 +48,8 @@ const mapStateToProps = state => {
     products: state.products,
     order: state.order,
     pastOrders: state.pastOrders,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 
 }

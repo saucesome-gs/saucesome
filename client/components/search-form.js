@@ -1,39 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { fetchOrdersByStatus, fetchAllOrders } from '../store';
 
 
 export class SearchForm extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      title: ''
-    };
-
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    const value = event.target.value
-    this.setState({
-      title: value
-    })
+    const value = event.target.value;
+    if (value === 'all orders') {
+      this.props.fetchAllOrders();
+    } else {
+      this.props.fetchOrdersByStatus(value);
+    }
   }
 
   render() {
-    const title = this.state.title;
 
-  
-    
     return (
-    <form>
-      <input 
-        type="text"
-        id="title"
-        value={title}
-        onChange={this.handleChange}
-      />
+    <form
+    onChange={this.handleChange}>
+    <select>
+      <option>Search by order status:</option>
+      <option>all orders</option>
+      <option>pending</option>
+      <option>purchased</option>
+      <option>shipped</option>
+    </select>
     </form>
     )
   }
@@ -41,13 +38,14 @@ export class SearchForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    pastOrders: state.pastOrders
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchProducts: () => dispatch(fetchProducts()),
-  // addItem: (itemId) => dispatch(addItem(itemId))
+  fetchOrdersByStatus: (status =>
+    dispatch(fetchOrdersByStatus(status))),
+  fetchAllOrders: () => dispatch(fetchAllOrders())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchForm));
