@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { EditForm } from './';
+import { EditForm, ReviewForm } from './';
 import { addItem } from '../store/cart';
-import { addItemToDb } from '../store';
+import { me, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
 
-  const { products, isAdmin } = props;
+  const { products, isAdmin, isLoggedIn } = props;
 
   const product = products.find(product => Number(props.match.params.productId) === product.id);
 
   return (
+
+
     <div>
     {
       (product.quantity > 0) && (products.length) ?
@@ -19,12 +21,12 @@ export const SingleProduct = (props) => {
         { (products.length) &&
           <div>
             <img src={product.imageUrl} />
-            <h3>{product.brand.name}</h3>
+            <h3>{product.brand && product.brand.name}</h3>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <div>
               {
-                `$${product.prices[product.prices.length - 1].price}`
+                `${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
               }
             </div>
             <ul>
@@ -38,6 +40,10 @@ export const SingleProduct = (props) => {
               onClick={props.handleAddToCart}>
               Add To Cart
             </button>
+            {(isLoggedIn) ? <ReviewForm user={props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
+            <ul>
+       {product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
+      </ul>
           </div> }
         {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }
       </div> :
@@ -45,6 +51,7 @@ export const SingleProduct = (props) => {
         <img className="grayscale" src={product.imageUrl} />
         <h1>Currently Unavailable</h1>
       </div>
+    
     }
     </div>
   )
@@ -53,12 +60,16 @@ export const SingleProduct = (props) => {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    loadInitialData () {
+      dispatch(me())
+    },
     addItem(id) {
       dispatch(addItem(id));
     },

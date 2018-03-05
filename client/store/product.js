@@ -79,7 +79,9 @@ export const postProduct = (product) => {
   return dispatch =>
     axios.post('/api/products/', product)
       .then(res => res.data)
-      .then(newProduct => dispatch(createProduct(newProduct)))
+      .then(newProduct => {
+        console.log(newProduct)
+        return dispatch(createProduct(newProduct))})
       .catch(err => console.error(err));
 }
 

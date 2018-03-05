@@ -25,6 +25,7 @@ router.get('/:productid', (req, res, next) => {
 });
 
 router.post('/', isAdmin, (req, res, next) => {
+  console.log("LOGGING OUT:",req.body)
   Products.create(req.body)
   .then(product => res.status(201).json(product))
   .catch(next);

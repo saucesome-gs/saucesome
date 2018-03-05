@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { fetchProducts } from '../store/product';
-import { SearchForm } from './search-form';
-import {ProductForm} from './';
+// import { SearchForm } from './search-form';
+import { ProductForm } from './';
 // import { fetchProducts } from '../store/product';
 
 export class AllProducts extends Component {
@@ -16,7 +16,9 @@ export class AllProducts extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
-
+  componentDidMount(){
+    this.props.fetchProducts()
+  }
   handleChange(event) {
     const value = event.target.value
     this.setState({
@@ -30,7 +32,8 @@ export class AllProducts extends Component {
     const isAdmin = this.props.isAdmin;
     const value = this.state.value
     const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value) || product.brand.name.toLowerCase().match(value)) && product.quantity > 0)
-    
+
+    console.log("filtered Products:", filteredProducts)
    return (
     <div>
     <form>
@@ -51,13 +54,19 @@ export class AllProducts extends Component {
              <img src={product.imageUrl} />
            </a>
            <div>
-             <div>{product.brand.name}</div>
+             <div>{product.brand && product.brand.name}</div>
              <div>
                <Link to={`/products/${+product.id}`}>
                  {product.name}
                </Link>
              </div>
-             <div>${product.prices[product.prices.length - 1].price}</div>
+                {(product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length)} star review
+                </div> :
+                <div>
+                  No reviews
+                  </div>
+                }
+             <div>${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}</div>
            </div>
            <button
              value={product.id}

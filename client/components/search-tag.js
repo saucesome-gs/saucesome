@@ -15,10 +15,10 @@ export class SearchTag extends Component {
 
   return (
     <div>
+    <h1>All sauces that are {tagId}!</h1>
       { (tagProducts.length) && tagProducts.map(product => {
         return (
-        <div key={product.id}>
-        <h1>All sauces that are {tagId}!</h1>
+        <div key={product.id}>      
           <a href={`/products/${+product.id}`}>
             <img src={product.imageUrl} />
           </a>
