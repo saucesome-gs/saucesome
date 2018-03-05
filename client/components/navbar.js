@@ -7,7 +7,9 @@ import {logout, clearCartAction } from '../store'
 const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
 
   <div>
-    <h1>SAUCESOME</h1>
+    <h1>
+      <NavLink to="/">SAUCESOME</NavLink>
+    </h1>
     <nav>
       <div>
         <NavLink to="/products">Products</NavLink>
@@ -15,7 +17,7 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <NavLink to="/home">Home</NavLink>
+          <NavLink to="/home">Your Account</NavLink>
           <NavLink to={`/orders/${user.id}`}>Your Past Orders</NavLink>
           <a href="#" onClick={handleClick}>
             Logout
@@ -30,9 +32,10 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
         )}
       <div>
         <NavLink to="/cart">Your Cart:
-          <span> ({Object.keys(cart).reduce((acc, curr) => (
-            acc + cart[curr]
-          ), 0)}) items
+          <span>
+            ({Object.keys(cart).reduce((acc, curr) => (
+              acc + cart[curr]
+            ), 0)}) items
           </span>
         </NavLink>
       </div>
