@@ -16,17 +16,17 @@ var mailOptions = {
   from: 'saucesomegs@gmail.com',
   to: 'saucesomegs@gmail.com',
   subject: 'Thanks for your order!',
-  text: 'That was easy!'
+  text: 'Please expect your sauce to arrive in 3-5 days.'
 };
 
-// transporter.sendMail(mailOptions, function(error, info){
-//   console.log('password is ', secrets)
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
+transporter.sendMail(mailOptions, function(error, info){
+  console.log('password is ', secrets)
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
 
 router.post('/', (req, res, next) => {
   Order.create({
@@ -47,6 +47,8 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:orderId', (req, res, next) => {
+  const emailAddy = Object.keys(req.body)[0];
+  console.log('email address is', emailAddy);
   Order.update({
     status: 'purchased'
   }, {
@@ -55,7 +57,16 @@ router.put('/:orderId', (req, res, next) => {
   .then(updatedOrder => {
     res.status(200).json(updatedOrder)
   })
-  .catch(next)
+  .catch(next);
+  mailOptions.to = emailAddy;
+  transporter.sendMail(mailOptions, function(error, info){
+    console.log('password is ', secrets)
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 })
 
 module.exports = router;

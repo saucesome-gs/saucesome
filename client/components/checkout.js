@@ -9,16 +9,26 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
     this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.state = {
+      email: ''
+    }
   }
 
-  handleCheckout() {
+  handleCheckout(event) {
     if (!this.props.isLoggedIn) this.props.checkoutCart()
-    else this.props.checkoutLoggedInCart(this.props.order);
+    else this.props.checkoutLoggedInCart(this.props.order, this.state.email);
+  }
+
+  handleEmailChange(event) {
+    console.log(event.target.value);
+    console.log('this is', this);
+    this.setState({
+      email: event.target.value
+    });
   }
 
   render() {
-
-    const { subtotal } = this.props;
 
     return (
       <div>
@@ -52,7 +62,8 @@ class Checkout extends Component {
             <fieldset>
               <legend>Billing Address</legend>
               <label>Desired Contact Email*
-                <input placeholder="janeDoe@email.com" id='email' name='email' type='text' />
+                <input placeholder="janeDoe@email.com" id='email' name='email' type='text'
+                onChange={this.handleEmailChange} />
               </label>
               <label>Full Name*
                 <input placeholder="Jane Doe" id='name' name='name' type='text' />
@@ -102,7 +113,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     checkoutCart: (cartArr => dispatch(checkoutCart(cartArr))),
-    checkoutLoggedInCart: ((orderId) => dispatch(checkoutLoggedInCart(orderId)))
+    checkoutLoggedInCart: ((orderId, email) => dispatch(checkoutLoggedInCart(orderId, email)))
   }
 };
 
