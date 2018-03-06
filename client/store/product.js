@@ -83,17 +83,19 @@ export const postProduct = (product, that) => {
         console.log(newProduct)
         return dispatch(createProduct(newProduct))})
         .then((product) => {
-          console.log(product);
           that.props.history.push(`/products/${product.product.id}`)
         })
       .catch(err => console.error(err));
 }
 
-export const putProduct = (product) => {
+export const putProduct = (product, that) => {
   return dispatch =>
     axios.put(`/api/products/${product.id}`, product)
       .then(res => res.data)
       .then(updatedProduct => dispatch(updateProduct(updatedProduct)))
+      .then((product) => {
+        that.props.history.push(`/products/${product.product.id}`)
+      })
       .catch(err => console.error(err));
 }
 

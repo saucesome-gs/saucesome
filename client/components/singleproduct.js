@@ -15,7 +15,7 @@ export class SingleProduct extends Component {
 render()
  {
 
-  const { product, isAdmin, isLoggedIn, reviews } = this.props;
+  const { products, product, isAdmin, isLoggedIn, reviews } = this.props;
   const productReviews = reviews.filter(review => review.productId === product.id);
 
   return (
@@ -52,7 +52,7 @@ render()
         { productReviews && productReviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
           </div> }
-        {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }
+        {(isAdmin) ? <EditForm productId={product.id} props={this.props} /> : <div></div> }
       </div> :
       <div>
         <img className="grayscale" src={product.imageUrl} />
@@ -68,6 +68,7 @@ render()
 const mapStateToProps = state => {
   return {
     reviews: state.reviews,
+    products: state.products,
     product: state.products[0],
     isLoggedIn: !!state.user.id,
     user: state.user

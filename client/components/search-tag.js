@@ -10,6 +10,7 @@ export class SearchTag extends Component {
 
   render() {
     const products = this.props.products;
+    console.log(products);
     const tagId = this.props.match.params.tagId
     const tagProducts = products.filter(product => product.tags.includes(tagId));
 

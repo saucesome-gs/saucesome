@@ -29,52 +29,75 @@ export class ProductForm extends Component {
 
     return (
       <div>
-        <h2> Spice it or splice it </h2>
+      <hr />
+      
+        
+        <div className="text-center">
+        <h2>🔥 Add A New hot Sauce 🔥</h2>
+        </div>
+        <div className="add-form">
         <form onSubmit = {this.handleSubmit}>
+          <div className="form-group">
           <label>Name: </label>
           <input
             name = "name"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.name}
             placeholder = "Sauce name"
             type = "text"
             required
           />
+          </div>
+          <div className="form-group">
           <label>Description: </label>
           <input name = "description"
+          className="form-control"
                  onChange = {this.handleChange}
                  value = {this.state.description}
                  placeholder = "Sauce description"
                  type = "text"
                  required />
+          </div>
+          <div className="form-group">       
           <label>Price: </label>
           <input name = "price"
+          className="form-control"
                 onChange = {this.handleChange}
                 value = {this.state.price}
                 placeholder = "Price"
                 type= "num"
                 required />
+          </div>
+          <div className="form-group">
           <label>Ingredients: </label>
           <input
             name = "ingredients"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.ingredients}
             placeholder = "Sauce ingredients"
             type = "text"
             required
           />
+          </div>
+          <div className="form-group">
           <label>Size: </label>
           <input
             name = "size"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.size}
             placeholder = "Sauce size"
             type = "text"
             required
           />
+          </div>
+          <div className="form-group">
           <label>Spiciness: </label>
           <input
             name = "spiciness"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.spiciness}
             placeholder = "9000"
@@ -82,9 +105,12 @@ export class ProductForm extends Component {
             min = "1"
             required
           />
+          </div>
+          <div className="form-group">
           <label>Quantity: </label>
           <input
             name = "quantity"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.quantity}
             placeholder = "1"
@@ -92,26 +118,36 @@ export class ProductForm extends Component {
             min = "1"
             required
           />
+          </div>
+          <div className="form-group">
           <label>ImageUrl: </label>
           <input
             name = "imageUrl"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.imageUrl}
             placeholder = "url"
             type = "url"
             required
           />
+          </div>
+          <div className="form-group tr">
           <label>Tags: </label>
           <input
             name = "tags"
+            className="form-control"
             onChange = {this.handleChange}
             value = {this.state.tags}
             placeholder = "hot"
             type = "string"
             required
           />
-          <button type = "submit"> Add Sauce </button>
+          </div>
+          <div className="fifty-view-width text-center">
+          <button type = "submit">Add Hot Sauce 🔥</button>
+          </div>
         </form>
+      </div>
       </div>
     )
   }
@@ -132,10 +168,7 @@ export class ProductForm extends Component {
       price: event.target.price.value
 
     }
-  
-
   const that = this.props.props;
-
   this.props.postProduct(info, that)
   }
 
