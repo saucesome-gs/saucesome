@@ -224,3 +224,12 @@ hr {
 .fifty-view-width button {
   width: 90%;
 }
+.cart-items {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* .cart-single-item {
+  display:flex;
+} */

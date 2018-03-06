@@ -36,7 +36,7 @@ class CartPreview extends Component {
     return (
             <div>
               <p>Yo sauce:</p>
-              <div>
+              <div className="cart-items">
                 {
                   Object.keys(cart).length && Object.keys(cart).map(productId => {
                     const productDetails = products.find(cartItem =>
@@ -46,7 +46,7 @@ class CartPreview extends Component {
 
                     if (cart[productId]) {
                       return (
-                        <div key={productId} className="cart-product">
+                        <div key={productId} className="cart-single-item">
                           <Link to={`/products/${+productId}`}>
                             <img src={productDetails.imageUrl} />
                           </Link>

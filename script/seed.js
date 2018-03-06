@@ -417,6 +417,7 @@ async function seed () {
   const reviews = await Promise.all([
     Review.create({rating: 1, body: 'This item is great. It was really hot. My mouth still burns', userId: 2, productId: 3}),
     Review.create({rating: 5, body: 'I love this sauce', userId: 1, productId: 3}),
+    Review.create({rating: 5, body: 'Hi my name is Chriss!n', userId: 3, productId: 3}),
     Review.create({rating: 3, body: 'Saucesome is my favorite website to buy sauces! It is so SAUCESOME!', userId: 2, productId: 8})
   ])
 

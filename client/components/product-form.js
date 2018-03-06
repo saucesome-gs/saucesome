@@ -10,9 +10,9 @@ const initialState = {
   size: '',
   spiciness: 0,
   quantity: 0,
+  price: 0,
   imageUrl: '',
   tags: [],
-  price: 0
 }
 
 export class ProductForm extends Component {
@@ -25,7 +25,7 @@ export class ProductForm extends Component {
   }
 
   render () {
-    
+
 
     return (
       <div>
@@ -153,6 +153,8 @@ export class ProductForm extends Component {
   }
 
   handleSubmit(event){
+    // const products = this.props.products;
+    // const numberPrices = products.prices.length;
     event.preventDefault()
     const temp = (event.target.tags.value).split(',')
     const info = {
@@ -162,11 +164,10 @@ export class ProductForm extends Component {
       size: event.target.size.value,
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
+      price: event.target.price.value,
       imageUrl: event.target.imageUrl.value,
       tags: temp,
       brandId: 1,
-      price: event.target.price.value
-
     }
   const that = this.props.props;
   this.props.postProduct(info, that)

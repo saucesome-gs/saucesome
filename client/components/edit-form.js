@@ -12,7 +12,7 @@ const initialState = {
   quantity: 0,
   imageUrl: '',
   tags: [],
-  price: 0,
+  price: 0
 }
 
 export class EditForm extends Component {
@@ -100,6 +100,7 @@ export class EditForm extends Component {
     }
     handleSubmit(event){
       event.preventDefault()
+      const temp = (event.target.tags.value).split(',')
       const info = {
         id: this.props.productId,
         name: event.target.name.value,
@@ -109,9 +110,9 @@ export class EditForm extends Component {
         spiciness: event.target.spiciness.value,
         quantity: event.target.quantity.value,
         imageUrl: event.target.imageUrl.value,
-        tags: [event.target.tags.value],
+        price: event.target.price.value,
+        tags: temp,
         brandId: 1,
-        price: event.target.price.value
       }
     const that = this.props.props;
     this.props.putProduct(info, that);

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
-
+import { fetchProducts } from '../store/product';
 export class SearchTag extends Component {
   constructor(props) {
     super(props)
 
+  }
+  componentDidMount(){
+    this.props.fetchProducts()
   }
 
   render() {
@@ -19,7 +22,7 @@ export class SearchTag extends Component {
     <h1>All sauces that are {tagId}!</h1>
       { (tagProducts.length) && tagProducts.map(product => {
         return (
-        <div key={product.id}>      
+        <div key={product.id}>
           <a href={`/products/${+product.id}`}>
             <img src={product.imageUrl} />
           </a>
@@ -51,4 +54,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(SearchTag));
+const mapDispatchToProps = dispatch => ({
+  fetchProducts: () => dispatch(fetchProducts()),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchTag));
