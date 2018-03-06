@@ -42,9 +42,12 @@ export const fetchCartAtLogin = (userId) => (dispatch) => {
   axios.post('/api/cart', { userId })
   .then(createdOrder => {
     dispatch(setOrderAction(createdOrder.data.id))
+    .then(() => {
     const items = createdOrder.data.orderItems;
+    console.log('order items in thunk are ', items);
     if (items) items.forEach((item) => dispatch(addItemAction(item)))
   })
+})
   .catch(error => {
     console.log(error)
   })

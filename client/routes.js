@@ -46,7 +46,7 @@ class Routes extends Component {
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/orders/:userId" component={AllOrders} />
         <Route path="/orders/order/:orderId" component={SingleOrder} />
-        <Route exact path='/checkout-success' component={CheckoutSuccess} />
+        <Route exact path="/checkout-success" component={CheckoutSuccess} />
         {
           isLoggedIn &&
             <Switch>

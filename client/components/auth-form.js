@@ -17,8 +17,7 @@ class AuthForm extends Component {
     const formName = evt.target.name
     const email = evt.target.email.value
     const password = evt.target.password.value
-    this.props.auth(email, password, formName)
-    .then(() => console.log('cart is', this.props.cart));
+    this.props.auth(email, password, formName);
     this.addCartToDb();
   }
 
@@ -28,7 +27,8 @@ class AuthForm extends Component {
     itemIds.map(id => {
       // for (var i = 0; i < this.props.cart[id]; i++) {
       //   this.props.addItemToDb(id, orderId);
-      addItemToDb(id, orderId)
+      console.log('adding item to db')
+    // this.props.addItemToDb(id, orderId)
       })
   }
 
