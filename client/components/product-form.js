@@ -47,13 +47,6 @@ export class ProductForm extends Component {
                  placeholder = "Sauce description"
                  type = "text"
                  required />
-          <label>Price: </label>
-          <input name = "price"
-                onChange = {this.handleChange}
-                value = {this.state.price}
-                placeholder = "Price"
-                type= "num"
-                required />
           <label>Ingredients: </label>
           <input
             name = "ingredients"
@@ -145,7 +138,6 @@ export class ProductForm extends Component {
 
 
   const that = this.props.props;
-
   this.props.postProduct(info, that)
   }
 

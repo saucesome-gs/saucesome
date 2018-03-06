@@ -42,6 +42,9 @@ router.post('/', isAdmin, (req, res, next) => {
 router.put('/:productid', isAdmin, (req, res, next) => {
   Products.findById(req.params.productid)
   .then(product => product.update(req.body))
+  .then((product) => Price.create({
+    price: +req.body.price,
+  }).then(price => product.addPrice(price)))
   .then(updatedProduct => res.json(updatedProduct))
   .catch(next);
 });
