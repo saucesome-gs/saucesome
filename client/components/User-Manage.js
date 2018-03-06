@@ -10,9 +10,20 @@ export class UserManagement extends Component {
     this.props.fetchUsersAdmin()
   }
   render(){
+    const users = this.props.users
+
     return (
       <div>
-
+        {
+          users.map(user => {
+            return(
+              <div key = {user.id}>
+              {user.email}
+              {user.password}
+                </div>
+            )
+          })
+        }
         </div>
     )
   }
