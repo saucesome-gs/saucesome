@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Products = require('../db/models/product');
+const Price = require('../db/models/price');
 module.exports = router;
 
 const isAdmin = (req, res, next) => {
@@ -25,15 +26,25 @@ router.get('/:productid', (req, res, next) => {
 });
 
 router.post('/', isAdmin, (req, res, next) => {
-  console.log("LOGGING OUT:",req.body)
+  // console.log("LOGGING OUT:", req.body)
   Products.create(req.body)
-  .then(product => res.status(201).json(product))
-  .catch(next);
+  .then((product) => Price.create({
+    price: +req.body.price,
+  }).then(price => product.addPrice(price)))
+  .then(product => {
+  console.log(product)
+  res.status(201).json(product)
+})
+.catch(next);
+
 });
 
 router.put('/:productid', isAdmin, (req, res, next) => {
   Products.findById(req.params.productid)
   .then(product => product.update(req.body))
+  .then((product) => Price.create({
+    price: +req.body.price,
+  }).then(price => product.addPrice(price)))
   .then(updatedProduct => res.json(updatedProduct))
   .catch(next);
 });

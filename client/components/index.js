@@ -19,4 +19,8 @@ export { default as AllOrders } from './all-orders';
 export { default as SingleOrder } from './single-order';
 export { default as CartSummary } from './cart-summary';
 export { default as CartPreview } from './cart-preview';
+<<<<<<< HEAD
 export { default as CheckoutSuccess } from './checkout-success';
+=======
+export {default as CheckoutConfirmation} from './checkout-confirmation';
+>>>>>>> 411fcc397be700d49c7694fc23ae460a40e6db01

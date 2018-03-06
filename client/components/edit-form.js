@@ -11,7 +11,8 @@ const initialState = {
   spiciness: 0,
   quantity: 0,
   imageUrl: '',
-  tags: []
+  tags: [],
+  price: 0
 }
 
 export class EditForm extends Component {
@@ -33,28 +34,28 @@ export class EditForm extends Component {
                    value = {this.state.name}
                    placeholder = "Sauce name"
                    type= "text"
-                   required/>
+                   />
             <label>Description: </label>
             <input name = "description"
                    onChange = {this.handleChange}
                    value = {this.state.description}
                    placeholder = "Sauce description"
                    type = "text"
-                   required/>
+                   />
             <label>Ingredients: </label>
             <input name = "ingredients"
                    onChange = {this.handleChange}
                    value = {this.state.ingredients}
                    placeholder = "Sauce ingredients"
                    type= "text"
-                   required/>
+                   />
             <label>Size: </label>
             <input name = "size"
                    onChange = {this.handleChange}
                    value = {this.state.size}
                    placeholder = "Sauce size"
                    type= "text"
-                   required/>
+                   />
             <label>Spiciness: </label>
             <input name = "spiciness"
                    onChange = {this.handleChange}
@@ -62,7 +63,7 @@ export class EditForm extends Component {
                    placeholder = "9000"
                    type= "number"
                    min = "1"
-                   required/>
+                   />
             <label>Quantity: </label>
             <input name = "quantity"
                    onChange = {this.handleChange}
@@ -70,21 +71,29 @@ export class EditForm extends Component {
                    placeholder = "1"
                    type= "number"
                    min = "1"
-                   required/>
+                   />
             <label>ImageUrl: </label>
             <input name = "imageUrl"
                    onChange = {this.handleChange}
                    value = {this.state.imageUrl}
                    placeholder = "url"
                    type= "url"
-                   required/>
+                   />
             <label>Tags: </label>
             <input name = "tags"
                    onChange = {this.handleChange}
                    value = {this.state.tags}
                    placeholder = "hot"
                    type= "string"
-                   required/>
+                   />
+            <label>Price: </label>
+            <input name = "price"
+                   onChange = {this.handleChange}
+                   value = {this.state.price}
+                   placeholder = "0"
+                   type= "number"
+                   min = "0"
+                   />
             <button type = "submit"> Edit Sauce </button>
           </form>
         </div>
@@ -92,6 +101,7 @@ export class EditForm extends Component {
     }
     handleSubmit(event){
       event.preventDefault()
+      const temp = (event.target.tags.value).split(',')
       const info = {
         id: this.props.productId,
         name: event.target.name.value,
@@ -101,10 +111,12 @@ export class EditForm extends Component {
         spiciness: event.target.spiciness.value,
         quantity: event.target.quantity.value,
         imageUrl: event.target.imageUrl.value,
-        tags: [event.target.tags.value],
-        brandId: 1
+        price: event.target.price.value,
+        tags: temp,
+        brandId: 1,
       }
-    this.props.putProduct(info);
+    const that = this.props.props;
+    this.props.putProduct(info, that);
     }
     handleChange(event){
       const { target } = event;
@@ -118,9 +130,9 @@ export class EditForm extends Component {
 
 const mapStateToProps = null;
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    putProduct: product => dispatch(putProduct(product))
+    putProduct: product => dispatch(putProduct(product, ownProps))
   }
 }
 

@@ -27,10 +27,10 @@ export const getProducts = (products) => {
   }
 }
 
-export const getProduct = (productId) => {
+export const getProduct = (product) => {
   return {
     type: GET_PRODUCT,
-    productId
+    product
   }
 }
 
@@ -71,25 +71,35 @@ export const fetchProduct = (productId) => {
   return dispatch =>
     axios.get(`/api/products/${productId}`)
       .then(res => res.data)
-      .then(product => dispatch(getProduct(product.id)))
+      .then(product => dispatch(getProduct(product)))
       .catch(err => console.error(err));
 }
 
-export const postProduct = (product) => {
+export const postProduct = (product, that) => {
   return dispatch =>
     axios.post('/api/products/', product)
       .then(res => res.data)
       .then(newProduct => {
         console.log(newProduct)
         return dispatch(createProduct(newProduct))})
+        .then((product) => {
+          console.log("this is that:",that);
+          that.props.history.push(`/products/${product.product.id}`)
+        })
       .catch(err => console.error(err));
 }
 
-export const putProduct = (product) => {
+export const putProduct = (product, that) => {
   return dispatch =>
     axios.put(`/api/products/${product.id}`, product)
       .then(res => res.data)
-      .then(updatedProduct => dispatch(updateProduct(updatedProduct)))
+      .then(updatedProduct =>{
+        console.log(updatedProduct)
+        dispatch(updateProduct(updatedProduct))})
+      .then((product) => {
+        console.log("this is that:",that, "this is product:", product);
+        that.props.history.push(`/products`)
+      })
       .catch(err => console.error(err));
 }
 
@@ -109,7 +119,7 @@ export default function (state = products, action) {
     case GET_PRODUCTS:
       return action.products;
     case GET_PRODUCT:
-      return state.filter(product => (product.id === action.productId))
+      return [action.product]
     case CREATE_PRODUCT:
       return [...state, action.product];
     case UPDATE_PRODUCT:

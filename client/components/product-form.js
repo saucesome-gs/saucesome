@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { postProduct } from '../store/product'
 
 const initialState = {
@@ -10,8 +10,9 @@ const initialState = {
   size: '',
   spiciness: 0,
   quantity: 0,
+  price: 0,
   imageUrl: '',
-  tags: []
+  tags: [],
 }
 
 export class ProductForm extends Component {
@@ -24,6 +25,7 @@ export class ProductForm extends Component {
   }
 
   render () {
+
 
     return (
       <div>
@@ -39,14 +41,12 @@ export class ProductForm extends Component {
             required
           />
           <label>Description: </label>
-          <input
-            name = "description"
-            onChange = {this.handleChange}
-            value = {this.state.description}
-            placeholder = "Sauce description"
-            type = "text"
-            required
-          />
+          <input name = "description"
+                 onChange = {this.handleChange}
+                 value = {this.state.description}
+                 placeholder = "Sauce description"
+                 type = "text"
+                 required />
           <label>Ingredients: </label>
           <input
             name = "ingredients"
@@ -85,6 +85,15 @@ export class ProductForm extends Component {
             min = "1"
             required
           />
+           <label>Price: </label>
+          <input
+            name = "price"
+            onChange = {this.handleChange}
+            value = {this.state.price}
+            placeholder = "Price"
+            type = "number"
+            required
+          />
           <label>ImageUrl: </label>
           <input
             name = "imageUrl"
@@ -110,8 +119,10 @@ export class ProductForm extends Component {
   }
 
   handleSubmit(event){
+    // const products = this.props.products;
+    // const numberPrices = products.prices.length;
     event.preventDefault()
-    const price = event.target.price.value;
+    const temp = (event.target.tags.value).split(',')
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -119,11 +130,15 @@ export class ProductForm extends Component {
       size: event.target.size.value,
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
+      price: event.target.price.value,
       imageUrl: event.target.imageUrl.value,
-      tags: [event.target.tags.value],
-      brandId: 1
+      tags: temp,
+      brandId: 1,
     }
-    this.props.postProduct(info);
+
+
+  const that = this.props.props;
+  this.props.postProduct(info, that)
   }
 
   handleChange(event){
@@ -137,10 +152,10 @@ export class ProductForm extends Component {
 
 const mapStateToProps = null;
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    postProduct: product => dispatch(postProduct(product))
+    postProduct: product => dispatch(postProduct(product, ownProps))
   }
 }
 
-export default (connect(mapStateToProps, mapDispatchToProps)(ProductForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductForm));
