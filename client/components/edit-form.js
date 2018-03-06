@@ -102,7 +102,7 @@ export class EditForm extends Component {
         quantity: event.target.quantity.value,
         imageUrl: event.target.imageUrl.value,
         tags: [event.target.tags.value],
-        brandId: 1
+        brandId: 1,
       }
     this.props.putProduct(info);
     }
