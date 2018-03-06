@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {auth, addItemToDb} from '../store';
+import {auth} from '../store';
 
 /**
  * COMPONENT
@@ -21,16 +21,6 @@ class AuthForm extends Component {
     this.addCartToDb();
   }
 
-  addCartToDb () {
-    const itemIds = Object.keys(this.props.cart);
-    const orderId = this.props.order;
-    itemIds.map(id => {
-      // for (var i = 0; i < this.props.cart[id]; i++) {
-      //   this.props.addItemToDb(id, orderId);
-      console.log('adding item to db')
-    // this.props.addItemToDb(id, orderId)
-      })
-  }
 
   render() {
 
@@ -89,7 +79,6 @@ const mapSignup = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     auth: (email, password, formName) => dispatch(auth(email, password, formName)),
-    addItemToDb: (itemId, orderId) => dispatch(addItemToDb(itemId, orderId))
   }
 }
 
@@ -103,6 +92,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   // handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object,
-  cart: PropTypes.object
+  error: PropTypes.object
 }

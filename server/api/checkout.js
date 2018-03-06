@@ -20,7 +20,6 @@ var mailOptions = {
 };
 
 transporter.sendMail(mailOptions, function(error, info){
-  console.log('password is ', secrets)
   if (error) {
     console.log(error);
   } else {
