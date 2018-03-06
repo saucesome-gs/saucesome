@@ -1,7 +1,20 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
-
+const isAdmin = (req, res, next) => {
+  if (!req.user.isAdmin){
+    const err = Error('Unauthorized')
+    err.status = 401;
+    throw err
+  }
+  next();
+}
+router.get('/all', isAdmin, (req, res, next) => {
+  User.findAll({
+  })
+    .then(users => res.json(users))
+    .catch(next)
+})
 router.get('/', (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though

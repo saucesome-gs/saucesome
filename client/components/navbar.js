@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {NavLink, withRouter } from 'react-router-dom'
 import {logout, clearCartAction } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
+const Navbar = ({ isAdmin, handleClick, isLoggedIn, cart, user }) => (
 
   <div>
     <h1>
@@ -39,6 +39,9 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
           </span>
         </NavLink>
       </div>
+      { isAdmin ? (<div> <NavLink to="/userManage"> Manage Users </NavLink> </div>) :
+      <div> </div>
+      }
     </nav>
     <hr />
   </div>
@@ -49,6 +52,7 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
  */
 const mapState = state => {
   return {
+    isAdmin: state.user.isAdmin,
     isLoggedIn: !!state.user.id,
     cart: state.cart,
     user: state.user

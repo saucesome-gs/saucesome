@@ -20,3 +20,4 @@ export { default as SingleOrder } from './single-order';
 export { default as CartSummary } from './cart-summary';
 export { default as CartPreview } from './cart-preview';
 export {default as CheckoutConfirmation} from './checkout-confirmation';
+export {default as UserManagement} from './UserManage';

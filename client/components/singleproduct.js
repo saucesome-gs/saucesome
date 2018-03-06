@@ -13,8 +13,17 @@ export class SingleProduct extends Component {
 
 render()
  {
-
-  const { product, isAdmin, isLoggedIn, reviews } = this.props;
+  console.log("props:", this.props)
+  const { isAdmin, isLoggedIn, reviews } = this.props;
+  if(this.props.product){
+    const { product } = this.props
+    console.log("this is the product1:", product)
+  }
+  else{
+    const { products } = this.props
+    var product = products.find(product => Number(this.props.match.params.productId) === product.id);
+    console.log("this is the product2:", product)
+  }
   const productReviews = reviews.filter(review => review.productId === product.id);
   return (
 
@@ -65,14 +74,20 @@ render()
 
 const mapStateToProps = state => {
   if(state.products.length > 1){
-    var alpha = state.products;
+    return {
+      reviews: state.reviews,
+      products: state.products,
+      isLoggedIn: !!state.user.id,
+      user: state.user
+    }
   }
-  else alpha = state.products[0]
-  return {
-    reviews: state.reviews,
-    product: alpha,
-    isLoggedIn: !!state.user.id,
-    user: state.user
+  else{
+    return {
+      reviews: state.reviews,
+      product: state.products[0],
+      isLoggedIn: !!state.user.id,
+      user: state.user
+    }
   }
 }
 const mapDispatchToProps = dispatch => {
