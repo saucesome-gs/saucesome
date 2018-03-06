@@ -3,7 +3,7 @@ const db = require('../db');
 
 const Price = db.define('price', {
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.FLOAT
   }
 })
 
