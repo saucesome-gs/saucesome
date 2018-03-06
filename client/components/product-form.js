@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import { postProduct } from '../store/product'
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   size: '',
   spiciness: 0,
   quantity: 0,
+  price: 0,
   imageUrl: '',
   tags: []
 }
@@ -85,6 +86,15 @@ export class ProductForm extends Component {
             min = "1"
             required
           />
+           <label>Price: </label>
+          <input
+            name = "price"
+            onChange = {this.handleChange}
+            value = {this.state.price}
+            placeholder = "Price"
+            type = "number"
+            required
+          />
           <label>ImageUrl: </label>
           <input
             name = "imageUrl"
@@ -110,10 +120,12 @@ export class ProductForm extends Component {
   }
 
   handleSubmit(event){
+    // const products = this.props.products;
+    // const numberPrices = products.prices.length;
     event.preventDefault()
-    console.log("this is the target:", event.target)
+    // console.log("this is the target:", event.target)
     let temp = (event.target.tags.value).split(',')
-    const price = event.target.price.value;
+    // const price = event.target.price.value;
     const info = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -121,11 +133,16 @@ export class ProductForm extends Component {
       size: event.target.size.value,
       spiciness: event.target.spiciness.value,
       quantity: event.target.quantity.value,
+      price: event.target.price.value,
       imageUrl: event.target.imageUrl.value,
       tags: temp,
+      // prices: [{id: numberPrices, price: 10}],
       brandId: 1
     }
-    this.props.postProduct(info);
+    const products = this.props.props.products;
+    this.props.postProduct(info)
+    .then(() => this.props.props.history.push(`/products/${products.length + 1}`))
+    //this.props.props.history.push(`/products/${products.length + 1}`)
   }
 
   handleChange(event){
@@ -145,4 +162,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default (connect(mapStateToProps, mapDispatchToProps)(ProductForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductForm));

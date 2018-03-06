@@ -6,15 +6,10 @@ import { addItem } from '../store/cart';
 import { me, addItemToDb } from '../store';
 
 export const SingleProduct = (props) => {
-
   const { products, isAdmin, isLoggedIn, reviews } = props;
-
   const product = products.find(product => Number(props.match.params.productId) === product.id);
   const productReviews = reviews.filter(review => review.productId === product.id);
-
   return (
-
-    
 
     <div>
     {
@@ -54,12 +49,11 @@ export const SingleProduct = (props) => {
         <img className="grayscale" src={product.imageUrl} />
         <h1>Currently Unavailable</h1>
       </div>
-    
+
     }
     </div>
   )
 }
-
 const mapStateToProps = state => {
   return {
     reviews: state.reviews,
@@ -68,7 +62,6 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     loadInitialData () {
@@ -82,6 +75,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
 };
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
-

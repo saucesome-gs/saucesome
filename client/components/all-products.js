@@ -27,7 +27,6 @@ export class AllProducts extends Component {
   }
 
   render() {
-
     const products = this.props.products;
     const isAdmin = this.props.isAdmin;
     const value = this.state.value
@@ -59,7 +58,7 @@ export class AllProducts extends Component {
                  {product.name}
                </Link>
              </div>
-                {(product.reviews && product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length)} star review
+                {(product.reviews && product.reviews.length) ? <div> {Math.round((((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length) * 100) / 100)} star review
                 </div> :
                 <div>
                   No reviews
@@ -78,7 +77,7 @@ export class AllProducts extends Component {
    }
    </div>
  }
-  {(isAdmin) ? <ProductForm /> : <div></div>}
+  {(isAdmin) ? <ProductForm products = {products} props ={this.props} /> : <div></div>}
    </div>
    )
 }
