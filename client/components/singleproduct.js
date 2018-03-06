@@ -6,7 +6,6 @@ import { addItem } from '../store/cart';
 import { me, addItemToDb, fetchProduct } from '../store';
 
 export class SingleProduct extends Component {
-
   componentDidMount() {
     const productId = this.props.match.params.productId;
     this.props.fetchProduct(productId);
@@ -65,9 +64,13 @@ render()
 }
 
 const mapStateToProps = state => {
+  if(state.products.length > 1){
+    var alpha = state.products;
+  }
+  else alpha = state.products[0]
   return {
     reviews: state.reviews,
-    product: state.products[0],
+    product: alpha,
     isLoggedIn: !!state.user.id,
     user: state.user
   }
