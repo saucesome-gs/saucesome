@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders, Checkout, SingleOrder } from './components'
+import {Login, Signup, UserHome, AllProducts, SingleProduct, Cart, SearchTag, AllOrders, Checkout, SingleOrder, LandingPage } from './components'
 import { me, fetchProducts, addItem, addItemToDb, fetchUsersOrders } from './store';
 
 
@@ -36,7 +36,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/products" render={() => <AllProducts handleAddToCart={this.handleAddToCart} isAdmin={isAdmin} />} />
         <Route exact path="/products/:productId" render={() => <SingleProduct handleAddToCart={this.handleAddToCart} isAdmin = {isAdmin} />} />
         <Route path="/login" component={Login} />
