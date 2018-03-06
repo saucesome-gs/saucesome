@@ -17,7 +17,6 @@ render()
 
   const { product, isAdmin, isLoggedIn, reviews } = this.props;
   const productReviews = reviews.filter(review => review.productId === product.id);
-
   return (
 
     <div>
@@ -52,13 +51,13 @@ render()
         { productReviews && productReviews.map(review => <li key={review.id}>{review.body}</li>) }
       </ul>
           </div> }
-        {(isAdmin) ? <EditForm productId = {product.id} /> : <div></div> }
+        {(isAdmin) ? <EditForm productId = {product.id} props={this.props} /> : <div></div> }
       </div> :
       <div>
         <img className="grayscale" src={product.imageUrl} />
         <h1>Currently Unavailable</h1>
       </div>
-    
+
     }
     </div>
   )
@@ -73,7 +72,6 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     loadInitialData () {
@@ -90,6 +88,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
 };
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleProduct));
-
