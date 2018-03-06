@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { checkoutCart } from '../store';
+import { checkoutCart, checkoutLoggedInCart } from '../store';
 import { CartPreview, CartSummary } from './';
 
 class Checkout extends Component {
 
   constructor(props) {
     super(props);
+    this.handleCheckout = this.handleCheckout.bind(this);
+  }
+
+  handleCheckout() {
+    if (!this.props.isLoggedIn) this.props.checkoutCart()
+    else this.props.checkoutLoggedInCart(this.props.order);
   }
 
   render() {
@@ -38,7 +44,6 @@ class Checkout extends Component {
               <label>Zip Code*
                 <input placeholder="00000" id='zip' name='zip' type='text' />
               </label>
-              <input type='submit' />
             </fieldset>
           </form>
         </div>
@@ -46,6 +51,9 @@ class Checkout extends Component {
           <form className="billing-details">
             <fieldset>
               <legend>Billing Address</legend>
+              <label>Desired Contact Email*
+                <input placeholder="janeDoe@email.com" id='email' name='email' type='text' />
+              </label>
               <label>Full Name*
                 <input placeholder="Jane Doe" id='name' name='name' type='text' />
               </label>
@@ -64,14 +72,13 @@ class Checkout extends Component {
               <label>Zip Code*
                 <input placeholder="00000" id='zip' name='zip' type='text' />
               </label>
-              <input type='submit' />
             </fieldset>
           </form>
         </div>
         <CartPreview />
         <CartSummary />
-        <Link to="/checkout">
-          <button className="checkout">
+        <Link to="/checkout-success">
+          <button className="checkout" onClick={this.handleCheckout}>
             Place Order
           </button>
         </Link>
@@ -94,7 +101,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkoutCart: (cartArr => dispatch(checkoutCart(cartArr)))
+    checkoutCart: (cartArr => dispatch(checkoutCart(cartArr))),
+    checkoutLoggedInCart: ((orderId) => dispatch(checkoutLoggedInCart(orderId)))
   }
 };
 

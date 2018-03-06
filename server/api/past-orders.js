@@ -6,21 +6,7 @@ router.get('/', (req, res, next) => {
   .then(foundOrders => res.json(foundOrders));
 })
 
-router.get('/:status', (req, res, next) => {
-  Order.findAll({
-    where: {
-      status: req.params.status
-    },
-  })
-  .then((foundOrders) => {
-    console.log(foundOrders)
-    res.json(foundOrders);
-  })
-  .catch(next);
-})
-
-router.get('/:userId', (req, res, next) => {
-  console.log(req.params.userId)
+router.get('/user/:userId', (req, res, next) => {
   Order.findAll({
     where: {
       userId: req.params.userId,
@@ -30,7 +16,16 @@ router.get('/:userId', (req, res, next) => {
     },
     raw: true
   })
+  .then(foundOrders => res.json(foundOrders));
+})
 
+router.get('/:status', (req, res, next) => {
+  if (typeof req.params.status !== 'string') return next();
+  Order.findAll({
+    where: {
+      status: req.params.status
+    },
+  })
   .then((foundOrders) => {
     res.json(foundOrders);
   })

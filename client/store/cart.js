@@ -99,6 +99,10 @@ export const checkoutCart = (cartArr) => (dispatch) => {
     console.log(error)
   })
 }
+export const checkoutLoggedInCart = (orderId) => dispatch => {
+  return axios.put(`/api/checkout/${orderId}`)
+  .then( () => dispatch(clearCartAction()));
+}
 
 // REDUCER
 export default function(state = cart, action) {

@@ -1,5 +1,32 @@
 const router = require('express').Router();
-const { Order, OrderItem } = require('../db/models');
+const { Order, OrderItem, User } = require('../db/models');
+const nodemailer = require('nodemailer');
+const secrets = require('../../secrets.js')
+
+// mailing
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'saucesomegs@gmail.com',
+      pass: secrets
+    }
+  });
+
+var mailOptions = {
+  from: 'saucesomegs@gmail.com',
+  to: 'saucesomegs@gmail.com',
+  subject: 'Thanks for your order!',
+  text: 'That was easy!'
+};
+
+// transporter.sendMail(mailOptions, function(error, info){
+//   console.log('password is ', secrets)
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
 
 router.post('/', (req, res, next) => {
   Order.create({
@@ -26,7 +53,6 @@ router.put('/:orderId', (req, res, next) => {
     where: {id: req.params.orderId},
   })
   .then(updatedOrder => {
-    console.log(updatedOrder);
     res.status(200).json(updatedOrder)
   })
   .catch(next)

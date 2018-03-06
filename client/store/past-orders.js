@@ -27,9 +27,10 @@ export const clearPastOrdersAction = () => {
 // THUNK CREATORS
 
 export const fetchUsersOrders = (userId) => (dispatch) => {
-  axios.get(`/api/past-orders/${userId}`)
+  axios.get(`/api/past-orders/user/${userId}`)
   .then(foundOrders => foundOrders.data)
   .then(formattedOrders => {
+    console.log('formatted orders are', formattedOrders)
     let orderObjects = formattedOrders.map(order => ({orderId: order.id, date: order.updatedAt, status: order.status}));
     dispatch(fetchPastOrdersAction(orderObjects));
   })
