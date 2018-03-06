@@ -59,7 +59,7 @@ export class AllProducts extends Component {
                  {product.name}
                </Link>
              </div>
-                { (product.reviews) && (product.reviews.length) ? <div> {Math.round((((product.reviews.reduce((a,b) => a + b.rating, 0))/product.reviews.length) * 100) / 100)} star review
+                { (product.reviews) && (product.reviews.length) ? <div> {((product.reviews.reduce((a,b) => a + b.rating, 0)) / product.reviews.length).toFixed(2)} star review
                 </div> :
                 <div>
                   No reviews
