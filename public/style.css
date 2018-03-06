@@ -10,6 +10,11 @@ label {
   display: block;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -38,3 +43,13 @@ img {
   max-width: 100%;
   width: 50%;
 }
+
+.cart-items {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* .cart-single-item {
+  display:flex;
+} */

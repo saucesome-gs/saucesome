@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { SearchForm } from './';
 
 class AllOrders extends Component {
   constructor(props) {
@@ -10,26 +11,26 @@ class AllOrders extends Component {
 
   render() {
 
-    const { pastOrders } = this.props;
-    // const filteredOrders = this.props.orders.filter(order => (filteredOrders.name.toLowerCase().match(value) || filteredOrders.brand.name.toLowerCase().match(value)) && filteredOrders.quantity > 0)
+    const { pastOrders, isAdmin } = this.props;
 
    return (
     <div>
      <h1>Your orders</h1>
+     { isAdmin && <div>Seach by order status: <SearchForm /></div>}
      { (!pastOrders.length) ? <p>You have no orders to display </p> :
        <div>
      { (pastOrders.length) && pastOrders.map((order => {
        return (
-         <div key={order.id}>
-           {/* <a href=add single order view here> */}
-           {/* </a> */}
+         <div key={order.date}>
            <div>
              <div>Order Number: {order.orderId}</div>
              <div>Date: {order.date}</div>
              <div>Status: {order.status}</div>
+            <Link to={`/orders/order/${order.orderId}`}>
            <button>
              View Order
            </button>
+           </Link>
          </div>
          </div>
        )}
@@ -47,7 +48,8 @@ const mapStateToProps = state => {
     products: state.products,
     order: state.order,
     pastOrders: state.pastOrders,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 
 }

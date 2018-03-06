@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { EditForm, ReviewForm } from './';
 import { addItem } from '../store/cart';
-import { me, addItemToDb } from '../store';
+import { me, addItemToDb, fetchProduct } from '../store';
 
-export const SingleProduct = (props) => {
-  const { products, isAdmin, isLoggedIn, reviews } = props;
-  const product = products.find(product => Number(props.match.params.productId) === product.id);
+export class SingleProduct extends Component {
+
+  componentDidMount() {
+    const productId = this.props.match.params.productId;
+    this.props.fetchProduct(productId);
+  }
+
+render()
+ {
+
+  const { product, isAdmin, isLoggedIn, reviews } = this.props;
   const productReviews = reviews.filter(review => review.productId === product.id);
   return (
 
     <div>
     {
-      (product.quantity > 0) && (products.length) ?
+      (product.quantity) && (product.quantity > 0) ?
       <div>
-        { (products.length) &&
+        { (product) &&
           <div>
             <img src={product.imageUrl} />
             <h3>{product.brand && product.brand.name}</h3>
@@ -34,10 +42,10 @@ export const SingleProduct = (props) => {
             </ul>
             <button
               value={product.id}
-              onClick={props.handleAddToCart}>
+              onClick={this.props.handleAddToCart}>
               Add To Cart
             </button>
-            {(isLoggedIn) ? <ReviewForm user={props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
+            {(isLoggedIn) ? <ReviewForm user={this.props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
             <ul>
         { product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
         { productReviews && productReviews.map(review => <li key={review.id}>{review.body}</li>) }
@@ -54,10 +62,12 @@ export const SingleProduct = (props) => {
     </div>
   )
 }
+}
+
 const mapStateToProps = state => {
   return {
     reviews: state.reviews,
-    products: state.products,
+    product: state.products[0],
     isLoggedIn: !!state.user.id,
     user: state.user
   }
@@ -72,6 +82,9 @@ const mapDispatchToProps = dispatch => {
     },
     addItemToDb(productId, orderId) {
       dispatch(addItemToDb(productId, orderId));
+    },
+    fetchProduct (productId) {
+      dispatch(fetchProduct(productId));
     }
   }
 };

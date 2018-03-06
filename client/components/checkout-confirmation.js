@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { checkoutCart } from '../store';
-import { CartPreview, CartSummary } from './';
 
-class Checkout extends Component {
+class CheckoutConfirmation extends Component {
 
   constructor(props) {
     super(props);
@@ -98,4 +97,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Checkout));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CheckoutConfirmation));
