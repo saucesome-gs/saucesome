@@ -20,11 +20,16 @@ export class ReviewForm extends Component {
 
     return (
       <div>
-        <h2> Review this sauce </h2>
+        <hr />
+        <div className="px-5">
+        <h2>Add A Review</h2>
+        <div className = "add-form">
         <form onSubmit = {this.handleSubmit}>
+        <div className = "form-group">
           <label>Rating: </label>
           <input
             name = "rating"
+            className = "form-control"
             onChange = {this.handleChange}
             value = {this.state.rating }
             placeholder = "Rating"
@@ -32,18 +37,24 @@ export class ReviewForm extends Component {
             min = "1"
             max = "5"
             required />
-          <label>Body: </label>
+        </div>
+        <div className ="form-group">
+          <label>Body: </label>   
           <input
             name = "body"
+            className = "form-control"
             onChange = {this.handleChange}
             value = {this.state.body}
             placeholder = "Text here"
             type = "text"
             minLength = "10"
             required />
+        </div>
           <button type = "submit"> Add Review </button>
         </form>
-        <h2>Reviews:</h2>
+        
+        </div>
+        </div>
       </div>
     )
   }

@@ -12,7 +12,6 @@ html { font-size: 2vw; }
 
 body {
   font-family: 'Yantramanav', sans-serif;
-  text-transform: capitalize;
   font-weight: 400;
 }
 
@@ -35,6 +34,18 @@ form div {
 img {
   max-width: 100%;
   width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin: 0 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
 }
 
 .cart-product-info {
@@ -65,8 +76,7 @@ img {
   font-family: 'Bowlby One SC', cursive;
   align-self: center;
   font-size: 5em;
-  margin-top: 38px;
-  
+  margin-top: 38px; 
 }
 
 #saucesome a {
@@ -80,6 +90,12 @@ img {
   display: inline-block;
   align-self: center;
   margin: 0px 38px;
+}
+
+.black {
+  position: relative;
+  z-index: 100;
+  background-color: #fff;
 }
 
 nav {
@@ -157,7 +173,7 @@ hr {
   color: #69140e;
 }
 
-.all-product-desc button, form button {
+button, form button {
   color: #fff;
   padding: 10px 10px;
   margin: 10px;
@@ -169,7 +185,7 @@ hr {
   transition: all 0.3s ease-in-out;
 }
 
-.all-product-desc button:hover, form button:hover {
+button:hover, form button:hover {
   background-color: #69140e;
 }
 
@@ -192,13 +208,6 @@ hr {
   text-transform: uppercase;
   
 }
-
-/* #all-products-search-wrapper {
-  max-width: 100%;
-  text-align: center;
-  margin: 0 auto;
-}
-*/
 
 .all-products-search {
   border: 1px solid #212322;
@@ -230,6 +239,18 @@ hr {
   flex-wrap: wrap;
 }
 
-/* .cart-single-item {
-  display:flex;
+/* Single Product  */
+
+#single-product {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+#single-product img {
+  max-width: 100vw;
+}
+
+/* #single-product-column-2 h3, #single-product-column-2 h2 {
+  text-align: right;
 } */

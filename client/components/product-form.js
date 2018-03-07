@@ -33,7 +33,7 @@ export class ProductForm extends Component {
       
         
         <div className="text-center">
-        <h2>🔥 Add A New hot Sauce 🔥</h2>
+        <h2>🔥 Add A New Hot Sauce 🔥</h2>
         </div>
         <div className="add-form">
         <form onSubmit = {this.handleSubmit}>

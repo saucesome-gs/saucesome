@@ -25,32 +25,45 @@ render()
       <div>
         { (product) &&
           <div>
-            <img src={product.imageUrl} />
+          <div>
+          <div id="single-product" className="px-2">
+            <div>
+              <img src={product.imageUrl} />
+            </div>
+          <div id="single-product-column-2">
             <h3>{product.brand && product.brand.name}</h3>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <div>
               {
-                `$${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
+                `Price: $${product.prices && product.prices.length && (product.prices[product.prices.length - 1].price)}`
               }
             </div>
             <ul>
-              <p>Tags:</p>
+              <p className="mb-0 mt-2">Tags:</p>
               {
-                product.tags.map( (tag, key) => <li key={key}><Link to={`/tag/${tag}`}>#{tag}</Link></li> )
+                product.tags.map( (tag, key) => <li key={key}><Link to={`/tag/${tag}`}>{`#${tag} `}</Link></li> )
               }
             </ul>
+          <div>
             <button
               value={product.id}
               onClick={this.props.handleAddToCart}>
               Add To Cart
             </button>
-            {(isLoggedIn) ? <ReviewForm user={this.props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
-            <ul>
-        { product.reviews && product.reviews.map(review => <li key={review.id}>{review.body}</li>) }
-        { productReviews && productReviews.map(review => <li key={review.id}>{review.body}</li>) }
-      </ul>
-          </div> }
+          </div>
+          </div>
+          </div>
+            {
+              (isLoggedIn) ? <ReviewForm user={this.props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
+              <h3 className="pt-5 px-5">Comments:</h3>
+              <ul className="py-1 px-5">
+                { product.reviews && product.reviews.map(review => <li key={review.id}>- {review.body}</li>) }
+                { productReviews && productReviews.map(review => <li key={review.id}>- {review.body}</li>) }
+              </ul>
+            </div> 
+          </div>
+            }
         {(isAdmin) ? <EditForm productId={product.id} props={this.props} /> : <div></div> }
       </div> :
       <div>

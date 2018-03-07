@@ -26,75 +26,123 @@ export class EditForm extends Component {
     render () {
       return (
         <div>
-          <h2> Spice it or splice it </h2>
-          <form onSubmit = {this.handleSubmit}>
-            <label>Name: </label>
-            <input name = "name"
-                   onChange = {this.handleChange}
-                   value = {this.state.name}
-                   placeholder = "Sauce name"
-                   type= "text"
-                   required />
-            <label>Description: </label>
-            <input name = "description"
-                   onChange = {this.handleChange}
-                   value = {this.state.description}
-                   placeholder = "Sauce description"
-                   type = "text"
-                   required />
-            <label>Price: </label>
-            <input name = "price"
-                  onChange = {this.handleChange}
-                  value = {this.state.price}
-                  placeholder = "Price"
-                  type= "num"
-                  required />
-            <label>Ingredients: </label>
-            <input name = "ingredients"
-                   onChange = {this.handleChange}
-                   value = {this.state.ingredients}
-                   placeholder = "Sauce ingredients"
-                   type= "text"
-                   required />
-            <label>Size: </label>
-            <input name = "size"
-                   onChange = {this.handleChange}
-                   value = {this.state.size}
-                   placeholder = "Sauce size"
-                   type= "text"
-                   required />
-            <label>Spiciness: </label>
-            <input name = "spiciness"
-                   onChange = {this.handleChange}
-                   value = {this.state.spiciness}
-                   placeholder = "9000"
-                   type= "number"
-                   min = "1"
-                   required />
-            <label>Quantity: </label>
-            <input name = "quantity"
-                   onChange = {this.handleChange}
-                   value = {this.state.quantity}
-                   placeholder = "1"
-                   type= "number"
-                   min = "1"
-                   required />
-            <label>ImageUrl: </label>
-            <input name = "imageUrl"
-                   onChange = {this.handleChange}
-                   value = {this.state.imageUrl}
-                   placeholder = "url"
-                   type= "url"
-                   required />
-            <label>Tags: </label>
-            <input name = "tags"
-                   onChange = {this.handleChange}
-                   value = {this.state.tags}
-                   placeholder = "hot"
-                   type= "string"
-                   required />
-            <button type = "submit"> Edit Sauce </button>
-          </form>
+          <hr />
+          <div className="text-center">
+          <h2>🔥 Edit this sauce 🔥</h2>
+          </div>
+          <div className="add-form">
+        <form  className="px-5" onSubmit = {this.handleSubmit}>
+          <div className="form-group">
+          <label>Name: </label>
+          <input
+            name = "name"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.name}
+            placeholder = "Sauce name"
+            type = "text"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>Description: </label>
+          <input name = "description"
+          className="form-control"
+                 onChange = {this.handleChange}
+                 value = {this.state.description}
+                 placeholder = "Sauce description"
+                 type = "text"
+                 required />
+          </div>
+          <div className="form-group">       
+          <label>Price: </label>
+          <input name = "price"
+          className="form-control"
+                onChange = {this.handleChange}
+                value = {this.state.price}
+                placeholder = "Price"
+                type= "num"
+                required />
+          </div>
+          <div className="form-group">
+          <label>Ingredients: </label>
+          <input
+            name = "ingredients"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.ingredients}
+            placeholder = "Sauce ingredients"
+            type = "text"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>Size: </label>
+          <input
+            name = "size"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.size}
+            placeholder = "Sauce size"
+            type = "text"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>Spiciness: </label>
+          <input
+            name = "spiciness"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.spiciness}
+            placeholder = "9000"
+            type = "number"
+            min = "1"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>Quantity: </label>
+          <input
+            name = "quantity"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.quantity}
+            placeholder = "1"
+            type = "number"
+            min = "1"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>ImageUrl: </label>
+          <input
+            name = "imageUrl"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.imageUrl}
+            placeholder = "url"
+            type = "url"
+            required
+          />
+          </div>
+          <div className="form-group">
+          <label>Tags: </label>
+          <input
+            name = "tags"
+            className="form-control"
+            onChange = {this.handleChange}
+            value = {this.state.tags}
+            placeholder = "hot"
+            type = "string"
+            required
+          />
+          </div>
+          <div className="fifty-view-width text-center">
+          <button type = "submit">Add Hot Sauce 🔥</button>
+          </div>
+        </form>
+      </div>
         </div>
       )
     }
