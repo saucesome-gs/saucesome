@@ -31,8 +31,8 @@ export const fetchUsersAdmin = () => dispatch =>
    .then(users => dispatch(getUsers(users)))
    .catch(err => console.log(err))
 
-export const updateUserAdmin = (user) => dispatch =>
-   axios.put(`/api/users/${user.id}`, user)
+export const updateUserAdmin = (userId, status) => dispatch =>
+   axios.put(`/api/users/${userId}`, {status})
    .then(res => res.data)
    .then(updatedUser =>{
     console.log(updatedUser)

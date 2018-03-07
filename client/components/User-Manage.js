@@ -18,7 +18,7 @@ export class UserManagement extends Component {
       id: this.props.userId,
       isAdmin: event.target.value
     }
-    this.props.updateUserAdmin(info);
+    this.props.updateUserAdmin(info.id, info.isAdmin);
   }
   handleDelete(event){
     event.preventDefault();
@@ -69,7 +69,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchUsersAdmin: () => dispatch(fetchUsersAdmin()),
-  updateUserAdmin: (user) => dispatch(updateUserAdmin(user)),
+  updateUserAdmin: (userId, status) => dispatch(updateUserAdmin(userId, status)),
   deleteUserAdmin: (userId) => dispatch(deleteUserAdmin(userId))
 })
 
