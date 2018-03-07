@@ -6,14 +6,26 @@ import {logout, clearCartAction } from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
 
-  <div>
-    <h1>
-      <NavLink to="/">SAUCESOME</NavLink>
-    </h1>
+  <div className="black">
+    <div id="saucesome-wrapper">
+      <img src="images/hot-pepper.png" className="hot-pepper-img" />
+      <h1 id="saucesome">
+        <NavLink to="/">SAUCESOME</NavLink>
+      </h1>
+      <img src="images/hot-pepper.png" className="hot-pepper-img" />
+    </div>
     <nav>
-      <div>
-        <NavLink to="/products">Products</NavLink>
+      <div className="column-1">
+        <NavLink to="/products">All Products</NavLink>
+        <NavLink to="/cart">Your Cart:
+          <span>
+            ({Object.keys(cart).reduce((acc, curr) => (
+              acc + cart[curr]
+            ), 0)}) items
+          </span>
+        </NavLink>
       </div>
+      <div className="column-2">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -30,15 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
             <NavLink to="/signup">Sign Up</NavLink>
           </div>
         )}
-      <div>
-        <NavLink to="/cart">Your Cart:
-          <span>
-            ({Object.keys(cart).reduce((acc, curr) => (
-              acc + cart[curr]
-            ), 0)}) items
-          </span>
-        </NavLink>
-      </div>
+        </div>
     </nav>
     <hr />
   </div>

@@ -13,18 +13,21 @@ export class SearchTag extends Component {
 
   render() {
     const products = this.props.products;
+    console.log(products);
     const tagId = this.props.match.params.tagId
     const tagProducts = products.filter(product => product.tags.includes(tagId));
 
   return (
     <div>
-    <h1>All sauces that are {tagId}!</h1>
+    <h3 className="px-5">All sauces that are {tagId}!</h3>
+    <div className="flex-container">
       { (tagProducts.length) && tagProducts.map(product => {
         return (
         <div key={product.id}>
-          <a href={`/products/${+product.id}`}>
+          <NavLink to={`/products/${+product.id}`}>
             <img src={product.imageUrl} />
-          </a>
+          </NavLink>
+          <div className="all-product-desc">
           <div>
             <div>{product.brand.name}</div>
             <div>
@@ -40,8 +43,10 @@ export class SearchTag extends Component {
             Add to Cart
           </button>
         </div>
+        </div>
       )}
     )}
+    </div>
     </div>
   )
 }

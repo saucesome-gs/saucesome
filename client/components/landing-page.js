@@ -1,6 +1,7 @@
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 const { Marker } = require('mapbox-gl');
-mapboxgl.accessToken = 'pk.eyJ1IjoibnJsYXVyZWFubyIsImEiOiJjamQxd3I4cnMxanJrMndvNGRjd3VmaTA1In0.wYY43rmW7JCnuTg_t0HBXA';
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibnJsYXVyZWFubyIsImEiOiJjamQxd3I4cnMxanJrMndvNGRjd3VmaTA1In0.wYY43rmW7JCnuTg_t0HBXA'; //Noelle
 
 import React, { Component } from 'react';
 // import {connect} from 'react-redux';
@@ -55,9 +56,9 @@ export default class LandingPage extends Component {
   render() {
     const style = {
       position: 'absolute',
-      top: 140,
-      bottom: 0,
-      height: '80%',
+      top: 0,
+      right: 0,
+      height: '100%',
       width: '100%'
     };
     console.log('IN LANDING PAGE COMPONENT');
