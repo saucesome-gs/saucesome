@@ -55,8 +55,8 @@ render()
           </div>
           </div>
             {
-              (isLoggedIn) ? <ReviewForm user={this.props} /> : <p>Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
-              <h3 className="pt-5 px-5">Comments:</h3>
+              (isLoggedIn) ? <ReviewForm user={this.props} /> : <p className="px-5 pt-5">Please <Link to="/login">log in</Link> or <Link to="/signup">sign up</Link> to add a review</p> }
+              <h3 className="pt-3 px-5">Comments:</h3>
               <ul className="py-1 px-5">
                 { product.reviews && product.reviews.map(review => <li key={review.id}>- {review.body}</li>) }
                 { productReviews && productReviews.map(review => <li key={review.id}>- {review.body}</li>) }
