@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { addItem, deleteItem, addItemToDb, deleteItemFromDb, getSubtotal } from '../store';
 import { CartPreview, CartSummary } from './';
 
-const Cart = () => (
-
+const Cart = (props) => (
+    <div>
+  { Object.keys(props.cart).length &&
             <div>
               <CartPreview />
               <div>
@@ -16,34 +16,19 @@ const Cart = () => (
                   </button>
                 </Link>
               </div>
-            </div>
-          )
-
+            </div> }
+    { !Object.keys(props.cart).length &&
+    <div>
+      No items to display
+      </div>}
+  </div>
+)
 
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    products: state.products,
-    user: state.user,
-    order: state.order,
-    isLoggedIn: !!state.user.id,
-    subtotal: state.subtotal
   }
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteItem: (itemId => dispatch(deleteItem(itemId))),
-    addItem: (itemId => dispatch(addItem(itemId))),
-    addItemToDb: (productId, orderId) => {
-      dispatch(addItemToDb(productId, orderId));
-    },
-    deleteItemFromDb: (itemId, orderId) => {
-      dispatch(deleteItemFromDb(itemId, orderId));
-    },
-    getSubtotal: (subtotal) => {
-      dispatch(getSubtotal(subtotal));
-    }
-  }
-};
+const mapDispatchToProps = null;
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));

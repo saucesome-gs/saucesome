@@ -47,7 +47,6 @@ router.post('/', (req, res, next) => {
 
 router.put('/:orderId', (req, res, next) => {
   const emailAddy = Object.keys(req.body)[0];
-  console.log('email address is', emailAddy);
   Order.update({
     status: 'purchased'
   }, {
@@ -59,7 +58,6 @@ router.put('/:orderId', (req, res, next) => {
   .catch(next);
   mailOptions.to = emailAddy;
   transporter.sendMail(mailOptions, function(error, info){
-    console.log('password is ', secrets)
     if (error) {
       console.log(error);
     } else {
