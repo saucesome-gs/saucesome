@@ -296,11 +296,27 @@ button:hover, form button:hover {
   font-family: 'News Cycle', sans-serif;
   font-size: 1rem;
   text-transform: uppercase;
-  justify-content: space-between;
-  /* border: #212322; */
+  justify-content: space-around;
 }
 
-/* .cart-summary-row {
+.cart-summary-flex {
   display: flex;
   justify-content: space-between;
-} */
+}
+
+.checkout-button {
+  display: flex;
+  font-family: 'News Cycle', sans-serif;
+  font-size: 1rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  justify-content: space-around;
+}
+
+/* Checkout */
+
+.address-details, .checkout-address-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}

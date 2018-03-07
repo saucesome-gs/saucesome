@@ -16,7 +16,7 @@ var mailOptions = {
   from: 'saucesomegs@gmail.com',
   to: 'saucesomegs@gmail.com',
   subject: 'Thanks for your order!',
-  text: 'Please expect your sauce to arrive in 3-5 days.'
+  text: 'Please expect your sauce to arrive in 3-5 days. Stay spicy!'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
