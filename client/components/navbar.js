@@ -39,7 +39,7 @@ const Navbar = ({ isAdmin, handleClick, isLoggedIn, cart, user }) => (
           </span>
         </NavLink>
       </div>
-      { isAdmin ? (<div> <NavLink to="/userManage"> Manage Users </NavLink> </div>) :
+      { isAdmin ? (<div> <NavLink to="/usermanage"> Manage Users </NavLink> </div>) :
       <div> </div>
       }
     </nav>

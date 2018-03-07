@@ -9,9 +9,9 @@ import subtotal from './subtotal';
 import order from './order';
 import reviews from './review'
 import pastOrders from './past-orders';
-import usersManagement from './users-Manage'
+import users from './users-Manage'
 
-const reducer = combineReducers({ user, products, cart, subtotal, order, pastOrders, reviews, usersManagement });
+const reducer = combineReducers({ user, products, cart, subtotal, order, pastOrders, reviews, users });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
