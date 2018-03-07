@@ -28,15 +28,17 @@ class CartPreview extends Component {
       this.props.deleteItem(event.target.value);
     }
   }
-
+//test
   render() {
 
     const { cart, products } = this.props;
 
     return (
             <div>
-              <p>Yo sauce:</p>
-              <div className="cart-items">
+              <div id="cart-products-flex">
+                <h1>🔥 Yo Sauce 🔥</h1>
+              </div>
+              <div className="flex-container">
                 {
                   Object.keys(cart).length && Object.keys(cart).map(productId => {
                     const productDetails = products.find(cartItem =>
@@ -51,11 +53,13 @@ class CartPreview extends Component {
                             <img src={productDetails.imageUrl} />
                           </Link>
                           <div className="cart-product-info">
-                            <div>
+                            <div className="cart-product-desc">
                               <Link
-                                to={`/products/${+productId}`}>{`${productDetails.name}
-                                  - $${productPrice} `}
+                                to={`/products/${+productId}`}>{`${productDetails.name}`}
                               </Link>
+                              <div className="cart-product-price">
+                                ${productPrice}
+                              </div>
                             </div>
                             <div className="cart-product-quantity">
                               <button
