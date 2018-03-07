@@ -7,7 +7,7 @@ import history from '../history';
 const GET_USERS = 'GET_USERS';
 // const GET_USER = 'GET_USER';
 const UPDATE_USER = 'UPDATE_USER';
-const REMOVE_USER = 'REMOVE_USER';
+const DELETE_USER = 'DELETE_USER';
 
 /**
  * INITIAL STATE
@@ -19,7 +19,7 @@ const users = [];
  */
 const getUsers = users => ({type: GET_USERS, users})
 //const getUser = user => ({ type: GET_USER, user });
-const removeUser = (userId) => ({ type: REMOVE_USER, userId });
+const deleteUser = (userId) => ({ type: DELETE_USER, userId });
 const updateUser = user => ({type: UPDATE_USER, user })
 
 /**
@@ -32,7 +32,7 @@ export const fetchUsersAdmin = () => dispatch =>
    .catch(err => console.log(err))
 
 export const updateUserAdmin = (user) => dispatch =>
-   axios.put(`/api/user/${user.id}`, user)
+   axios.put(`/api/users/${user.id}`, user)
    .then(res => res.data)
    .then(updatedUser =>{
     console.log(updatedUser)
@@ -44,8 +44,8 @@ export const updateUserAdmin = (user) => dispatch =>
 .catch(err => console.error(err));
 
 export const deleteUserAdmin = (userId) => dispatch =>
-   axios.delete(`/api/user/${userId}`)
-   .then(() => dispatch(removeUser(userId)))
+   axios.delete(`/api/users/${userId}`)
+   .then(() => dispatch(deleteUser(userId)))
    .catch(err => console.error(err))
 /**
  * REDUCER
@@ -56,7 +56,7 @@ export default function(state = users, action) {
       return action.users;
     case UPDATE_USER:
       return state.map(user => ( user.id === action.user.id ? action.user : user ));
-    case REMOVE_USER:
+    case DELETE_USER:
       return state.filter(user => (user.id !== action.userId))
     default:
       return state;

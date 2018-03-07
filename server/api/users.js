@@ -32,11 +32,15 @@ router.put('/:userid', isAdmin, (req, res, next) => {
   .catch(next)
 })
 router.delete('/:userid', isAdmin, (req, res, next) => {
-  User.destroy({
+  User.findOne({
     where: {
       id: req.params.userid
     }
   })
-  .then(() => res.sendStatus(204))
+  .then((foundItem) => {
+    foundItem.destroy()
+  })
+  .then(() =>
+  res.status(204).send('Found and deleted'))
   .catch(next);
 })

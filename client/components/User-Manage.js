@@ -22,8 +22,8 @@ export class UserManagement extends Component {
   }
   handleDelete(event){
     event.preventDefault();
-    console.log(event)
-   // this.props.deleteUserAdmin(user.id)
+    console.log('target is', event.target.value)
+   this.props.deleteUserAdmin(event.target.value)
   }
   render(){
     const users = this.props.users
@@ -46,9 +46,11 @@ export class UserManagement extends Component {
                   </select>
                 </label>
               </form>
-              <form onSubmit = {this.handleDelete}>
-              <button type = "submit"> Delete User </button>
-              </form>
+              {/* <form onSubmit = {this.handleDelete}> */}
+              <button type = "submit" value={user.id}
+              onClick={this.handleDelete}
+              > Delete User </button>
+              {/* </form> */}
               </div>
             )
           })
