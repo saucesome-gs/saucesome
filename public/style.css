@@ -48,10 +48,6 @@ ul li {
   display: inline-block;
 }
 
-.cart-product-info {
-  display: flex;
-}
-
 .grayscale {
   filter: grayscale(100%);
 }
@@ -76,7 +72,7 @@ ul li {
   font-family: 'Bowlby One SC', cursive;
   align-self: center;
   font-size: 5em;
-  margin-top: 38px; 
+  margin-top: 38px;
 }
 
 #saucesome a {
@@ -138,8 +134,6 @@ hr {
   flex-wrap : wrap;
   flex-flow: row wrap;
   justify-content: space-around;
-  
-
 }
 
 .flex-container > div {
@@ -180,7 +174,7 @@ button, form button {
   text-align: center;
   text-decoration: none;
   background-color: #b5343a;
-  border: 2px solid #69140e; 
+  border: 2px solid #69140e;
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
@@ -206,12 +200,11 @@ button:hover, form button:hover {
   font-family: 'News Cycle', sans-serif;
   font-size: 2.2rem;
   text-transform: uppercase;
-  
 }
 
 .all-products-search {
   border: 1px solid #212322;
-} 
+}
 
 .add-form .form-control {
   max-width: 50vw;
@@ -244,7 +237,6 @@ button:hover, form button:hover {
 #single-product {
   display: flex;
   justify-content: space-around;
-
 }
 
 #single-product img {
@@ -254,3 +246,44 @@ button:hover, form button:hover {
 /* #single-product-column-2 h3, #single-product-column-2 h2 {
   text-align: right;
 } */
+
+/* Cart Preview */
+
+#cart-products-flex h1 {
+  display: flex;
+  font-family: 'News Cycle', sans-serif;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+.cart-product-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-weight: 600;
+  background-color: #eee;
+  padding: 10px 0;
+  font-size: 0.7em;
+  border-radius: 20px;
+}
+
+.cart-product-quantity {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.cart-product-price {
+  font-weight: 600;
+}
+
+.cart-product-info a {
+  color: #212322;
+  transition: all 1.0s ease-in-out;
+}
+
+.cart-product-info a:hover {
+  font-weight: bold;
+  color: #69140e;
+}
