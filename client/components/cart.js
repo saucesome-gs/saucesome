@@ -8,12 +8,14 @@ const Cart = (props) => (
   { Object.keys(props.cart).length &&
             <div>
               <CartPreview />
-              <div>
+              <div className="my-5">
                 <CartSummary />
                 <Link to="/checkout">
-                  <button className="checkout">
-                    Cash Out Dat Sauce
-                  </button>
+                  <div className="checkout-button">
+                    <button>
+                      Cash Out Dat Sauce
+                    </button>
+                  </div>
                 </Link>
               </div>
             </div> }
