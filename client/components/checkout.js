@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { checkoutLoggedInCart } from '../store';
+import { checkoutLoggedInCart, clearCartAction } from '../store';
 import { CartPreview, CartSummary } from './';
 
 class Checkout extends Component {
@@ -17,6 +17,7 @@ class Checkout extends Component {
 
   handleCheckout() {
     if (this.props.isLoggedIn) this.props.checkoutLoggedInCart(this.props.order, this.state.email);
+    this.props.clearCartAction();
   }
 
   handleEmailChange(event) {
@@ -117,7 +118,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkoutLoggedInCart: ((orderId, email) => dispatch(checkoutLoggedInCart(orderId, email)))
+    checkoutLoggedInCart: ((orderId, email) => dispatch(checkoutLoggedInCart(orderId, email))),
+    clearCartAction: (dispatch(clearCartAction()))
   }
 };
 
