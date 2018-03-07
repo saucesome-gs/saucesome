@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { checkoutCart } from '../store';
+import { checkoutLoggedInCart } from '../store';
 import { CartPreview, CartSummary } from './';
 
 class Checkout extends Component {
 
   constructor(props) {
     super(props);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.state = {
+      email: ''
+    }
+  }
+
+  handleCheckout() {
+    if (this.props.isLoggedIn) this.props.checkoutLoggedInCart(this.props.order, this.state.email);
+  }
+
+  handleEmailChange(event) {
+    this.setState({
+      email: event.target.value
+    });
   }
 
   render() {
-
-    const { subtotal } = this.props;
 
     return (
       <div>
@@ -38,7 +51,6 @@ class Checkout extends Component {
               <label>Zip Code*
                 <input placeholder="00000" id='zip' name='zip' type='text' />
               </label>
-              <input type='submit' />
             </fieldset>
           </form>
         </div>
@@ -46,6 +58,10 @@ class Checkout extends Component {
           <form className="billing-details">
             <fieldset>
               <legend>Billing Address</legend>
+              <label>Desired Contact Email*
+                <input placeholder="janeDoe@email.com" id='email' name='email' type='text'
+                onChange={this.handleEmailChange} />
+              </label>
               <label>Full Name*
                 <input placeholder="Jane Doe" id='name' name='name' type='text' />
               </label>
@@ -64,14 +80,13 @@ class Checkout extends Component {
               <label>Zip Code*
                 <input placeholder="00000" id='zip' name='zip' type='text' />
               </label>
-              <input type='submit' />
             </fieldset>
           </form>
         </div>
         <CartPreview />
         <CartSummary />
-        <Link to="/checkout">
-          <button className="checkout">
+        <Link to="/checkout-success">
+          <button className="checkout" onClick={this.handleCheckout}>
             Place Order
           </button>
         </Link>
@@ -94,7 +109,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkoutCart: (cartArr => dispatch(checkoutCart(cartArr)))
+    checkoutLoggedInCart: ((orderId, email) => dispatch(checkoutLoggedInCart(orderId, email)))
   }
 };
 

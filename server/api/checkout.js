@@ -1,5 +1,31 @@
 const router = require('express').Router();
-const { Order, OrderItem } = require('../db/models');
+const { Order, OrderItem, User } = require('../db/models');
+const nodemailer = require('nodemailer');
+const secrets = require('../../secrets.js')
+
+// mailing
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'saucesomegs@gmail.com',
+      pass: secrets
+    }
+  });
+
+var mailOptions = {
+  from: 'saucesomegs@gmail.com',
+  to: 'saucesomegs@gmail.com',
+  subject: 'Thanks for your order!',
+  text: 'Please expect your sauce to arrive in 3-5 days.'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
 
 router.post('/', (req, res, next) => {
   Order.create({
@@ -20,16 +46,26 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:orderId', (req, res, next) => {
+  const emailAddy = Object.keys(req.body)[0];
+  console.log('email address is', emailAddy);
   Order.update({
     status: 'purchased'
   }, {
     where: {id: req.params.orderId},
   })
   .then(updatedOrder => {
-    console.log(updatedOrder);
     res.status(200).json(updatedOrder)
   })
-  .catch(next)
+  .catch(next);
+  mailOptions.to = emailAddy;
+  transporter.sendMail(mailOptions, function(error, info){
+    console.log('password is ', secrets)
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 })
 
 module.exports = router;

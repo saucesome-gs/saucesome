@@ -53,11 +53,11 @@ class CartSummary extends Component {
                   </tr>
                   <tr>
                     <td className="type">Shipping</td>
-                    <td className="amount">enter shipping jsx here</td>
+                    <td className="amount">$5.99</td>
                   </tr>
                   <tr>
                     <td className="type">Total</td>
-                    <td className="amount">enter total jsx here</td>
+                    <td className="amount">${(subtotal + 5.99).toFixed(2)}</td>
                   </tr>
                 </tbody>
               </table>
