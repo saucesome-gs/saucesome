@@ -3,7 +3,6 @@ const { OrderItem, Order } = require('../db/models');
 
 
 router.post('/', (req, res, next) => {
-  console.log('req.body is ', req.body)
   Order.findOrCreate({
     where: {
       userId: req.body.userId,
@@ -18,8 +17,8 @@ router.post('/', (req, res, next) => {
 router.post('/:orderId', (req, res, next) => {
   const item = req.body;
     OrderItem.create(item)
-    .then(createdItem => console.log(createdItem.data));
-    res.sendStatus(200);
+    .then(() =>
+    res.sendStatus(200));
 })
 
 router.get('/:userId', (req, res, next) => {
