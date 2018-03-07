@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {NavLink, withRouter } from 'react-router-dom'
 import {logout, clearCartAction } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
+const Navbar = ({ isAdmin, handleClick, isLoggedIn, cart, user }) => (
 
   <div className="black">
     <div id="saucesome-wrapper">
@@ -43,6 +43,18 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
           </div>
         )}
         </div>
+      <div>
+        <NavLink to="/cart">Your Cart:
+          <span>
+            ({Object.keys(cart).reduce((acc, curr) => (
+              acc + cart[curr]
+            ), 0)}) items
+          </span>
+        </NavLink>
+      </div>
+      { isAdmin ? (<div> <NavLink to="/usermanage"> Manage Users </NavLink> </div>) :
+      <div> </div>
+      }
     </nav>
     <hr />
   </div>
@@ -53,6 +65,7 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
  */
 const mapState = state => {
   return {
+    isAdmin: state.user.isAdmin,
     isLoggedIn: !!state.user.id,
     cart: state.cart,
     user: state.user

@@ -6,7 +6,6 @@ import { addItem } from '../store/cart';
 import { me, addItemToDb, fetchProduct } from '../store';
 
 export class SingleProduct extends Component {
-
   componentDidMount() {
     const productId = this.props.match.params.productId;
     this.props.fetchProduct(productId);
@@ -15,7 +14,17 @@ export class SingleProduct extends Component {
 render()
  {
 
-  const { products, product, isAdmin, isLoggedIn, reviews } = this.props;
+  console.log("props:", this.props)
+  const { isAdmin, isLoggedIn, reviews } = this.props;
+  if(this.props.product){
+    const { product } = this.props
+    console.log("this is the product1:", product)
+  }
+  else{
+    const { products } = this.props
+    var product = products.find(product => Number(this.props.match.params.productId) === product.id);
+    console.log("this is the product2:", product)
+  }
   const productReviews = reviews.filter(review => review.productId === product.id);
   return (
 
@@ -61,7 +70,7 @@ render()
                 { product.reviews && product.reviews.map(review => <li key={review.id}>- {review.body}</li>) }
                 { productReviews && productReviews.map(review => <li key={review.id}>- {review.body}</li>) }
               </ul>
-            </div> 
+            </div>
           </div>
             }
         {(isAdmin) ? <EditForm productId={product.id} props={this.props} /> : <div></div> }
@@ -78,12 +87,21 @@ render()
 }
 
 const mapStateToProps = state => {
-  return {
-    reviews: state.reviews,
-    products: state.products,
-    product: state.products[0],
-    isLoggedIn: !!state.user.id,
-    user: state.user
+  if(state.products.length > 1){
+    return {
+      reviews: state.reviews,
+      products: state.products,
+      isLoggedIn: !!state.user.id,
+      user: state.user
+    }
+  }
+  else{
+    return {
+      reviews: state.reviews,
+      product: state.products[0],
+      isLoggedIn: !!state.user.id,
+      user: state.user
+    }
   }
 }
 const mapDispatchToProps = dispatch => {
