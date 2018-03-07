@@ -32,7 +32,7 @@ export class AllProducts extends Component {
     const value = this.state.value
 
     const filteredProducts = this.props.products.filter(product => (product.name.toLowerCase().match(value) || product.brand.name.toLowerCase().match(value)) && product.quantity > 0)
-
+//test
    return (
           <div>
             <div id="all-products-flex">

@@ -28,7 +28,7 @@ class CartPreview extends Component {
       this.props.deleteItem(event.target.value);
     }
   }
-
+//test
   render() {
 
     const { cart, products } = this.props;
