@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const { Order, OrderItem, User } = require('../db/models');
 const nodemailer = require('nodemailer');
-const secrets = require('../../secrets.js')
+require('../../secrets.js');
 
 // mailing
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'saucesomegs@gmail.com',
-      pass: secrets
+      pass: process.env.EMAIL_SECRET
     }
   });
 
