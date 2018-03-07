@@ -13,16 +13,16 @@ export class SingleProduct extends Component {
 
 render()
  {
-
+   let product;
   console.log("props:", this.props)
   const { isAdmin, isLoggedIn, reviews } = this.props;
   if(this.props.product){
-    const { product } = this.props
+    product = this.props.product;
     console.log("this is the product1:", product)
   }
   else{
     const { products } = this.props
-    var product = products.find(product => Number(this.props.match.params.productId) === product.id);
+    product = products.find(product => Number(this.props.match.params.productId) === product.id);
     console.log("this is the product2:", product)
   }
   const productReviews = reviews.filter(review => review.productId === product.id);
