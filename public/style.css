@@ -6,12 +6,15 @@ font-family: 'Alegreya Sans SC', sans-serif; */
 
 * {
   box-sizing: border-box;
+  font-size: 1em;
 }
 
-html { font-size: 2vw; }
+html {
+  font-size: 2vw;
+}
 
 body {
-  font-family: 'Yantramanav', sans-serif;
+  font-family: "Yantramanav", sans-serif;
   font-weight: 400;
 }
 
@@ -58,6 +61,10 @@ ul li {
   width: 50%;
 }
 
+.display-none {
+  display: none;
+}
+
 /* Navbar */
 
 #saucesome-wrapper {
@@ -69,7 +76,7 @@ ul li {
 #saucesome {
   max-width: 100vw;
   text-align: center;
-  font-family: 'Bowlby One SC', cursive;
+  font-family: "Bowlby One SC", cursive;
   align-self: center;
   font-size: 5em;
   margin-top: 38px;
@@ -79,7 +86,6 @@ ul li {
   color: #212322;
   text-shadow: 2px 2px #ff0000;
 }
-
 
 .hot-pepper-img {
   max-width: 8%;
@@ -105,13 +111,14 @@ nav a {
 }
 
 nav a:hover {
-  border-bottom : 5px solid #212322;
+  border-bottom: 5px solid #212322;
 }
 
-nav .column-1 a, nav .column-2 a {
+nav .column-1 a,
+nav .column-2 a {
   margin: 0px 20px;
   font-size: 0.75em;
-  font-family: 'News Cycle', sans-serif;;
+  font-family: "News Cycle", sans-serif;
   text-transform: uppercase;
   color: #212322;
 }
@@ -131,7 +138,7 @@ hr {
   flex: 1 0 auto;
   align-items: center;
   flex-direction: row;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   flex-flow: row wrap;
   justify-content: space-around;
 }
@@ -159,7 +166,7 @@ hr {
 
 .all-product-desc a {
   color: #212322;
-  transition: all 1.0s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .all-product-desc a:hover {
@@ -167,7 +174,8 @@ hr {
   color: #69140e;
 }
 
-button, form button {
+button,
+form button {
   color: #fff;
   padding: 10px 10px;
   margin: 10px;
@@ -179,7 +187,8 @@ button, form button {
   transition: all 0.3s ease-in-out;
 }
 
-button:hover, form button:hover {
+button:hover,
+form button:hover {
   background-color: #69140e;
 }
 
@@ -197,7 +206,7 @@ button:hover, form button:hover {
 }
 
 #all-products-flex h1 {
-  font-family: 'News Cycle', sans-serif;
+  font-family: "News Cycle", sans-serif;
   font-size: 2.2rem;
   text-transform: uppercase;
 }
@@ -227,7 +236,7 @@ button:hover, form button:hover {
   width: 90%;
 }
 .cart-items {
-  display:flex;
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -251,7 +260,7 @@ button:hover, form button:hover {
 
 #cart-products-flex h1 {
   display: flex;
-  font-family: 'News Cycle', sans-serif;
+  font-family: "News Cycle", sans-serif;
   font-size: 2.2rem;
   text-transform: uppercase;
   justify-content: center;
@@ -281,7 +290,7 @@ button:hover, form button:hover {
 
 .cart-product-info a {
   color: #212322;
-  transition: all 1.0s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .cart-product-info a:hover {
@@ -293,7 +302,7 @@ button:hover, form button:hover {
 
 #cart-order-details {
   display: flex;
-  font-family: 'News Cycle', sans-serif;
+  font-family: "News Cycle", sans-serif;
   font-size: 1rem;
   text-transform: uppercase;
   justify-content: space-around;
@@ -306,7 +315,7 @@ button:hover, form button:hover {
 
 .checkout-button {
   display: flex;
-  font-family: 'News Cycle', sans-serif;
+  font-family: "News Cycle", sans-serif;
   font-size: 1rem;
   border-radius: 20px;
   text-transform: uppercase;
@@ -315,8 +324,75 @@ button:hover, form button:hover {
 
 /* Checkout */
 
-.address-details, .checkout-address-details {
+.address-details,
+.checkout-address-details {
   display: flex;
   justify-content: center;
   flex-direction: row;
+}
+
+/* REPSONSIVE DESIGN */
+
+@media (max-width: 400px) {
+  .flex-all-products > div {
+    flex: 0 80%;
+  }
+
+  .all-product-desc {
+    font-size: 1.3em;
+  }
+
+  nav {
+    flex-direction: column;
+    font-size: 1.3em;
+  }
+
+  nav .column-1 a,
+  nav .column-2 a {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 400px) {
+  .flex-all-products > div {
+    flex: 0 80%;
+  }
+
+  .all-product-desc {
+    font-size: 1.3em;
+  }
+
+  nav {
+    flex-direction: column;
+    font-size: 1.3em;
+  }
+}
+
+@media (max-width: 576px) {
+  .hot-pepper-img {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .flex-all-products > div {
+    flex: 0 45%;
+  }
+
+  nav {
+    flex-direction: row;
+  }
+
+  .all-product-desc {
+    font-size: 0.75em;
+  }
+}
+
+@media (min-width: 992px) {
+  .flex-all-products > div {
+    flex: 0 30%;
+  }
+}
+
+@media (min-width: 1200px) {
 }

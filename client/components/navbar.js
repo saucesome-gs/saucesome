@@ -8,11 +8,11 @@ const Navbar = ({ handleClick, isLoggedIn, cart, user }) => (
 
   <div className="black">
     <div id="saucesome-wrapper">
-      <img src="images/hot-pepper.png" className="hot-pepper-img" />
+      <img src="images/hot-pepper.png" className="hot-pepper-img display-none" />
       <h1 id="saucesome">
         <NavLink to="/">SAUCESOME</NavLink>
       </h1>
-      <img src="images/hot-pepper.png" className="hot-pepper-img" />
+      <img src="images/hot-pepper.png" className="hot-pepper-img display-none" />
     </div>
     <nav>
       <div className="column-1">
